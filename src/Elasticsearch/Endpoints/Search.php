@@ -104,6 +104,6 @@ class Search extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        return 'GET';
+        return 'POST';
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace Elasticsearch\Common\Exceptions\Serializer;
+namespace VPG\Elasticsearch\Common\Exceptions\Serializer;
 
-use Elasticsearch\Common\Exceptions\ElasticsearchException;
+use VPG\Elasticsearch\Common\Exceptions\ElasticsearchException;
 
 /**
  * Class JsonErrorException

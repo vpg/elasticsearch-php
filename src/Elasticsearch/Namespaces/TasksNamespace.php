@@ -1,9 +1,9 @@
 <?php
 
-namespace Elasticsearch\Namespaces;
+namespace VPG\Elasticsearch\Namespaces;
 
-use Elasticsearch\Endpoints\Tasks\Cancel;
-use Elasticsearch\Endpoints\Tasks\Get;
+use VPG\Elasticsearch\Endpoints\Tasks\Cancel;
+use VPG\Elasticsearch\Endpoints\Tasks\Get;
 
 /**
  * Class TasksNamespace

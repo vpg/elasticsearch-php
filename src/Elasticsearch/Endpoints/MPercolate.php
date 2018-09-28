@@ -1,9 +1,9 @@
 <?php
 
-namespace Elasticsearch\Endpoints;
+namespace VPG\Elasticsearch\Endpoints;
 
-use Elasticsearch\Serializers\SerializerInterface;
-use Elasticsearch\Transport;
+use VPG\Elasticsearch\Serializers\SerializerInterface;
+use VPG\Elasticsearch\Transport;
 
 /**
  * Class MPercolate

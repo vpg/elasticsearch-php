@@ -1,6 +1,6 @@
 <?php
 
-namespace Elasticsearch\Namespaces;
+namespace VPG\Elasticsearch\Namespaces;
 
 /**
  * Class IndicesNamespace

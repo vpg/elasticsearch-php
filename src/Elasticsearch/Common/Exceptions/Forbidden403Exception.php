@@ -1,6 +1,6 @@
 <?php
 
-namespace Elasticsearch\Common\Exceptions;
+namespace VPG\Elasticsearch\Common\Exceptions;
 
 /**
  * Forbidden403Exception

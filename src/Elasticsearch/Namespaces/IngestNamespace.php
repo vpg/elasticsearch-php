@@ -1,12 +1,12 @@
 <?php
 
-namespace Elasticsearch\Namespaces;
+namespace VPG\Elasticsearch\Namespaces;
 
-use Elasticsearch\Endpoints\Ingest\Pipeline\Delete;
-use Elasticsearch\Endpoints\Ingest\Pipeline\Get;
-use Elasticsearch\Endpoints\Ingest\Pipeline\ProcessorGrok;
-use Elasticsearch\Endpoints\Ingest\Pipeline\Put;
-use Elasticsearch\Endpoints\Ingest\Simulate;
+use VPG\Elasticsearch\Endpoints\Ingest\Pipeline\Delete;
+use VPG\Elasticsearch\Endpoints\Ingest\Pipeline\Get;
+use VPG\Elasticsearch\Endpoints\Ingest\Pipeline\ProcessorGrok;
+use VPG\Elasticsearch\Endpoints\Ingest\Pipeline\Put;
+use VPG\Elasticsearch\Endpoints\Ingest\Simulate;
 
 /**
  * Class IngestNamespace

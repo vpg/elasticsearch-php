@@ -1,6 +1,6 @@
 <?php
 
-namespace Elasticsearch\Endpoints;
+namespace VPG\Elasticsearch\Endpoints;
 
 /**
  * Class Ping

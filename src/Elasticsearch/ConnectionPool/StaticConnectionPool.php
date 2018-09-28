@@ -1,11 +1,11 @@
 <?php
 
-namespace Elasticsearch\ConnectionPool;
+namespace VPG\Elasticsearch\ConnectionPool;
 
-use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
-use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
-use Elasticsearch\Connections\Connection;
-use Elasticsearch\Connections\ConnectionFactoryInterface;
+use VPG\Elasticsearch\Common\Exceptions\NoNodesAvailableException;
+use VPG\Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
+use VPG\Elasticsearch\Connections\Connection;
+use VPG\Elasticsearch\Connections\ConnectionFactoryInterface;
 
 class StaticConnectionPool extends AbstractConnectionPool implements ConnectionPoolInterface
 {

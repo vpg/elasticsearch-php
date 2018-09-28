@@ -1,19 +1,19 @@
 <?php
 
-namespace Elasticsearch;
+namespace VPG\Elasticsearch;
 
-use Elasticsearch\Common\Exceptions\InvalidArgumentException;
-use Elasticsearch\Common\Exceptions\RuntimeException;
-use Elasticsearch\ConnectionPool\AbstractConnectionPool;
-use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
-use Elasticsearch\ConnectionPool\StaticNoPingConnectionPool;
-use Elasticsearch\Connections\Connection;
-use Elasticsearch\Connections\ConnectionFactory;
-use Elasticsearch\Connections\ConnectionFactoryInterface;
-use Elasticsearch\Namespaces\NamespaceBuilderInterface;
-use Elasticsearch\Serializers\SerializerInterface;
-use Elasticsearch\ConnectionPool\Selectors;
-use Elasticsearch\Serializers\SmartSerializer;
+use VPG\Elasticsearch\Common\Exceptions\InvalidArgumentException;
+use VPG\Elasticsearch\Common\Exceptions\RuntimeException;
+use VPG\Elasticsearch\ConnectionPool\AbstractConnectionPool;
+use VPG\Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
+use VPG\Elasticsearch\ConnectionPool\StaticNoPingConnectionPool;
+use VPG\Elasticsearch\Connections\Connection;
+use VPG\Elasticsearch\Connections\ConnectionFactory;
+use VPG\Elasticsearch\Connections\ConnectionFactoryInterface;
+use VPG\Elasticsearch\Namespaces\NamespaceBuilderInterface;
+use VPG\Elasticsearch\Serializers\SerializerInterface;
+use VPG\Elasticsearch\ConnectionPool\Selectors;
+use VPG\Elasticsearch\Serializers\SmartSerializer;
 use GuzzleHttp\Ring\Client\CurlHandler;
 use GuzzleHttp\Ring\Client\CurlMultiHandler;
 use GuzzleHttp\Ring\Client\Middleware;

@@ -1,8 +1,8 @@
 <?php
 
-namespace Elasticsearch\Serializers;
+namespace VPG\Elasticsearch\Serializers;
 
-use Elasticsearch\Common\Exceptions\RuntimeException;
+use VPG\Elasticsearch\Common\Exceptions\RuntimeException;
 
 /**
  * Class EverythingToJSONSerializer

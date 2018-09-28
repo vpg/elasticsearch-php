@@ -1,8 +1,8 @@
 <?php
 
-namespace Elasticsearch\ConnectionPool\Selectors;
+namespace VPG\Elasticsearch\ConnectionPool\Selectors;
 
-use Elasticsearch\Connections\ConnectionInterface;
+use VPG\Elasticsearch\Connections\ConnectionInterface;
 
 /**
  * Class RoundRobinSelector

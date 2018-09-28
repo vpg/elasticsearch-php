@@ -1,8 +1,8 @@
 <?php
 
-namespace Elasticsearch\Endpoints;
+namespace VPG\Elasticsearch\Endpoints;
 
-use Elasticsearch\Common\Exceptions;
+use VPG\Elasticsearch\Common\Exceptions;
 
 /**
  * Class TermVectors

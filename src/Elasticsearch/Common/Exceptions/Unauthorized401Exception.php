@@ -1,6 +1,6 @@
 <?php
 
-namespace Elasticsearch\Common\Exceptions;
+namespace VPG\Elasticsearch\Common\Exceptions;
 
 /**
  * Unauthorized401Exception, thrown on 401 unauthorized http error

@@ -9,10 +9,10 @@
  * @link     http://elastic.co
  */
 
-namespace Elasticsearch\Namespaces;
+namespace VPG\Elasticsearch\Namespaces;
 
-use Elasticsearch\Serializers\SerializerInterface;
-use Elasticsearch\Transport;
+use VPG\Elasticsearch\Serializers\SerializerInterface;
+use VPG\Elasticsearch\Transport;
 
 interface NamespaceBuilderInterface
 {

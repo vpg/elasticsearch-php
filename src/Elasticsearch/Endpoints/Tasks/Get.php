@@ -9,7 +9,7 @@ use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Get
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Tasks
+ * @package  Vpg\Elasticsearch\Endpoints\Tasks
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co

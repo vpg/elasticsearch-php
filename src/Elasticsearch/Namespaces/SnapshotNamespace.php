@@ -6,7 +6,7 @@ namespace Vpg\Elasticsearch\Namespaces;
  * Class SnapshotNamespace
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Namespaces\SnapshotNamespace
+ * @package  Vpg\Elasticsearch\Namespaces\SnapshotNamespace
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co

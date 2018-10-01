@@ -6,7 +6,7 @@ namespace Vpg\Elasticsearch\Namespaces;
  * Class NodesNamespace
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Namespaces\NodesNamespace
+ * @package  Vpg\Elasticsearch\Namespaces\NodesNamespace
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co

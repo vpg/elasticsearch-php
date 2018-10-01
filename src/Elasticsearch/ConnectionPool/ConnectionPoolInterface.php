@@ -8,7 +8,7 @@ use Vpg\Elasticsearch\Connections\ConnectionInterface;
  * ConnectionPoolInterface
  *
  * @category Elasticsearch
- * @package  Elasticsearch\ConnectionPool
+ * @package  Vpg\Elasticsearch\ConnectionPool
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co

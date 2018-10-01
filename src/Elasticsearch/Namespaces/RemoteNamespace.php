@@ -8,7 +8,7 @@ use Vpg\Elasticsearch\Endpoints\Remote\Info;
  * Class RemoteNamespace
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Namespaces\TasksNamespace
+ * @package  Vpg\Elasticsearch\Namespaces\TasksNamespace
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co

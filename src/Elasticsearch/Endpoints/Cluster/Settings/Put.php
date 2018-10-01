@@ -9,7 +9,7 @@ use Vpg\Elasticsearch\Common\Exceptions;
  * Class Put
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Cluster\Settings
+ * @package  Vpg\Elasticsearch\Endpoints\Cluster\Settings
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co

@@ -27,7 +27,7 @@ use Monolog\Processor\IntrospectionProcessor;
  * Class ClientBuilder
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Common\Exceptions
+ * @package  Vpg\Elasticsearch\Common\Exceptions
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
@@ -55,13 +55,13 @@ class ClientBuilder
     private $tracer;
 
     /** @var string */
-    private $connectionPool = '\Elasticsearch\ConnectionPool\StaticNoPingConnectionPool';
+    private $connectionPool = '\Vpg\Elasticsearch\ConnectionPool\StaticNoPingConnectionPool';
 
     /** @var  string */
-    private $serializer = '\Elasticsearch\Serializers\SmartSerializer';
+    private $serializer = '\Vpg\Elasticsearch\Serializers\SmartSerializer';
 
     /** @var  string */
-    private $selector = '\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector';
+    private $selector = '\Vpg\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector';
 
     /** @var  array */
     private $connectionPoolArgs = [
@@ -141,7 +141,7 @@ class ClientBuilder
      * @param bool $quiet False if unknown settings throw exception, true to silently
      *                    ignore unknown settings
      * @throws Common\Exceptions\RuntimeException
-     * @return \Elasticsearch\Client
+     * @return \Vpg\Elasticsearch\Client
      */
     public static function fromConfig($config, $quiet = false)
     {
@@ -517,7 +517,7 @@ class ClientBuilder
             $serializer = $this->serializer;
 
             $this->endpoint = function ($class) use ($serializer) {
-                $fullPath = '\\Elasticsearch\\Endpoints\\' . $class;
+                $fullPath = '\\Vpg\\Elasticsearch\\Endpoints\\' . $class;
                 if ($class === 'Bulk' || $class === 'Msearch' || $class === 'MsearchTemplate' || $class === 'MPercolate') {
                     return new $fullPath($serializer);
                 } else {
@@ -609,7 +609,7 @@ class ClientBuilder
      * @param array $hosts
      *
      * @throws \InvalidArgumentException
-     * @return \Elasticsearch\Connections\Connection[]
+     * @return \Vpg\Elasticsearch\Connections\Connection[]
      */
     private function buildConnectionsFromHosts($hosts)
     {

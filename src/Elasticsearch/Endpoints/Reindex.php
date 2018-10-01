@@ -6,7 +6,7 @@ namespace Vpg\Elasticsearch\Endpoints;
  * Class Reindex
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Indices
+ * @package  Vpg\Elasticsearch\Endpoints\Indices
  * @author   Augustin Husson <husson.augustin@gmail.com>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co

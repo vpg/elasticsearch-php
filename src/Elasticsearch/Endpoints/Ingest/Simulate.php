@@ -9,7 +9,7 @@ use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Simulate
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Ingest
+ * @package  Vpg\Elasticsearch\Endpoints\Ingest
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co

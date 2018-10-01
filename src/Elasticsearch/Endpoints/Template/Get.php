@@ -9,7 +9,7 @@ use Vpg\Elasticsearch\Common\Exceptions;
  * Class Get
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Template
+ * @package  Vpg\Elasticsearch\Endpoints\Template
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co

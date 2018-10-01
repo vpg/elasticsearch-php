@@ -9,7 +9,7 @@ use Vpg\Elasticsearch\Common\Exceptions;
  * Class Restore
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Snapshot
+ * @package  Vpg\Elasticsearch\Endpoints\Snapshot
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co

@@ -9,7 +9,7 @@ use Vpg\Elasticsearch\Common\Exceptions;
  * Class Query
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Indices\Validate
+ * @package  Vpg\Elasticsearch\Endpoints\Indices\Validate
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co

@@ -10,7 +10,7 @@ use Psr\Log\LoggerInterface;
  * Interface ConnectionInterface
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Connections
+ * @package  Vpg\Elasticsearch\Connections
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co

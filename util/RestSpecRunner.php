@@ -19,7 +19,7 @@ echo "Base directory: ". dirname(__DIR__)."\n";
 // Include the composer autoloader
 $autoloader = require_once(dirname(__DIR__) . '/vendor/autoload.php');
 
-$client = \Elasticsearch\ClientBuilder::fromConfig([
+$client = \Vpg\Elasticsearch\ClientBuilder::fromConfig([
 	'hosts' => [$_SERVER['ES_TEST_HOST']]
 ]);
 $serverInfo = $client->info();

@@ -9,7 +9,7 @@ use Vpg\Elasticsearch\Common\Exceptions;
  * Class Types
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Indices\Exists
+ * @package  Vpg\Elasticsearch\Endpoints\Indices\Exists
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co

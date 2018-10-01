@@ -8,7 +8,7 @@ use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
  * Class Clear
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Indices\Cache
+ * @package  Vpg\Elasticsearch\Endpoints\Indices\Cache
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co

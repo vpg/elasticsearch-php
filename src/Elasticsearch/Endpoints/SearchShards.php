@@ -1,6 +1,6 @@
 <?php
 
-namespace Elasticsearch\Endpoints;
+namespace Vpg\Elasticsearch\Endpoints;
 
 /**
  * Class Search

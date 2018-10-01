@@ -1,25 +1,25 @@
 <?php
 
-namespace Elasticsearch;
+namespace Vpg\Elasticsearch;
 
-use Elasticsearch\Common\Exceptions\BadMethodCallException;
-use Elasticsearch\Common\Exceptions\InvalidArgumentException;
-use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
-use Elasticsearch\Common\Exceptions\BadRequest400Exception;
-use Elasticsearch\Common\Exceptions\Missing404Exception;
-use Elasticsearch\Common\Exceptions\TransportException;
-use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Namespaces\AbstractNamespace;
-use Elasticsearch\Namespaces\CatNamespace;
-use Elasticsearch\Namespaces\ClusterNamespace;
-use Elasticsearch\Namespaces\IndicesNamespace;
-use Elasticsearch\Namespaces\IngestNamespace;
-use Elasticsearch\Namespaces\NamespaceBuilderInterface;
-use Elasticsearch\Namespaces\NodesNamespace;
-use Elasticsearch\Namespaces\RemoteNamespace;
-use Elasticsearch\Namespaces\SnapshotNamespace;
-use Elasticsearch\Namespaces\BooleanRequestWrapper;
-use Elasticsearch\Namespaces\TasksNamespace;
+use Vpg\Elasticsearch\Common\Exceptions\BadMethodCallException;
+use Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException;
+use Vpg\Elasticsearch\Common\Exceptions\NoNodesAvailableException;
+use Vpg\Elasticsearch\Common\Exceptions\BadRequest400Exception;
+use Vpg\Elasticsearch\Common\Exceptions\Missing404Exception;
+use Vpg\Elasticsearch\Common\Exceptions\TransportException;
+use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
+use Vpg\Elasticsearch\Namespaces\AbstractNamespace;
+use Vpg\Elasticsearch\Namespaces\CatNamespace;
+use Vpg\Elasticsearch\Namespaces\ClusterNamespace;
+use Vpg\Elasticsearch\Namespaces\IndicesNamespace;
+use Vpg\Elasticsearch\Namespaces\IngestNamespace;
+use Vpg\Elasticsearch\Namespaces\NamespaceBuilderInterface;
+use Vpg\Elasticsearch\Namespaces\NodesNamespace;
+use Vpg\Elasticsearch\Namespaces\RemoteNamespace;
+use Vpg\Elasticsearch\Namespaces\SnapshotNamespace;
+use Vpg\Elasticsearch\Namespaces\BooleanRequestWrapper;
+use Vpg\Elasticsearch\Namespaces\TasksNamespace;
 
 /**
  * Class Client

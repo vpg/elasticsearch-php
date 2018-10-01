@@ -1,6 +1,6 @@
 <?php
 
-namespace Elasticsearch\ConnectionPool\Selectors;
+namespace Vpg\Elasticsearch\ConnectionPool\Selectors;
 
 /**
  * Class RandomSelector

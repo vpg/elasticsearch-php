@@ -2,13 +2,13 @@
 
 declare(strict_types = 1);
 
-namespace Elasticsearch\Tests\ConnectionPool;
+namespace Vpg\Elasticsearch\Tests\ConnectionPool;
 
-use Elasticsearch;
-use Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector;
-use Elasticsearch\ConnectionPool\StaticConnectionPool;
-use Elasticsearch\Connections\Connection;
-use Elasticsearch\Connections\ConnectionFactory;
+use Vpg\Elasticsearch;
+use Vpg\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector;
+use Vpg\Elasticsearch\ConnectionPool\StaticConnectionPool;
+use Vpg\Elasticsearch\Connections\Connection;
+use Vpg\Elasticsearch\Connections\ConnectionFactory;
 use Mockery as m;
 
 /**

@@ -1,9 +1,9 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Script;
+namespace Vpg\Elasticsearch\Endpoints\Script;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Common\Exceptions;
+use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
+use Vpg\Elasticsearch\Common\Exceptions;
 
 /**
  * Class Get

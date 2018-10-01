@@ -1,8 +1,8 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Snapshot\Repository;
+namespace Vpg\Elasticsearch\Endpoints\Snapshot\Repository;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
+use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Get

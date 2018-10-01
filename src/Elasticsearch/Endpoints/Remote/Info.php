@@ -1,8 +1,8 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Remote;
+namespace Vpg\Elasticsearch\Endpoints\Remote;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
+use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Info

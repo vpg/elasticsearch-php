@@ -1,10 +1,10 @@
 <?php
 
-namespace Elasticsearch\ConnectionPool;
+namespace Vpg\Elasticsearch\ConnectionPool;
 
-use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
-use Elasticsearch\Connections\Connection;
-use Elasticsearch\Connections\ConnectionFactoryInterface;
+use Vpg\Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
+use Vpg\Elasticsearch\Connections\Connection;
+use Vpg\Elasticsearch\Connections\ConnectionFactoryInterface;
 
 class SimpleConnectionPool extends AbstractConnectionPool implements ConnectionPoolInterface
 {

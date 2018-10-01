@@ -1,8 +1,8 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Cat;
+namespace Vpg\Elasticsearch\Endpoints\Cat;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
+use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Pendingtasks

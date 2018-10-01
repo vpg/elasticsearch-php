@@ -1,11 +1,11 @@
 <?php
 
-namespace Elasticsearch;
+namespace Vpg\Elasticsearch;
 
-use Elasticsearch\Common\Exceptions;
-use Elasticsearch\ConnectionPool\AbstractConnectionPool;
-use Elasticsearch\Connections\Connection;
-use Elasticsearch\Connections\ConnectionInterface;
+use Vpg\Elasticsearch\Common\Exceptions;
+use Vpg\Elasticsearch\ConnectionPool\AbstractConnectionPool;
+use Vpg\Elasticsearch\Connections\Connection;
+use Vpg\Elasticsearch\Connections\ConnectionInterface;
 use GuzzleHttp\Ring\Future\FutureArrayInterface;
 use Psr\Log\LoggerInterface;
 

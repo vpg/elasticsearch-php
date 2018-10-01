@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace Elasticsearch\Tests\ConnectionPool;
+namespace Vpg\Elasticsearch\Tests\ConnectionPool;
 
 /**
  * Class StaticConnectionPoolIntegrationTest

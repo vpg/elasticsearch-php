@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace Elasticsearch\Tests;
+namespace Vpg\Elasticsearch\Tests;
 
-use Elasticsearch\ClientBuilder;
-use Elasticsearch\Common\Exceptions\InvalidArgumentException;
+use Vpg\Elasticsearch\ClientBuilder;
+use Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class ClientBuilderTest extends TestCase

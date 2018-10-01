@@ -1,9 +1,9 @@
 <?php
 
-namespace Elasticsearch\Connections;
+namespace Vpg\Elasticsearch\Connections;
 
-use Elasticsearch\Serializers\SerializerInterface;
-use Elasticsearch\Transport;
+use Vpg\Elasticsearch\Serializers\SerializerInterface;
+use Vpg\Elasticsearch\Transport;
 use Psr\Log\LoggerInterface;
 
 /**

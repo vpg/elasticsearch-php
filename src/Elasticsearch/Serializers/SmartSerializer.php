@@ -1,9 +1,9 @@
 <?php
 
-namespace Elasticsearch\Serializers;
+namespace Vpg\Elasticsearch\Serializers;
 
-use Elasticsearch\Common\Exceptions;
-use Elasticsearch\Common\Exceptions\Serializer\JsonErrorException;
+use Vpg\Elasticsearch\Common\Exceptions;
+use Vpg\Elasticsearch\Common\Exceptions\Serializer\JsonErrorException;
 
 /**
  * Class SmartSerializer

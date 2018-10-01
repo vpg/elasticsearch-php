@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace Elasticsearch\Tests\ConnectionPool\Selectors;
+namespace Vpg\Elasticsearch\Tests\ConnectionPool\Selectors;
 
-use Elasticsearch;
-use Elasticsearch\Connections\ConnectionInterface;
+use Vpg\Elasticsearch;
+use Vpg\Elasticsearch\Connections\ConnectionInterface;
 use Mockery as m;
 
 /**

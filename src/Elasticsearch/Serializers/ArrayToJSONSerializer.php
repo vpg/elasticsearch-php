@@ -1,8 +1,8 @@
 <?php
 
-namespace Elasticsearch\Serializers;
+namespace Vpg\Elasticsearch\Serializers;
 
-use Elasticsearch\Common\Exceptions\RuntimeException;
+use Vpg\Elasticsearch\Common\Exceptions\RuntimeException;
 
 /**
  * Class JSONSerializer

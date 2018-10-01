@@ -2,14 +2,14 @@
 
 declare(strict_types = 1);
 
-namespace Elasticsearch\Tests\ConnectionPool;
+namespace Vpg\Elasticsearch\Tests\ConnectionPool;
 
-use Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector;
-use Elasticsearch\ConnectionPool\SniffingConnectionPool;
-use Elasticsearch\Connections\Connection;
-use Elasticsearch\Connections\ConnectionFactory;
+use Vpg\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector;
+use Vpg\Elasticsearch\ConnectionPool\SniffingConnectionPool;
+use Vpg\Elasticsearch\Connections\Connection;
+use Vpg\Elasticsearch\Connections\ConnectionFactory;
 use Mockery as m;
-use Elasticsearch\Common\Exceptions\Curl\OperationTimeoutException;
+use Vpg\Elasticsearch\Common\Exceptions\Curl\OperationTimeoutException;
 
 /**
  * Class SniffingConnectionPoolTest

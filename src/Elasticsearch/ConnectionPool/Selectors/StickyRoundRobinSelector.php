@@ -1,8 +1,8 @@
 <?php
 
-namespace Elasticsearch\ConnectionPool\Selectors;
+namespace Vpg\Elasticsearch\ConnectionPool\Selectors;
 
-use Elasticsearch\Connections\ConnectionInterface;
+use Vpg\Elasticsearch\Connections\ConnectionInterface;
 
 /**
  * Class StickyRoundRobinSelector

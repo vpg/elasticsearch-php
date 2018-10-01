@@ -1,8 +1,8 @@
 <?php
 
-namespace Elasticsearch\Namespaces;
+namespace Vpg\Elasticsearch\Namespaces;
 
-use Elasticsearch\Endpoints\Remote\Info;
+use Vpg\Elasticsearch\Endpoints\Remote\Info;
 
 /**
  * Class RemoteNamespace

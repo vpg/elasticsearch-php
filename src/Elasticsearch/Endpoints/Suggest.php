@@ -1,8 +1,8 @@
 <?php
 
-namespace Elasticsearch\Endpoints;
+namespace Vpg\Elasticsearch\Endpoints;
 
-use Elasticsearch\Common\Exceptions;
+use Vpg\Elasticsearch\Common\Exceptions;
 
 /**
  * Class Suggest

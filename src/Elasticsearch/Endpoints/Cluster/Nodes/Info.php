@@ -1,6 +1,6 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Cluster\Nodes;
+namespace Vpg\Elasticsearch\Endpoints\Cluster\Nodes;
 
 /**
  * Class Info

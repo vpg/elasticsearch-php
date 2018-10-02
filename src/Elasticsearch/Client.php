@@ -119,7 +119,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Info $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Info $endpoint */
         $endpoint = $endpointBuilder('Info');
         $endpoint->setParams($params);
 
@@ -136,7 +136,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Ping $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Ping $endpoint */
         $endpoint = $endpointBuilder('Ping');
         $endpoint->setParams($params);
 
@@ -181,7 +181,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Get $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Get $endpoint */
         $endpoint = $endpointBuilder('Get');
         $endpoint->setID($id)
                  ->setIndex($index)
@@ -215,7 +215,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Get $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Get $endpoint */
         $endpoint = $endpointBuilder('Get');
         $endpoint->setID($id)
                  ->setIndex($index)
@@ -255,7 +255,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Delete $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Delete $endpoint */
         $endpoint = $endpointBuilder('Delete');
         $endpoint->setID($id)
                  ->setIndex($index)
@@ -315,7 +315,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\DeleteByQuery $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\DeleteByQuery $endpoint */
         $endpoint = $endpointBuilder('DeleteByQuery');
         $endpoint->setIndex($index)
                 ->setType($type)
@@ -350,7 +350,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Count $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Count $endpoint */
         $endpoint = $endpointBuilder('Count');
         $endpoint->setIndex($index)
                  ->setType($type)
@@ -391,7 +391,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\CountPercolate $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\CountPercolate $endpoint */
         $endpoint = $endpointBuilder('CountPercolate');
         $endpoint->setIndex($index)
                  ->setType($type)
@@ -424,7 +424,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Percolate $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Percolate $endpoint */
         $endpoint = $endpointBuilder('Percolate');
         $endpoint->setIndex($index)
                  ->setType($type)
@@ -457,7 +457,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\MPercolate $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\MPercolate $endpoint */
         $endpoint = $endpointBuilder('MPercolate');
         $endpoint->setIndex($index)
                  ->setType($type)
@@ -495,7 +495,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\TermVectors $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\TermVectors $endpoint */
         $endpoint = $endpointBuilder('TermVectors');
         $endpoint->setIndex($index)
                  ->setType($type)
@@ -534,7 +534,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\MTermVectors $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\MTermVectors $endpoint */
         $endpoint = $endpointBuilder('MTermVectors');
         $endpoint->setIndex($index)
                  ->setType($type)
@@ -570,7 +570,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Exists $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Exists $endpoint */
         $endpoint = $endpointBuilder('Exists');
         $endpoint->setID($id)
                  ->setIndex($index)
@@ -607,7 +607,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Mget $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Mget $endpoint */
         $endpoint = $endpointBuilder('Mget');
         $endpoint->setIndex($index)
                  ->setType($type)
@@ -636,7 +636,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Msearch $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Msearch $endpoint */
         $endpoint = $endpointBuilder('Msearch');
         $endpoint->setIndex($index)
                  ->setType($type)
@@ -666,7 +666,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\MsearchTemplate $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\MsearchTemplate $endpoint */
         $endpoint = $endpointBuilder('MsearchTemplate');
         $endpoint->setIndex($index)
             ->setType($type)
@@ -706,7 +706,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Create $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Create $endpoint */
         $endpoint = $endpointBuilder('Create');
         $endpoint->setID($id)
                  ->setIndex($index)
@@ -739,7 +739,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Bulk $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Bulk $endpoint */
         $endpoint = $endpointBuilder('Bulk');
         $endpoint->setIndex($index)
                  ->setType($type)
@@ -780,7 +780,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Index $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Index $endpoint */
         $endpoint = $endpointBuilder('Index');
         $endpoint->setID($id)
                  ->setIndex($index)
@@ -809,7 +809,7 @@ class Client
 
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
-        /** @var \Elasticsearch\Endpoints\Reindex $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Reindex $endpoint */
         $endpoint = $endpointBuilder('Reindex');
         $endpoint->setBody($body);
         $endpoint->setParams($params);
@@ -837,7 +837,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Suggest $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Suggest $endpoint */
         $endpoint = $endpointBuilder('Suggest');
         $endpoint->setIndex($index)
                  ->setBody($body);
@@ -881,7 +881,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Explain $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Explain $endpoint */
         $endpoint = $endpointBuilder('Explain');
         $endpoint->setID($id)
                  ->setIndex($index)
@@ -942,7 +942,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Search $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Search $endpoint */
         $endpoint = $endpointBuilder('Search');
         $endpoint->setIndex($index)
                  ->setType($type)
@@ -974,7 +974,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\SearchShards $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\SearchShards $endpoint */
         $endpoint = $endpointBuilder('SearchShards');
         $endpoint->setIndex($index)
                  ->setType($type);
@@ -1000,7 +1000,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Search $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Search $endpoint */
         $endpoint = $endpointBuilder('SearchTemplate');
         $endpoint->setIndex($index)
                  ->setType($type)
@@ -1028,7 +1028,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Scroll $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Scroll $endpoint */
         $endpoint = $endpointBuilder('Scroll');
         $endpoint->setScrollID($scrollID)
                  ->setScroll($scroll)
@@ -1055,7 +1055,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\ClearScroll $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\ClearScroll $endpoint */
         $endpoint = $endpointBuilder('ClearScroll');
         $endpoint->setScrollID($scrollID)
                  ->setBody($body);
@@ -1097,7 +1097,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Update $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Update $endpoint */
         $endpoint = $endpointBuilder('Update');
         $endpoint->setID($id)
                  ->setIndex($index)
@@ -1190,7 +1190,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\UpdateByQuery $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\UpdateByQuery $endpoint */
         $endpoint = $endpointBuilder('UpdateByQuery');
         $endpoint->setIndex($index)
             ->setType($type)
@@ -1216,7 +1216,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Script\Get $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Script\Get $endpoint */
         $endpoint = $endpointBuilder('Script\Get');
         $endpoint->setID($id)
                  ->setLang($lang);
@@ -1241,7 +1241,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Script\Delete $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Script\Delete $endpoint */
         $endpoint = $endpointBuilder('Script\Delete');
         $endpoint->setID($id)
                  ->setLang($lang);
@@ -1267,7 +1267,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Script\Put $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Script\Put $endpoint */
         $endpoint = $endpointBuilder('Script\Put');
         $endpoint->setID($id)
                  ->setBody($body);
@@ -1290,7 +1290,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Template\Get $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Template\Get $endpoint */
         $endpoint = $endpointBuilder('Template\Get');
         $endpoint->setID($id);
         $endpoint->setParams($params);
@@ -1312,7 +1312,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Template\Delete $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Template\Delete $endpoint */
         $endpoint = $endpointBuilder('Template\Delete');
         $endpoint->setID($id);
         $endpoint->setParams($params);
@@ -1340,7 +1340,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\FieldStats $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\FieldStats $endpoint */
         $endpoint = $endpointBuilder('FieldStats');
         $endpoint->setIndex($index)
             ->setBody($body)
@@ -1367,7 +1367,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\FieldCaps $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\FieldCaps $endpoint */
         $endpoint = $endpointBuilder('FieldCaps');
         $endpoint->setIndex($index)
             ->setBody($body)
@@ -1391,7 +1391,7 @@ class Client
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\RenderSearchTemplate $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\RenderSearchTemplate $endpoint */
         $endpoint = $endpointBuilder('RenderSearchTemplate');
         $endpoint->setBody($body)
             ->setID($id);

@@ -22,7 +22,7 @@ abstract class AbstractAliasEndpoint extends AbstractEndpoint
     /**
      * @param $name
      *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @throws \Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException
      *
      * @return $this
      */

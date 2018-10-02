@@ -220,7 +220,7 @@ abstract class AbstractEndpoint
     /**
      * @param array $params
      *
-     * @throws \Elasticsearch\Common\Exceptions\UnexpectedValueException
+     * @throws \Vpg\Elasticsearch\Common\Exceptions\UnexpectedValueException
      */
     private function checkUserParams($params)
     {

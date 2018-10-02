@@ -35,7 +35,7 @@ class RegisteredNamespaceTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @expectedException \Elasticsearch\Common\Exceptions\BadMethodCallException
+     * @expectedException \Vpg\Elasticsearch\Common\Exceptions\BadMethodCallException
      */
     public function testNonExistingNamespace()
     {

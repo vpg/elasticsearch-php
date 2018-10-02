@@ -20,7 +20,7 @@ class AbstractEndpointTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider invalidParameters
-     * @expectedException \Elasticsearch\Common\Exceptions\UnexpectedValueException
+     * @expectedException \Vpg\Elasticsearch\Common\Exceptions\UnexpectedValueException
      */
     public function testInvalidParamsCauseErrorsWhenProvidedToSetParams(array $params)
     {

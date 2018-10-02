@@ -16,7 +16,7 @@ use Vpg\Elasticsearch\Transport;
  */
 abstract class AbstractNamespace
 {
-    /** @var \Elasticsearch\Transport  */
+    /** @var \Vpg\Elasticsearch\Transport  */
     protected $transport;
 
     /** @var  callback */

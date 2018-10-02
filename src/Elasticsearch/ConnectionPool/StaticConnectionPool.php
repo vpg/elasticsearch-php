@@ -32,7 +32,7 @@ class StaticConnectionPool extends AbstractConnectionPool implements ConnectionP
      * @param bool $force
      *
      * @return Connection
-     * @throws \Elasticsearch\Common\Exceptions\NoNodesAvailableException
+     * @throws \Vpg\Elasticsearch\Common\Exceptions\NoNodesAvailableException
      */
     public function nextConnection($force = false)
     {

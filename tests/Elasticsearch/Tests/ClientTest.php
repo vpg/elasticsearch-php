@@ -27,7 +27,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @expectedException \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @expectedException \Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException
      */
     public function testConstructorIllegalPort()
     {
@@ -47,7 +47,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @expectedException \Elasticsearch\Common\Exceptions\RuntimeException
+     * @expectedException \Vpg\Elasticsearch\Common\Exceptions\RuntimeException
      */
     public function testFromConfigBadParam()
     {

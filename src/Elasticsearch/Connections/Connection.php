@@ -95,7 +95,7 @@ class Connection implements ConnectionInterface
      * @param $handler
      * @param array $hostDetails
      * @param array $connectionParams Array of connection-specific parameters
-     * @param \Elasticsearch\Serializers\SerializerInterface $serializer
+     * @param \Vpg\Elasticsearch\Serializers\SerializerInterface $serializer
      * @param \Psr\Log\LoggerInterface $log              Logger object
      * @param \Psr\Log\LoggerInterface $trace
      */
@@ -147,7 +147,7 @@ class Connection implements ConnectionInterface
      * @param null $params
      * @param null $body
      * @param array $options
-     * @param \Elasticsearch\Transport $transport
+     * @param \Vpg\Elasticsearch\Transport $transport
      * @return mixed
      */
     public function performRequest($method, $uri, $params = null, $body = null, $options = [], Transport $transport = null)
@@ -585,7 +585,7 @@ class Connection implements ConnectionInterface
      * @param $request
      * @param $response
      * @param $ignore
-     * @throws \Elasticsearch\Common\Exceptions\AlreadyExpiredException|\Elasticsearch\Common\Exceptions\BadRequest400Exception|\Elasticsearch\Common\Exceptions\Conflict409Exception|\Elasticsearch\Common\Exceptions\Forbidden403Exception|\Elasticsearch\Common\Exceptions\Missing404Exception|\Elasticsearch\Common\Exceptions\ScriptLangNotSupportedException|null
+     * @throws \Vpg\Elasticsearch\Common\Exceptions\AlreadyExpiredException|\Elasticsearch\Common\Exceptions\BadRequest400Exception|\Elasticsearch\Common\Exceptions\Conflict409Exception|\Elasticsearch\Common\Exceptions\Forbidden403Exception|\Elasticsearch\Common\Exceptions\Missing404Exception|\Elasticsearch\Common\Exceptions\ScriptLangNotSupportedException|null
      */
     private function process4xxError($request, $response, $ignore)
     {
@@ -633,7 +633,7 @@ class Connection implements ConnectionInterface
      * @param $request
      * @param $response
      * @param $ignore
-     * @throws \Elasticsearch\Common\Exceptions\NoDocumentsToGetException|\Elasticsearch\Common\Exceptions\NoShardAvailableException|\Elasticsearch\Common\Exceptions\RoutingMissingException|\Elasticsearch\Common\Exceptions\ServerErrorResponseException
+     * @throws \Vpg\Elasticsearch\Common\Exceptions\NoDocumentsToGetException|\Elasticsearch\Common\Exceptions\NoShardAvailableException|\Elasticsearch\Common\Exceptions\RoutingMissingException|\Elasticsearch\Common\Exceptions\ServerErrorResponseException
      */
     private function process5xxError($request, $response, $ignore)
     {
@@ -677,12 +677,12 @@ class Connection implements ConnectionInterface
 
     private function tryDeserialize400Error($response)
     {
-        return $this->tryDeserializeError($response, 'Elasticsearch\Common\Exceptions\BadRequest400Exception');
+        return $this->tryDeserializeError($response, 'Vpg\Elasticsearch\Common\Exceptions\BadRequest400Exception');
     }
 
     private function tryDeserialize500Error($response)
     {
-        return $this->tryDeserializeError($response, 'Elasticsearch\Common\Exceptions\ServerErrorResponseException');
+        return $this->tryDeserializeError($response, 'Vpg\Elasticsearch\Common\Exceptions\ServerErrorResponseException');
     }
 
     private function tryDeserializeError($response, $errorClass)

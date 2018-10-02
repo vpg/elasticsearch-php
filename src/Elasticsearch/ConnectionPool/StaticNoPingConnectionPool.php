@@ -31,7 +31,7 @@ class StaticNoPingConnectionPool extends AbstractConnectionPool implements Conne
      * @param bool $force
      *
      * @return Connection
-     * @throws \Elasticsearch\Common\Exceptions\NoNodesAvailableException
+     * @throws \Vpg\Elasticsearch\Common\Exceptions\NoNodesAvailableException
      */
     public function nextConnection($force = false)
     {
@@ -56,7 +56,7 @@ class StaticNoPingConnectionPool extends AbstractConnectionPool implements Conne
     }
 
     /**
-     * @param \Elasticsearch\Connections\Connection $connection
+     * @param \Vpg\Elasticsearch\Connections\Connection $connection
      *
      * @return bool
      */

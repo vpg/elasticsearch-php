@@ -31,7 +31,7 @@ class SniffingConnectionPool extends AbstractConnectionPool implements Connectio
      * @param bool $force
      *
      * @return Connection
-     * @throws \Elasticsearch\Common\Exceptions\NoNodesAvailableException
+     * @throws \Vpg\Elasticsearch\Common\Exceptions\NoNodesAvailableException
      */
     public function nextConnection($force = false)
     {

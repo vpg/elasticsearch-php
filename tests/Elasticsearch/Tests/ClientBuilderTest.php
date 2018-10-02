@@ -16,7 +16,7 @@ class ClientBuilderTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('$logger must implement \Psr\Log\LoggerInterface!');
 
-        ClientBuilder::create()->setLogger(new \Elasticsearch\Tests\ClientBuilder\DummyLogger());
+        ClientBuilder::create()->setLogger(new \Vpg\Elasticsearch\Tests\ClientBuilder\DummyLogger());
     }
 
     public function testClientBuilderThrowsExceptionForIncorrectTracerClass()
@@ -24,6 +24,6 @@ class ClientBuilderTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('$tracer must implement \Psr\Log\LoggerInterface!');
 
-        ClientBuilder::create()->setTracer(new \Elasticsearch\Tests\ClientBuilder\DummyLogger());
+        ClientBuilder::create()->setTracer(new \Vpg\Elasticsearch\Tests\ClientBuilder\DummyLogger());
     }
 }

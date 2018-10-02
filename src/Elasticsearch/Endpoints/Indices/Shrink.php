@@ -22,7 +22,7 @@ class Shrink extends AbstractEndpoint
     /**
      * @param array $body
      *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @throws \Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException
      *
      * @return $this
      */
@@ -53,7 +53,7 @@ class Shrink extends AbstractEndpoint
     }
 
     /**
-     * @throws \Elasticsearch\Common\Exceptions\BadMethodCallException
+     * @throws \Vpg\Elasticsearch\Common\Exceptions\BadMethodCallException
      *
      * @return string
      */

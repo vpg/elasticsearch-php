@@ -22,7 +22,7 @@ abstract class AbstractNodesEndpoint extends AbstractEndpoint
     /**
      * @param $nodeID
      *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @throws \Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException
      *
      * @return $this
      */

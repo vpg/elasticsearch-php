@@ -227,7 +227,7 @@ class ClientBuilder
     }
 
     /**
-     * @param \Elasticsearch\Connections\ConnectionFactoryInterface $connectionFactory
+     * @param \Vpg\Elasticsearch\Connections\ConnectionFactoryInterface $connectionFactory
      * @return $this
      */
     public function setConnectionFactory(ConnectionFactoryInterface $connectionFactory)
@@ -238,7 +238,7 @@ class ClientBuilder
     }
 
     /**
-     * @param \Elasticsearch\ConnectionPool\AbstractConnectionPool|string $connectionPool
+     * @param \Vpg\Elasticsearch\ConnectionPool\AbstractConnectionPool|string $connectionPool
      * @param array $args
      * @throws \InvalidArgumentException
      * @return $this
@@ -280,7 +280,7 @@ class ClientBuilder
     }
 
     /**
-     * @param \Elasticsearch\Transport $transport
+     * @param \Vpg\Elasticsearch\Transport $transport
      * @return $this
      */
     public function setTransport($transport)
@@ -332,7 +332,7 @@ class ClientBuilder
     }
 
     /**
-     * @param \Elasticsearch\Serializers\SerializerInterface|string $serializer
+     * @param \Vpg\Elasticsearch\Serializers\SerializerInterface|string $serializer
      * @throws \InvalidArgumentException
      * @return $this
      */
@@ -377,7 +377,7 @@ class ClientBuilder
     }
 
     /**
-     * @param \Elasticsearch\ConnectionPool\Selectors\SelectorInterface|string $selector
+     * @param \Vpg\Elasticsearch\ConnectionPool\Selectors\SelectorInterface|string $selector
      * @throws \InvalidArgumentException
      * @return $this
      */

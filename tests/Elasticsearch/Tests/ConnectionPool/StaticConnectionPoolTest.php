@@ -230,7 +230,7 @@ class StaticConnectionPoolTest extends \PHPUnit\Framework\TestCase
 
     public function testCustomConnectionPoolIT()
     {
-        $clientBuilder = \Elasticsearch\ClientBuilder::create();
+        $clientBuilder = \Vpg\Elasticsearch\ClientBuilder::create();
         $clientBuilder->setHosts(['localhost:1']);
         $client = $clientBuilder
             ->setRetries(0)

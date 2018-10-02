@@ -1,8 +1,8 @@
 <?php
 
-namespace Elasticsearch\Helper\Iterators;
+namespace VPG\Elasticsearch\Helper\Iterators;
 
-use ElasticSearch\Client;
+use VPG\Elasticsearch\Client;
 use Iterator;
 
 /**

@@ -1,9 +1,9 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Indices\Validate;
+namespace VPG\Elasticsearch\Endpoints\Indices\Validate;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Common\Exceptions;
+use VPG\Elasticsearch\Endpoints\AbstractEndpoint;
+use VPG\Elasticsearch\Common\Exceptions;
 
 /**
  * Class Query

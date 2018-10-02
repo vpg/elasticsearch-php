@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace Elasticsearch\Tests\ConnectionPool;
+namespace VPG\Elasticsearch\Tests\ConnectionPool;
 
-use Elasticsearch\ClientBuilder;
-use Elasticsearch\ConnectionPool\SniffingConnectionPool;
+use VPG\Elasticsearch\ClientBuilder;
+use VPG\Elasticsearch\ConnectionPool\SniffingConnectionPool;
 
 /**
  * Class SniffingConnectionPoolIntegrationTest

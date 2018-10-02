@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace Elasticsearch\Tests\ConnectionPool\Selectors;
+namespace VPG\Elasticsearch\Tests\ConnectionPool\Selectors;
 
-use Elasticsearch;
-use Elasticsearch\Connections\ConnectionInterface;
+use VPG\Elasticsearch;
+use VPG\Elasticsearch\Connections\ConnectionInterface;
 
 /**
  * Class SnifferTest

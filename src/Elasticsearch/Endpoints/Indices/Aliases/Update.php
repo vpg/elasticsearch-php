@@ -1,9 +1,9 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Indices\Aliases;
+namespace VPG\Elasticsearch\Endpoints\Indices\Aliases;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Common\Exceptions;
+use VPG\Elasticsearch\Endpoints\AbstractEndpoint;
+use VPG\Elasticsearch\Common\Exceptions;
 
 /**
  * Class Update

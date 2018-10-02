@@ -1,9 +1,9 @@
 <?php
 
-namespace Elasticsearch\Common\Exceptions\Curl;
+namespace VPG\Elasticsearch\Common\Exceptions\Curl;
 
-use Elasticsearch\Common\Exceptions\ElasticsearchException;
-use Elasticsearch\Common\Exceptions\TransportException;
+use VPG\Elasticsearch\Common\Exceptions\ElasticsearchException;
+use VPG\Elasticsearch\Common\Exceptions\TransportException;
 
 /**
  * Class CouldNotConnectToHost

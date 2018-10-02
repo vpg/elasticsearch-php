@@ -1,9 +1,9 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Tasks;
+namespace VPG\Elasticsearch\Endpoints\Tasks;
 
-use Elasticsearch\Common\Exceptions;
-use Elasticsearch\Endpoints\AbstractEndpoint;
+use VPG\Elasticsearch\Common\Exceptions;
+use VPG\Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class TasksLists

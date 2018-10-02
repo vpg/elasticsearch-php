@@ -1,9 +1,9 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Cluster\Nodes;
+namespace VPG\Elasticsearch\Endpoints\Cluster\Nodes;
 
-use Elasticsearch\Common\Exceptions\InvalidArgumentException;
-use Elasticsearch\Endpoints\AbstractEndpoint;
+use VPG\Elasticsearch\Common\Exceptions\InvalidArgumentException;
+use VPG\Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class AbstractNodesEndpoint

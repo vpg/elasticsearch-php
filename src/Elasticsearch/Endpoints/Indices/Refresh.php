@@ -1,8 +1,8 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Indices;
+namespace VPG\Elasticsearch\Endpoints\Indices;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
+use VPG\Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Refresh

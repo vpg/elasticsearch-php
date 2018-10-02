@@ -1,6 +1,6 @@
 <?php
 
-namespace Elasticsearch\Common\Exceptions;
+namespace VPG\Elasticsearch\Common\Exceptions;
 
 /**
  * RoutingMissingException, thrown on when a routing value is required but

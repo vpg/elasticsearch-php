@@ -1,8 +1,8 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Indices\Cache;
+namespace VPG\Elasticsearch\Endpoints\Indices\Cache;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
+use VPG\Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Clear

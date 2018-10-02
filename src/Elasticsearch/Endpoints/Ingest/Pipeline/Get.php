@@ -1,9 +1,9 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Ingest\Pipeline;
+namespace VPG\Elasticsearch\Endpoints\Ingest\Pipeline;
 
-use Elasticsearch\Common\Exceptions;
-use Elasticsearch\Endpoints\AbstractEndpoint;
+use VPG\Elasticsearch\Common\Exceptions;
+use VPG\Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Get

@@ -1,25 +1,25 @@
 <?php
 
-namespace Elasticsearch\Connections;
+namespace VPG\Elasticsearch\Connections;
 
-use Elasticsearch\Common\Exceptions\AlreadyExpiredException;
-use Elasticsearch\Common\Exceptions\BadRequest400Exception;
-use Elasticsearch\Common\Exceptions\Conflict409Exception;
-use Elasticsearch\Common\Exceptions\Curl\CouldNotConnectToHost;
-use Elasticsearch\Common\Exceptions\Curl\CouldNotResolveHostException;
-use Elasticsearch\Common\Exceptions\Curl\OperationTimeoutException;
-use Elasticsearch\Common\Exceptions\Forbidden403Exception;
-use Elasticsearch\Common\Exceptions\MaxRetriesException;
-use Elasticsearch\Common\Exceptions\Missing404Exception;
-use Elasticsearch\Common\Exceptions\NoDocumentsToGetException;
-use Elasticsearch\Common\Exceptions\NoShardAvailableException;
-use Elasticsearch\Common\Exceptions\RequestTimeout408Exception;
-use Elasticsearch\Common\Exceptions\RoutingMissingException;
-use Elasticsearch\Common\Exceptions\ScriptLangNotSupportedException;
-use Elasticsearch\Common\Exceptions\ServerErrorResponseException;
-use Elasticsearch\Common\Exceptions\TransportException;
-use Elasticsearch\Serializers\SerializerInterface;
-use Elasticsearch\Transport;
+use VPG\Elasticsearch\Common\Exceptions\AlreadyExpiredException;
+use VPG\Elasticsearch\Common\Exceptions\BadRequest400Exception;
+use VPG\Elasticsearch\Common\Exceptions\Conflict409Exception;
+use VPG\Elasticsearch\Common\Exceptions\Curl\CouldNotConnectToHost;
+use VPG\Elasticsearch\Common\Exceptions\Curl\CouldNotResolveHostException;
+use VPG\Elasticsearch\Common\Exceptions\Curl\OperationTimeoutException;
+use VPG\Elasticsearch\Common\Exceptions\Forbidden403Exception;
+use VPG\Elasticsearch\Common\Exceptions\MaxRetriesException;
+use VPG\Elasticsearch\Common\Exceptions\Missing404Exception;
+use VPG\Elasticsearch\Common\Exceptions\NoDocumentsToGetException;
+use VPG\Elasticsearch\Common\Exceptions\NoShardAvailableException;
+use VPG\Elasticsearch\Common\Exceptions\RequestTimeout408Exception;
+use VPG\Elasticsearch\Common\Exceptions\RoutingMissingException;
+use VPG\Elasticsearch\Common\Exceptions\ScriptLangNotSupportedException;
+use VPG\Elasticsearch\Common\Exceptions\ServerErrorResponseException;
+use VPG\Elasticsearch\Common\Exceptions\TransportException;
+use VPG\Elasticsearch\Serializers\SerializerInterface;
+use VPG\Elasticsearch\Transport;
 use GuzzleHttp\Ring\Core;
 use GuzzleHttp\Ring\Exception\ConnectException;
 use GuzzleHttp\Ring\Exception\RingException;

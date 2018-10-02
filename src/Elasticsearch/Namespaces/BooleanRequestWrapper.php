@@ -1,11 +1,11 @@
 <?php
 
-namespace Elasticsearch\Namespaces;
+namespace VPG\Elasticsearch\Namespaces;
 
-use Elasticsearch\Common\Exceptions\Missing404Exception;
-use Elasticsearch\Common\Exceptions\RoutingMissingException;
-use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Transport;
+use VPG\Elasticsearch\Common\Exceptions\Missing404Exception;
+use VPG\Elasticsearch\Common\Exceptions\RoutingMissingException;
+use VPG\Elasticsearch\Endpoints\AbstractEndpoint;
+use VPG\Elasticsearch\Transport;
 use GuzzleHttp\Ring\Future\FutureArrayInterface;
 
 /**

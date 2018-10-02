@@ -2,18 +2,18 @@
 
 declare(strict_types = 1);
 
-namespace Elasticsearch\Tests;
+namespace VPG\Elasticsearch\Tests;
 
 use Doctrine\Common\Inflector\Inflector;
-use Elasticsearch;
-use Elasticsearch\Common\Exceptions\BadRequest400Exception;
-use Elasticsearch\Common\Exceptions\Conflict409Exception;
-use Elasticsearch\Common\Exceptions\Forbidden403Exception;
-use Elasticsearch\Common\Exceptions\Missing404Exception;
-use Elasticsearch\Common\Exceptions\RequestTimeout408Exception;
-use Elasticsearch\Common\Exceptions\ServerErrorResponseException;
-use Elasticsearch\Common\Exceptions\RoutingMissingException;
-use Elasticsearch\Common\Exceptions\Unauthorized401Exception;
+use VPG\Elasticsearch;
+use VPG\Elasticsearch\Common\Exceptions\BadRequest400Exception;
+use VPG\Elasticsearch\Common\Exceptions\Conflict409Exception;
+use VPG\Elasticsearch\Common\Exceptions\Forbidden403Exception;
+use VPG\Elasticsearch\Common\Exceptions\Missing404Exception;
+use VPG\Elasticsearch\Common\Exceptions\RequestTimeout408Exception;
+use VPG\Elasticsearch\Common\Exceptions\ServerErrorResponseException;
+use VPG\Elasticsearch\Common\Exceptions\RoutingMissingException;
+use VPG\Elasticsearch\Common\Exceptions\Unauthorized401Exception;
 use GuzzleHttp\Ring\Future\FutureArrayInterface;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace Elasticsearch\Tests\ClientBuilder;
+namespace VPG\Elasticsearch\Tests\ClientBuilder;
 
 class DummyLogger
 {

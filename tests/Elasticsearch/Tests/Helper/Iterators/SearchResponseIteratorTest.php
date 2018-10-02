@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace Elasticsearch\Tests\Helper\Iterators;
+namespace VPG\Elasticsearch\Tests\Helper\Iterators;
 
-use Elasticsearch\Client;
-use Elasticsearch\Helper\Iterators\SearchResponseIterator;
+use VPG\Elasticsearch\Client;
+use VPG\Elasticsearch\Helper\Iterators\SearchResponseIterator;
 use Mockery as m;
 
 /**

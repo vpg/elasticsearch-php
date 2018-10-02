@@ -1,8 +1,8 @@
 <?php
 
-namespace Elasticsearch\ConnectionPool;
+namespace VPG\Elasticsearch\ConnectionPool;
 
-use Elasticsearch\Connections\ConnectionInterface;
+use VPG\Elasticsearch\Connections\ConnectionInterface;
 
 /**
  * ConnectionPoolInterface

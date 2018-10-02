@@ -2,11 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace Elasticsearch\Tests;
+namespace VPG\Elasticsearch\Tests;
 
-use Elasticsearch;
-use Elasticsearch\ClientBuilder;
-use Elasticsearch\Common\Exceptions\MaxRetriesException;
+use VPG\Elasticsearch;
+use VPG\Elasticsearch\ClientBuilder;
+use VPG\Elasticsearch\Common\Exceptions\MaxRetriesException;
 use Mockery as m;
 
 /**

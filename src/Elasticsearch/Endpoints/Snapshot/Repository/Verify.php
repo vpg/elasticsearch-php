@@ -1,9 +1,9 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Snapshot\Repository;
+namespace VPG\Elasticsearch\Endpoints\Snapshot\Repository;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Common\Exceptions;
+use VPG\Elasticsearch\Endpoints\AbstractEndpoint;
+use VPG\Elasticsearch\Common\Exceptions;
 
 /**
  * Class Verify

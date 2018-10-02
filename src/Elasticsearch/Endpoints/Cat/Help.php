@@ -1,8 +1,8 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Cat;
+namespace VPG\Elasticsearch\Endpoints\Cat;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
+use VPG\Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Help

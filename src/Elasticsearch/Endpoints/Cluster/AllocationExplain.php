@@ -1,14 +1,14 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Cluster;
+namespace Vpg\Elasticsearch\Endpoints\Cluster;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
+use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class AllocationExplain
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Cluster
+ * @package  Vpg\Elasticsearch\Endpoints\Cluster
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
@@ -19,7 +19,7 @@ class AllocationExplain extends AbstractEndpoint
     /**
      * @param array $body
      *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @throws \Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @return $this
      */
     public function setBody($body)

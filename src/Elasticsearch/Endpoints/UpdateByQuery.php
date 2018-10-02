@@ -1,8 +1,8 @@
 <?php
 
-namespace Elasticsearch\Endpoints;
+namespace Vpg\Elasticsearch\Endpoints;
 
-use Elasticsearch\Common\Exceptions;
+use Vpg\Elasticsearch\Common\Exceptions;
 
 /**
  * Class UpdateByQuery
@@ -18,7 +18,7 @@ class UpdateByQuery extends AbstractEndpoint
     /**
      * @param array $body
      *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @throws \Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @return $this
      */
     public function setBody($body)
@@ -39,7 +39,7 @@ class UpdateByQuery extends AbstractEndpoint
 
 
     /**
-     * @throws \Elasticsearch\Common\Exceptions\BadMethodCallException
+     * @throws \Vpg\Elasticsearch\Common\Exceptions\BadMethodCallException
      * @return string
      */
     public function getURI()

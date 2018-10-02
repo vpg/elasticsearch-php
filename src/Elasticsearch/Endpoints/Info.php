@@ -1,12 +1,12 @@
 <?php
 
-namespace Elasticsearch\Endpoints;
+namespace Vpg\Elasticsearch\Endpoints;
 
 /**
  * Class Info
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints
+ * @package  Vpg\Elasticsearch\Endpoints
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co

@@ -1,9 +1,9 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Indices;
+namespace Vpg\Elasticsearch\Endpoints\Indices;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Common\Exceptions;
+use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
+use Vpg\Elasticsearch\Common\Exceptions;
 
 /**
  * Class ShardStores
@@ -18,7 +18,7 @@ use Elasticsearch\Common\Exceptions;
 class ShardStores extends AbstractEndpoint
 {
     /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     * @throws \Vpg\Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     public function getURI()

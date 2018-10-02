@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace Elasticsearch\Tests\ConnectionPool\Selectors;
+namespace Vpg\Elasticsearch\Tests\ConnectionPool\Selectors;
 
-use Elasticsearch;
-use Elasticsearch\Connections\ConnectionInterface;
+use Vpg\Elasticsearch;
+use Vpg\Elasticsearch\Connections\ConnectionInterface;
 
 /**
  * Class SnifferTest
@@ -22,7 +22,7 @@ class RoundRobinSelectorTest extends \PHPUnit\Framework\TestCase
     /**
      * Add Ten connections, select 15 to verify round robin
      *
-     * @covers \Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector::select
+     * @covers \Vpg\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector::select
      *
      * @return void
      */
@@ -61,7 +61,7 @@ class RoundRobinSelectorTest extends \PHPUnit\Framework\TestCase
      * Add Ten connections, select five, remove three, test another 10 to check
      * that the round-robining works after removing connections
      *
-     * @covers \Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector::select
+     * @covers \Vpg\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector::select
      *
      * @return void
      */

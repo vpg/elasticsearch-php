@@ -1,14 +1,14 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Snapshot\Repository;
+namespace Vpg\Elasticsearch\Endpoints\Snapshot\Repository;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
+use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class Get
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Snapshot\Repository
+ * @package  Vpg\Elasticsearch\Endpoints\Snapshot\Repository
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co

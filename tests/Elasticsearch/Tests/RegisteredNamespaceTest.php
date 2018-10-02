@@ -2,12 +2,12 @@
 
 declare(strict_types = 1);
 
-namespace Elasticsearch\Tests;
+namespace Vpg\Elasticsearch\Tests;
 
-use Elasticsearch;
-use Elasticsearch\ClientBuilder;
-use Elasticsearch\Serializers\SerializerInterface;
-use Elasticsearch\Transport;
+use Vpg\Elasticsearch;
+use Vpg\Elasticsearch\ClientBuilder;
+use Vpg\Elasticsearch\Serializers\SerializerInterface;
+use Vpg\Elasticsearch\Transport;
 use Mockery as m;
 
 /**
@@ -35,7 +35,7 @@ class RegisteredNamespaceTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @expectedException \Elasticsearch\Common\Exceptions\BadMethodCallException
+     * @expectedException \Vpg\Elasticsearch\Common\Exceptions\BadMethodCallException
      */
     public function testNonExistingNamespace()
     {

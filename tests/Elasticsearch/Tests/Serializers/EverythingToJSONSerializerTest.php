@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace Elasticsearch\Tests\Serializers;
+namespace Vpg\Elasticsearch\Tests\Serializers;
 
-use Elasticsearch\Serializers\EverythingToJSONSerializer;
+use Vpg\Elasticsearch\Serializers\EverythingToJSONSerializer;
 use PHPUnit_Framework_TestCase;
 use Mockery as m;
 

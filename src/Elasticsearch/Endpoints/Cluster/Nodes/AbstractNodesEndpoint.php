@@ -1,15 +1,15 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Cluster\Nodes;
+namespace Vpg\Elasticsearch\Endpoints\Cluster\Nodes;
 
-use Elasticsearch\Common\Exceptions\InvalidArgumentException;
-use Elasticsearch\Endpoints\AbstractEndpoint;
+use Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException;
+use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class AbstractNodesEndpoint
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Cluster\Nodes
+ * @package  Vpg\Elasticsearch\Endpoints\Cluster\Nodes
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
@@ -22,7 +22,7 @@ abstract class AbstractNodesEndpoint extends AbstractEndpoint
     /**
      * @param $nodeID
      *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @throws \Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException
      *
      * @return $this
      */

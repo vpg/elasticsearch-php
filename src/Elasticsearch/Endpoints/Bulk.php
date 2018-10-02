@@ -1,15 +1,15 @@
 <?php
 
-namespace Elasticsearch\Endpoints;
+namespace Vpg\Elasticsearch\Endpoints;
 
-use Elasticsearch\Serializers\SerializerInterface;
-use Elasticsearch\Transport;
+use Vpg\Elasticsearch\Serializers\SerializerInterface;
+use Vpg\Elasticsearch\Transport;
 
 /**
  * Class Bulk
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints
+ * @package  Vpg\Elasticsearch\Endpoints
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co

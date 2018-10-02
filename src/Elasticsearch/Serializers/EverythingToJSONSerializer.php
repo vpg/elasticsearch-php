@@ -1,14 +1,14 @@
 <?php
 
-namespace Elasticsearch\Serializers;
+namespace Vpg\Elasticsearch\Serializers;
 
-use Elasticsearch\Common\Exceptions\RuntimeException;
+use Vpg\Elasticsearch\Common\Exceptions\RuntimeException;
 
 /**
  * Class EverythingToJSONSerializer
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Serializers
+ * @package  Vpg\Elasticsearch\Serializers
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co

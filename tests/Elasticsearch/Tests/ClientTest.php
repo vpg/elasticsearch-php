@@ -2,11 +2,11 @@
 
 declare(strict_types = 1);
 
-namespace Elasticsearch\Tests;
+namespace Vpg\Elasticsearch\Tests;
 
-use Elasticsearch;
-use Elasticsearch\ClientBuilder;
-use Elasticsearch\Common\Exceptions\MaxRetriesException;
+use Vpg\Elasticsearch;
+use Vpg\Elasticsearch\ClientBuilder;
+use Vpg\Elasticsearch\Common\Exceptions\MaxRetriesException;
 use Mockery as m;
 
 /**
@@ -27,7 +27,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @expectedException \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @expectedException \Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException
      */
     public function testConstructorIllegalPort()
     {
@@ -47,7 +47,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @expectedException \Elasticsearch\Common\Exceptions\RuntimeException
+     * @expectedException \Vpg\Elasticsearch\Common\Exceptions\RuntimeException
      */
     public function testFromConfigBadParam()
     {

@@ -1,5 +1,5 @@
 {
-  "name": "elasticsearch/elasticsearch",
+  "name": "vpg/elasticsearch",
   "description": "PHP Client for Elasticsearch",
   "keywords": ["search","client", "elasticsearch"],
   "type": "library",
@@ -31,12 +31,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Elasticsearch\\": "src/Elasticsearch/"
+      "Vpg\\Elasticsearch\\": "src/Elasticsearch/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Elasticsearch\\Tests\\":      "tests/Elasticsearch/Tests/"
+      "Vpg\\Elasticsearch\\Tests\\":      "tests/Elasticsearch/Tests/"
     }
   },
   "config": {

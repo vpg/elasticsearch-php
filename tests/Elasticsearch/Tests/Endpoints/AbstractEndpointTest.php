@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace Elasticsearch\Tests\Endpoints;
+namespace Vpg\Elasticsearch\Tests\Endpoints;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
+use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
 
 class AbstractEndpointTest extends \PHPUnit\Framework\TestCase
 {
@@ -20,7 +20,7 @@ class AbstractEndpointTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider invalidParameters
-     * @expectedException \Elasticsearch\Common\Exceptions\UnexpectedValueException
+     * @expectedException \Vpg\Elasticsearch\Common\Exceptions\UnexpectedValueException
      */
     public function testInvalidParamsCauseErrorsWhenProvidedToSetParams(array $params)
     {

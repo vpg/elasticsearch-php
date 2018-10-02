@@ -2,9 +2,9 @@
 
 declare(strict_types = 1);
 
-namespace Elasticsearch\Tests;
+namespace Vpg\Elasticsearch\Tests;
 
-use Elasticsearch;
+use Vpg\Elasticsearch;
 
 /**
  * Class ClientTest

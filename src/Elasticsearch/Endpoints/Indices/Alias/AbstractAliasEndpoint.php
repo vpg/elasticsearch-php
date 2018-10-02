@@ -1,9 +1,9 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Indices\Alias;
+namespace Vpg\Elasticsearch\Endpoints\Indices\Alias;
 
-use Elasticsearch\Common\Exceptions\InvalidArgumentException;
-use Elasticsearch\Endpoints\AbstractEndpoint;
+use Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException;
+use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class AbstractAliasEndpoint
@@ -22,7 +22,7 @@ abstract class AbstractAliasEndpoint extends AbstractEndpoint
     /**
      * @param $name
      *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @throws \Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException
      *
      * @return $this
      */

@@ -1,12 +1,12 @@
 <?php
 
-namespace Elasticsearch\Namespaces;
+namespace Vpg\Elasticsearch\Namespaces;
 
 /**
  * Class SnapshotNamespace
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Namespaces\SnapshotNamespace
+ * @package  Vpg\Elasticsearch\Namespaces\SnapshotNamespace
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
@@ -30,7 +30,7 @@ class SnapshotNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Snapshot\Create $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Snapshot\Create $endpoint */
         $endpoint = $endpointBuilder('Snapshot\Create');
         $endpoint->setRepository($repository)
                  ->setSnapshot($snapshot)
@@ -56,7 +56,7 @@ class SnapshotNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Snapshot\Repository\Create $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Snapshot\Repository\Create $endpoint */
         $endpoint = $endpointBuilder('Snapshot\Repository\Create');
         $endpoint->setRepository($repository)
                  ->setBody($body)
@@ -80,7 +80,7 @@ class SnapshotNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Snapshot\Delete $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Snapshot\Delete $endpoint */
         $endpoint = $endpointBuilder('Snapshot\Delete');
         $endpoint->setRepository($repository)
                  ->setSnapshot($snapshot)
@@ -104,7 +104,7 @@ class SnapshotNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Snapshot\Repository\Delete $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Snapshot\Repository\Delete $endpoint */
         $endpoint = $endpointBuilder('Snapshot\Repository\Delete');
         $endpoint->setRepository($repository)
                  ->setParams($params);
@@ -127,7 +127,7 @@ class SnapshotNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Snapshot\Get $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Snapshot\Get $endpoint */
         $endpoint = $endpointBuilder('Snapshot\Get');
         $endpoint->setRepository($repository)
                  ->setSnapshot($snapshot)
@@ -151,7 +151,7 @@ class SnapshotNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Snapshot\Repository\Get $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Snapshot\Repository\Get $endpoint */
         $endpoint = $endpointBuilder('Snapshot\Repository\Get');
         $endpoint->setRepository($repository)
                  ->setParams($params);
@@ -176,7 +176,7 @@ class SnapshotNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Snapshot\Restore $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Snapshot\Restore $endpoint */
         $endpoint = $endpointBuilder('Snapshot\Restore');
         $endpoint->setRepository($repository)
                  ->setSnapshot($snapshot)
@@ -201,7 +201,7 @@ class SnapshotNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Snapshot\Status $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Snapshot\Status $endpoint */
         $endpoint = $endpointBuilder('Snapshot\Status');
         $endpoint->setRepository($repository)
                  ->setSnapshot($snapshot)
@@ -225,7 +225,7 @@ class SnapshotNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Snapshot\Repository\Verify $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Snapshot\Repository\Verify $endpoint */
         $endpoint = $endpointBuilder('Snapshot\Repository\Verify');
         $endpoint->setRepository($repository)
                  ->setParams($params);

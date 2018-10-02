@@ -2,10 +2,10 @@
 
 declare(strict_types = 1);
 
-namespace Elasticsearch\Tests;
+namespace Vpg\Elasticsearch\Tests;
 
-use Elasticsearch\ClientBuilder;
-use Elasticsearch\Common\Exceptions\InvalidArgumentException;
+use Vpg\Elasticsearch\ClientBuilder;
+use Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 class ClientBuilderTest extends TestCase
@@ -16,7 +16,7 @@ class ClientBuilderTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('$logger must implement \Psr\Log\LoggerInterface!');
 
-        ClientBuilder::create()->setLogger(new \Elasticsearch\Tests\ClientBuilder\DummyLogger());
+        ClientBuilder::create()->setLogger(new \Vpg\Elasticsearch\Tests\ClientBuilder\DummyLogger());
     }
 
     public function testClientBuilderThrowsExceptionForIncorrectTracerClass()
@@ -24,6 +24,6 @@ class ClientBuilderTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('$tracer must implement \Psr\Log\LoggerInterface!');
 
-        ClientBuilder::create()->setTracer(new \Elasticsearch\Tests\ClientBuilder\DummyLogger());
+        ClientBuilder::create()->setTracer(new \Vpg\Elasticsearch\Tests\ClientBuilder\DummyLogger());
     }
 }

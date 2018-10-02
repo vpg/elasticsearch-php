@@ -1,9 +1,9 @@
 <?php
 
-namespace Elasticsearch\Endpoints;
+namespace Vpg\Elasticsearch\Endpoints;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Common\Exceptions;
+use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
+use Vpg\Elasticsearch\Common\Exceptions;
 
 /**
  * Class Render
@@ -20,7 +20,7 @@ class RenderSearchTemplate extends AbstractEndpoint
     /**
      * @param array $body
      *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @throws \Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @return $this
      */
     public function setBody($body)
@@ -34,7 +34,7 @@ class RenderSearchTemplate extends AbstractEndpoint
     }
 
     /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     * @throws \Vpg\Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     public function getURI()
@@ -60,7 +60,7 @@ class RenderSearchTemplate extends AbstractEndpoint
 
     /**
      * @return array
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     * @throws \Vpg\Elasticsearch\Common\Exceptions\RuntimeException
      */
     public function getBody()
     {

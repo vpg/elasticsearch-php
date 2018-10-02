@@ -1,12 +1,12 @@
 <?php
 
-namespace Elasticsearch\Namespaces;
+namespace Vpg\Elasticsearch\Namespaces;
 
 /**
  * Class CatNamespace
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Namespaces\CatNamespace
+ * @package  Vpg\Elasticsearch\Namespaces\CatNamespace
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
@@ -31,7 +31,7 @@ class CatNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Cat\Aliases $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Cat\Aliases $endpoint */
         $endpoint = $endpointBuilder('Cat\Aliases');
         $endpoint->setName($name);
         $endpoint->setParams($params);
@@ -58,7 +58,7 @@ class CatNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Cat\Allocation $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Cat\Allocation $endpoint */
         $endpoint = $endpointBuilder('Cat\Allocation');
         $endpoint->setNodeID($nodeID);
         $endpoint->setParams($params);
@@ -84,7 +84,7 @@ class CatNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Cat\Count $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Cat\Count $endpoint */
         $endpoint = $endpointBuilder('Cat\Count');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
@@ -109,7 +109,7 @@ class CatNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Cat\Health $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Cat\Health $endpoint */
         $endpoint = $endpointBuilder('Cat\Health');
         $endpoint->setParams($params);
 
@@ -128,7 +128,7 @@ class CatNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Cat\Help $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Cat\Help $endpoint */
         $endpoint = $endpointBuilder('Cat\Help');
         $endpoint->setParams($params);
 
@@ -155,7 +155,7 @@ class CatNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Cat\Indices $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Cat\Indices $endpoint */
         $endpoint = $endpointBuilder('Cat\Indices');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
@@ -179,7 +179,7 @@ class CatNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Cat\Master $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Cat\Master $endpoint */
         $endpoint = $endpointBuilder('Cat\Master');
         $endpoint->setParams($params);
 
@@ -202,7 +202,7 @@ class CatNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Cat\Nodes $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Cat\Nodes $endpoint */
         $endpoint = $endpointBuilder('Cat\Nodes');
         $endpoint->setParams($params);
 
@@ -225,7 +225,7 @@ class CatNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Cat\NodeAttrs $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Cat\NodeAttrs $endpoint */
         $endpoint = $endpointBuilder('Cat\NodeAttrs');
         $endpoint->setParams($params);
 
@@ -248,7 +248,7 @@ class CatNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Cat\PendingTasks $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Cat\PendingTasks $endpoint */
         $endpoint = $endpointBuilder('Cat\PendingTasks');
         $endpoint->setParams($params);
 
@@ -274,7 +274,7 @@ class CatNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Cat\Recovery $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Cat\Recovery $endpoint */
         $endpoint = $endpointBuilder('Cat\Recovery');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
@@ -298,7 +298,7 @@ class CatNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Cat\Repositories $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Cat\Repositories $endpoint */
         $endpoint = $endpointBuilder('Cat\Repositories');
         $endpoint->setParams($params);
 
@@ -324,7 +324,7 @@ class CatNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Cat\Shards $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Cat\Shards $endpoint */
         $endpoint = $endpointBuilder('Cat\Shards');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
@@ -352,7 +352,7 @@ class CatNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Cat\Snapshots $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Cat\Snapshots $endpoint */
         $endpoint = $endpointBuilder('Cat\Snapshots');
         $endpoint->setRepository($repository);
         $endpoint->setParams($params);
@@ -380,7 +380,7 @@ class CatNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Cat\ThreadPool $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Cat\ThreadPool $endpoint */
         $endpoint = $endpointBuilder('Cat\ThreadPool');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
@@ -408,7 +408,7 @@ class CatNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Cat\Fielddata $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Cat\Fielddata $endpoint */
         $endpoint = $endpointBuilder('Cat\Fielddata');
         $endpoint->setFields($fields);
         $endpoint->setParams($params);
@@ -432,7 +432,7 @@ class CatNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Cat\Plugins $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Cat\Plugins $endpoint */
         $endpoint = $endpointBuilder('Cat\Plugins');
         $endpoint->setParams($params);
 
@@ -455,7 +455,7 @@ class CatNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Cat\Segments $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Cat\Segments $endpoint */
         $endpoint = $endpointBuilder('Cat\Segments');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
@@ -484,7 +484,7 @@ class CatNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Cat\Tasks $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Cat\Tasks $endpoint */
         $endpoint = $endpointBuilder('Cat\Tasks');
         $endpoint->setParams($params);
 
@@ -510,7 +510,7 @@ class CatNamespace extends AbstractNamespace
         /** @var callback $endpointBuilder */
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Elasticsearch\Endpoints\Cat\Templates $endpoint */
+        /** @var \Vpg\Elasticsearch\Endpoints\Cat\Templates $endpoint */
         $endpoint = $endpointBuilder('Cat\Templates');
         $endpoint->setName($name)
             ->setParams($params);

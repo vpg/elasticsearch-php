@@ -1,14 +1,14 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Indices;
+namespace Vpg\Elasticsearch\Endpoints\Indices;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
+use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
 
 /**
  * Class ForceMerge
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Indices
+ * @package  Vpg\Elasticsearch\Endpoints\Indices
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co

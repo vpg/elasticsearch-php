@@ -1,15 +1,15 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Cluster\Settings;
+namespace Vpg\Elasticsearch\Endpoints\Cluster\Settings;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Common\Exceptions;
+use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
+use Vpg\Elasticsearch\Common\Exceptions;
 
 /**
  * Class Put
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Cluster\Settings
+ * @package  Vpg\Elasticsearch\Endpoints\Cluster\Settings
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
@@ -19,7 +19,7 @@ class Put extends AbstractEndpoint
     /**
      * @param array $body
      *
-     * @throws \Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @throws \Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException
      * @return $this
      */
     public function setBody($body)

@@ -1,18 +1,18 @@
 <?php
 
-namespace Elasticsearch\Namespaces;
+namespace Vpg\Elasticsearch\Namespaces;
 
-use Elasticsearch\Common\Exceptions\Missing404Exception;
-use Elasticsearch\Common\Exceptions\RoutingMissingException;
-use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Transport;
+use Vpg\Elasticsearch\Common\Exceptions\Missing404Exception;
+use Vpg\Elasticsearch\Common\Exceptions\RoutingMissingException;
+use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
+use Vpg\Elasticsearch\Transport;
 use GuzzleHttp\Ring\Future\FutureArrayInterface;
 
 /**
  * Trait AbstractNamespace
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Namespaces
+ * @package  Vpg\Elasticsearch\Namespaces
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co

@@ -5,10 +5,10 @@
  * Time: 14:34:49 pm
  */
 
-namespace Elasticsearch\Endpoints\Cat;
+namespace Vpg\Elasticsearch\Endpoints\Cat;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Common\Exceptions;
+use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
+use Vpg\Elasticsearch\Common\Exceptions;
 
 /**
  * Class Segments

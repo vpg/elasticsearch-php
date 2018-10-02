@@ -1,18 +1,18 @@
 <?php
 
-namespace Elasticsearch\Namespaces;
+namespace Vpg\Elasticsearch\Namespaces;
 
-use Elasticsearch\Endpoints\Ingest\Pipeline\Delete;
-use Elasticsearch\Endpoints\Ingest\Pipeline\Get;
-use Elasticsearch\Endpoints\Ingest\Pipeline\ProcessorGrok;
-use Elasticsearch\Endpoints\Ingest\Pipeline\Put;
-use Elasticsearch\Endpoints\Ingest\Simulate;
+use Vpg\Elasticsearch\Endpoints\Ingest\Pipeline\Delete;
+use Vpg\Elasticsearch\Endpoints\Ingest\Pipeline\Get;
+use Vpg\Elasticsearch\Endpoints\Ingest\Pipeline\ProcessorGrok;
+use Vpg\Elasticsearch\Endpoints\Ingest\Pipeline\Put;
+use Vpg\Elasticsearch\Endpoints\Ingest\Simulate;
 
 /**
  * Class IngestNamespace
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Namespaces\IngestNamespace
+ * @package  Vpg\Elasticsearch\Namespaces\IngestNamespace
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co

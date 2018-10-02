@@ -1,11 +1,11 @@
 <?php
 
-namespace Elasticsearch\ConnectionPool;
+namespace Vpg\Elasticsearch\ConnectionPool;
 
-use Elasticsearch\Common\Exceptions\NoNodesAvailableException;
-use Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
-use Elasticsearch\Connections\Connection;
-use Elasticsearch\Connections\ConnectionFactoryInterface;
+use Vpg\Elasticsearch\Common\Exceptions\NoNodesAvailableException;
+use Vpg\Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
+use Vpg\Elasticsearch\Connections\Connection;
+use Vpg\Elasticsearch\Connections\ConnectionFactoryInterface;
 
 class StaticNoPingConnectionPool extends AbstractConnectionPool implements ConnectionPoolInterface
 {
@@ -31,7 +31,7 @@ class StaticNoPingConnectionPool extends AbstractConnectionPool implements Conne
      * @param bool $force
      *
      * @return Connection
-     * @throws \Elasticsearch\Common\Exceptions\NoNodesAvailableException
+     * @throws \Vpg\Elasticsearch\Common\Exceptions\NoNodesAvailableException
      */
     public function nextConnection($force = false)
     {
@@ -56,7 +56,7 @@ class StaticNoPingConnectionPool extends AbstractConnectionPool implements Conne
     }
 
     /**
-     * @param \Elasticsearch\Connections\Connection $connection
+     * @param \Vpg\Elasticsearch\Connections\Connection $connection
      *
      * @return bool
      */

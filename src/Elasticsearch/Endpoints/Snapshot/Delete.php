@@ -1,15 +1,15 @@
 <?php
 
-namespace Elasticsearch\Endpoints\Snapshot;
+namespace Vpg\Elasticsearch\Endpoints\Snapshot;
 
-use Elasticsearch\Endpoints\AbstractEndpoint;
-use Elasticsearch\Common\Exceptions;
+use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
+use Vpg\Elasticsearch\Common\Exceptions;
 
 /**
  * Class Delete
  *
  * @category Elasticsearch
- * @package  Elasticsearch\Endpoints\Snapshot
+ * @package  Vpg\Elasticsearch\Endpoints\Snapshot
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
@@ -55,7 +55,7 @@ class Delete extends AbstractEndpoint
     }
 
     /**
-     * @throws \Elasticsearch\Common\Exceptions\RuntimeException
+     * @throws \Vpg\Elasticsearch\Common\Exceptions\RuntimeException
      * @return string
      */
     public function getURI()

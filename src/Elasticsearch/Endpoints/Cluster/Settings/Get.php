@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints\Cluster\Settings;
 
 use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
@@ -16,33 +18,22 @@ use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
 
 class Get extends AbstractEndpoint
 {
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $uri   = "/_cluster/settings";
-
-        return $uri;
+        return "/_cluster/settings";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'flat_settings',
             'master_timeout',
             'timeout',
             'include_defaults'
-        );
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

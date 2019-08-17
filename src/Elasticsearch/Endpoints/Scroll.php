@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints;
 
 use Vpg\Elasticsearch\Common\Exceptions;
@@ -15,14 +17,9 @@ use Vpg\Elasticsearch\Common\Exceptions;
  */
 class Scroll extends AbstractEndpoint
 {
+    protected $scrollId;
 
-    /**
-     * @param array $body
-     *
-     * @throws \Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
-     */
-    public function setBody($body)
+    public function setBody($body): Scroll
     {
         if (isset($body) !== true) {
             return $this;
@@ -34,69 +31,38 @@ class Scroll extends AbstractEndpoint
     }
 
     /**
-     * @return array
-     */
-    public function getBody()
-    {
-        return $this->body;
-    }
-
-    /**
-     * @param $scroll
-     *
      * @return $this
      */
-    public function setScroll($scroll)
+    public function setScrollId(?string $scrollId): Scroll
     {
-        if (isset($scroll) !== true) {
-            return $this;
+        if ($scrollId !== null) {
+            $this->scrollId = $scrollId;
         }
-
-        $this->body['scroll'] = $scroll;
-
         return $this;
     }
 
-    /**
-     * @param $scroll_id
-     *
-     * @return $this
-     */
-    public function setScrollId($scroll_id)
+    public function getURI(): string
     {
-        if (isset($scroll_id) !== true) {
-            return $this;
+        $scrollId = $this->scrollId ?? null;
+
+        if (isset($scrollId)) {
+            return "/_search/scroll/$scrollId";
         }
 
-        $this->body['scroll_id'] = $scroll_id;
-
-        return $this;
+        return "/_search/scroll";
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getParamWhitelist(): array
     {
-        $uri   = "/_search/scroll";
-        return $uri;
-    }
-
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
-    {
-        return array(
+        return [
             'scroll',
-        );
+            'scroll_id',
+            'rest_total_hits_as_int'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
-        return 'GET';
+        return isset($this->body) ? 'POST' : 'GET';
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints\Indices\Alias;
 
 use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
@@ -16,16 +18,14 @@ use Vpg\Elasticsearch\Common\Exceptions;
  */
 class Put extends AbstractEndpoint
 {
-    // The name of the alias to be created or updated
+    /**
+     * The name of the alias to be created or updated
+     *
+     * @var string
+     */
     private $name;
 
-    /**
-     * @param array $body
-     *
-     * @throws \Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
-     */
-    public function setBody($body)
+    public function setBody($body): Put
     {
         if (isset($body) !== true) {
             return $this;
@@ -36,12 +36,7 @@ class Put extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @param $name
-     *
-     * @return $this
-     */
-    public function setName($name)
+    public function setName(?string $name): Put
     {
         if (isset($name) !== true) {
             return $this;
@@ -54,43 +49,31 @@ class Put extends AbstractEndpoint
 
     /**
      * @throws \Vpg\Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
      */
-    public function getURI()
+    public function getURI(): string
     {
         if (isset($this->name) !== true) {
             throw new Exceptions\RuntimeException(
                 'name is required for Put'
             );
         }
-
         if (isset($this->index) !== true) {
             throw new Exceptions\RuntimeException(
                 'index is required for Put'
             );
         }
-        $index = $this->index;
-        $name = $this->name;
-        $uri = "/$index/_alias/$name";
-
-        return $uri;
+        return "/{$this->index}/_alias/{$this->name}";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'timeout',
-            'master_timeout',
-        );
+            'master_timeout'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'PUT';
     }

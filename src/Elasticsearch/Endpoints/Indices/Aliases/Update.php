@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints\Indices\Aliases;
 
 use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
@@ -17,12 +19,9 @@ use Vpg\Elasticsearch\Common\Exceptions;
 class Update extends AbstractEndpoint
 {
     /**
-     * @param array $body
-     *
      * @throws \Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
      */
-    public function setBody($body)
+    public function setBody($body): Update
     {
         if (isset($body) !== true) {
             return $this;
@@ -33,29 +32,20 @@ class Update extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $uri   = "/_aliases";
-
-        return $uri;
+        return "/_aliases";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'timeout',
             'master_timeout',
-        );
+        ];
     }
 
     /**
-     * @return array
      * @throws \Vpg\Elasticsearch\Common\Exceptions\RuntimeException
      */
     public function getBody()
@@ -67,10 +57,7 @@ class Update extends AbstractEndpoint
         return $this->body;
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'POST';
     }

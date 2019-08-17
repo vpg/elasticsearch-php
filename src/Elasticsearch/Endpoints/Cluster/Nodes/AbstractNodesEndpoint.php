@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints\Cluster\Nodes;
 
 use Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException;
@@ -16,13 +18,19 @@ use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
  */
 abstract class AbstractNodesEndpoint extends AbstractEndpoint
 {
-    /** @var  string  A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you&#039;re connecting to, leave empty to get information from all nodes */
+    /**
+     * A comma-separated list of node IDs or names to limit the returned information;
+     * use `_local` to return information from the node you're connecting to,
+     * leave empty to get information from all nodes
+     *
+     * @var string
+     */
     protected $nodeID;
 
     /**
-     * @param $nodeID
+     * @param string|string[] $nodeID
      *
-     * @throws \Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException
+     * @throws InvalidArgumentException
      *
      * @return $this
      */

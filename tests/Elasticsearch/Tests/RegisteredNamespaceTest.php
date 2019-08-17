@@ -6,6 +6,7 @@ namespace Vpg\Elasticsearch\Tests;
 
 use Vpg\Elasticsearch;
 use Vpg\Elasticsearch\ClientBuilder;
+use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
 use Vpg\Elasticsearch\Serializers\SerializerInterface;
 use Vpg\Elasticsearch\Transport;
 use Mockery as m;
@@ -34,21 +35,22 @@ class RegisteredNamespaceTest extends \PHPUnit\Framework\TestCase
         $this->assertSame("123", $client->foo()->fooMethod());
     }
 
-    /**
-     * @expectedException \Vpg\Elasticsearch\Common\Exceptions\BadMethodCallException
-     */
     public function testNonExistingNamespace()
     {
         $builder = new FooNamespaceBuilder();
         $client = ClientBuilder::create()->registerNamespace($builder)->build();
-        $this->assertSame("123", $client->bar()->fooMethod());
+
+        $this->expectException(\Vpg\Elasticsearch\Common\Exceptions\BadMethodCallException::class);
+        $this->expectExceptionMessage('Namespace [bar] not found');
+
+        $client->bar()->fooMethod();
     }
 }
 
 // @codingStandardsIgnoreStart "Each class must be in a file by itself" - not worth the extra work here
-class FooNamespaceBuilder implements Elasticsearch\Namespaces\NamespaceBuilderInterface
+class FooNamespaceBuilder implements Vpg\Elasticsearch\Namespaces\NamespaceBuilderInterface
 {
-    public function getName()
+    public function getName(): string
     {
         return "foo";
     }

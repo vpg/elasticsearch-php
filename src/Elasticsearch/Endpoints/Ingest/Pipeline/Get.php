@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints\Ingest\Pipeline;
 
 use Vpg\Elasticsearch\Common\Exceptions;
@@ -16,35 +18,23 @@ use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Get extends AbstractEndpoint
 {
-    /**
-     * @throws \Vpg\Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        if (isset($this->id) !== true) {
-            return '/_ingest/pipeline/*';
+        $id = $this->id ?? null;
+        if (isset($id)) {
+            return "/_ingest/pipeline/$id";
         }
-
-        $id = $this->id;
-
-        return "/_ingest/pipeline/$id";
+        return "/_ingest/pipeline";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'master_timeout'
-        );
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

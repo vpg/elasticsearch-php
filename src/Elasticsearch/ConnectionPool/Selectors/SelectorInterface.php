@@ -1,6 +1,10 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\ConnectionPool\Selectors;
+
+use Vpg\Elasticsearch\Connections\ConnectionInterface;
 
 /**
  * Class RandomSelector
@@ -16,9 +20,7 @@ interface SelectorInterface
     /**
      * Perform logic to select a single ConnectionInterface instance from the array provided
      *
-     * @param  \Vpg\Elasticsearch\Connections\ConnectionInterface[] $connections an array of ConnectionInterface instances to choose from
-     *
-     * @return \Vpg\Elasticsearch\Connections\ConnectionInterface
+     * @param \Vpg\Elasticsearch\Connections\ConnectionInterface[] $connections an array of ConnectionInterface instances to choose from
      */
-    public function select($connections);
+    public function select(array $connections): ConnectionInterface;
 }

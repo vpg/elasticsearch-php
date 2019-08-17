@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\ConnectionPool\Selectors;
 
 use Vpg\Elasticsearch\Connections\ConnectionInterface;
@@ -29,12 +31,12 @@ class StickyRoundRobinSelector implements SelectorInterface
      * Use current connection unless it is dead, otherwise round-robin
      *
      * @param ConnectionInterface[] $connections Array of connections to choose from
-     *
-     * @return ConnectionInterface
      */
-    public function select($connections)
+    public function select(array $connections): ConnectionInterface
     {
-        /** @var ConnectionInterface[] $connections */
+        /**
+ * @var ConnectionInterface[] $connections
+*/
         if ($connections[$this->current]->isAlive()) {
             return $connections[$this->current];
         }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints\Snapshot;
 
 use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
@@ -16,19 +18,21 @@ use Vpg\Elasticsearch\Common\Exceptions;
  */
 class Restore extends AbstractEndpoint
 {
-    // A repository name
+    /**
+     * A repository name
+     *
+     * @var string
+     */
     private $repository;
 
-    // A snapshot name
+    /**
+     * A snapshot name
+     *
+     * @var string
+     */
     private $snapshot;
 
-    /**
-     * @param array $body
-     *
-     * @throws \Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
-     */
-    public function setBody($body)
+    public function setBody($body): Restore
     {
         if (isset($body) !== true) {
             return $this;
@@ -39,12 +43,7 @@ class Restore extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @param $repository
-     *
-     * @return $this
-     */
-    public function setRepository($repository)
+    public function setRepository(?string $repository): Restore
     {
         if (isset($repository) !== true) {
             return $this;
@@ -55,12 +54,7 @@ class Restore extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @param $snapshot
-     *
-     * @return $this
-     */
-    public function setSnapshot($snapshot)
+    public function setSnapshot(?string $snapshot): Restore
     {
         if (isset($snapshot) !== true) {
             return $this;
@@ -73,9 +67,8 @@ class Restore extends AbstractEndpoint
 
     /**
      * @throws \Vpg\Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
      */
-    public function getURI()
+    public function getURI(): string
     {
         if (isset($this->repository) !== true) {
             throw new Exceptions\RuntimeException(
@@ -87,32 +80,18 @@ class Restore extends AbstractEndpoint
                 'snapshot is required for Restore'
             );
         }
-        $repository = $this->repository;
-        $snapshot = $this->snapshot;
-        $uri   = "/_snapshot/$repository/$snapshot/_restore";
-
-        if (isset($repository) === true && isset($snapshot) === true) {
-            $uri = "/_snapshot/$repository/$snapshot/_restore";
-        }
-
-        return $uri;
+        return "/_snapshot/{$this->repository}/{$this->snapshot}/_restore";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'master_timeout',
-            'wait_for_completion',
-        );
+            'wait_for_completion'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'POST';
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints\Ingest\Pipeline;
 
 use Vpg\Elasticsearch\Common\Exceptions;
@@ -18,36 +20,26 @@ class Delete extends AbstractEndpoint
 {
     /**
      * @throws \Vpg\Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
      */
-    public function getURI()
+    public function getURI(): string
     {
         if (isset($this->id) !== true) {
             throw new Exceptions\RuntimeException(
                 'id is required for DeletePipeline'
             );
         }
-        $id = $this->id;
-        $uri = "/_ingest/pipeline/$id";
-
-        return $uri;
+        return "/_ingest/pipeline/{$this->id}";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'master_timeout',
             'timeout'
-        );
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'DELETE';
     }

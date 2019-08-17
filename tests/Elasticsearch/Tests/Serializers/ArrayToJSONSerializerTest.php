@@ -5,12 +5,12 @@ declare(strict_types = 1);
 namespace Vpg\Elasticsearch\Tests\Serializers;
 
 use Vpg\Elasticsearch\Serializers\ArrayToJSONSerializer;
-use PHPUnit_Framework_TestCase;
 use Mockery as m;
 
 /**
  * Class ArrayToJSONSerializerTest
- * @package Elasticsearch\Tests\Serializers
+ *
+ * @package Vpg\Elasticsearch\Tests\Serializers
  */
 class ArrayToJSONSerializerTest extends \PHPUnit\Framework\TestCase
 {

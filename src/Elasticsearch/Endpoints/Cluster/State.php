@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints\Cluster;
 
 use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
@@ -15,15 +17,17 @@ use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class State extends AbstractEndpoint
 {
-    // Limit the information returned to the specified metrics
+    /**
+     * Limit the information returned to the specified metrics
+     *
+     * @var string
+     */
     private $metric;
 
     /**
-     * @param $metric
-     *
-     * @return $this
+     * @param string|string[] $metric
      */
-    public function setMetric($metric)
+    public function setMetric($metric): State
     {
         if (isset($metric) !== true) {
             return $this;
@@ -38,44 +42,35 @@ class State extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $index = $this->index;
-        $metric = $this->metric;
-        $uri   = "/_cluster/state";
+        $index = $this->index ?? null;
+        $metric = $this->metric ?? null;
 
-        if (isset($metric) === true && isset($index) === true) {
-            $uri = "/_cluster/state/$metric/$index";
-        } elseif (isset($metric) === true) {
-            $uri = "/_cluster/state/$metric";
+        if (isset($metric) && isset($index)) {
+            return "/_cluster/state/$metric/$index";
         }
-
-        return $uri;
+        if (isset($metric) === true) {
+            return "/_cluster/state/$metric";
+        }
+        return "/_cluster/state";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'local',
             'master_timeout',
             'flat_settings',
-            'index_templates',
-            'expand_wildcards',
+            'wait_for_metadata_version',
+            'wait_for_timeout',
             'ignore_unavailable',
-            'allow_no_indices'
-        );
+            'allow_no_indices',
+            'expand_wildcards'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

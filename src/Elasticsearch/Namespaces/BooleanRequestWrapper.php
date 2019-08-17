@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Namespaces;
 
 use Vpg\Elasticsearch\Common\Exceptions\Missing404Exception;
@@ -21,8 +23,6 @@ trait BooleanRequestWrapper
 {
     /**
      * Perform Request
-     *
-     * @param  AbstractEndpoint $endpoint The Endpoint to perform this request against
      *
      * @throws Missing404Exception
      * @throws RoutingMissingException

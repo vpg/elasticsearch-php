@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints\Indices\Mapping;
 
 use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
@@ -17,12 +19,9 @@ use Vpg\Elasticsearch\Common\Exceptions;
 class Put extends AbstractEndpoint
 {
     /**
-     * @param array $body
-     *
      * @throws \Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
      */
-    public function setBody($body)
+    public function setBody($body): Put
     {
         if (isset($body) !== true) {
             return $this;
@@ -35,46 +34,39 @@ class Put extends AbstractEndpoint
 
     /**
      * @throws \Vpg\Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
      */
-    public function getURI()
+    public function getURI(): string
     {
-        if (isset($this->type) !== true) {
-            throw new Exceptions\RuntimeException(
-                'type is required for Put'
-            );
-        }
-        $index = $this->index;
-        $type = $this->type;
-        $uri   = "/_mapping/$type";
+        $index = $this->index ?? null;
+        $type = $this->type ?? null;
 
-        if (isset($index) === true && isset($type) === true) {
-            $uri = "/$index/$type/_mapping";
-        } elseif (isset($type) === true) {
-            $uri = "/_mapping/$type";
+        if (isset($index) && isset($type)) {
+            return "/$index/_mapping/$type";
         }
-
-        return $uri;
+        if (isset($index)) {
+            return "/$index/_mapping";
+        }
+        if (isset($type)) {
+            return "/_mapping/$type";
+        }
+        throw new Exceptions\RuntimeException(
+            'Type or Index is required for Put'
+        );
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
-            'ignore_conflicts',
+        return [
+            'include_type_name',
             'timeout',
             'master_timeout',
             'ignore_unavailable',
             'allow_no_indices',
-            'expand_wildcards',
-            'update_all_types'
-        );
+            'expand_wildcards'
+        ];
     }
 
     /**
-     * @return array
      * @throws \Vpg\Elasticsearch\Common\Exceptions\RuntimeException
      */
     public function getBody()
@@ -86,10 +78,7 @@ class Put extends AbstractEndpoint
         return $this->body;
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'PUT';
     }

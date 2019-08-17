@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints\Snapshot;
 
 use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
@@ -16,18 +18,21 @@ use Vpg\Elasticsearch\Common\Exceptions;
  */
 class Delete extends AbstractEndpoint
 {
-    // A repository name
+    /**
+     * A repository name
+     *
+     * @var string
+     */
     private $repository;
 
-    // A snapshot name
+    /**
+     * A snapshot name
+     *
+     * @var string
+     */
     private $snapshot;
 
-    /**
-     * @param $repository
-     *
-     * @return $this
-     */
-    public function setRepository($repository)
+    public function setRepository(?string $repository): Delete
     {
         if (isset($repository) !== true) {
             return $this;
@@ -38,12 +43,7 @@ class Delete extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @param $snapshot
-     *
-     * @return $this
-     */
-    public function setSnapshot($snapshot)
+    public function setSnapshot(?string $snapshot): Delete
     {
         if (isset($snapshot) !== true) {
             return $this;
@@ -56,9 +56,8 @@ class Delete extends AbstractEndpoint
 
     /**
      * @throws \Vpg\Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
      */
-    public function getURI()
+    public function getURI(): string
     {
         if (isset($this->repository) !== true) {
             throw new Exceptions\RuntimeException(
@@ -70,31 +69,17 @@ class Delete extends AbstractEndpoint
                 'snapshot is required for Delete'
             );
         }
-        $repository = $this->repository;
-        $snapshot = $this->snapshot;
-        $uri   = "/_snapshot/$repository/$snapshot";
-
-        if (isset($repository) === true && isset($snapshot) === true) {
-            $uri = "/_snapshot/$repository/$snapshot";
-        }
-
-        return $uri;
+        return "/_snapshot/{$this->repository}/{$this->snapshot}";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
-            'master_timeout',
-        );
+        return [
+            'master_timeout'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'DELETE';
     }

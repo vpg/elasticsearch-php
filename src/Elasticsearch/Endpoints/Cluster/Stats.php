@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints\Cluster;
 
 use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
@@ -15,15 +17,16 @@ use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Stats extends AbstractEndpoint
 {
-    // A comma-separated list of node IDs or names to limit the returned information; use `_local` to return information from the node you&#039;re connecting to, leave empty to get information from all nodes
+    /**
+     * A comma-separated list of node IDs or names to limit the returned information;
+     * use `_local` to return information from the node you're connecting to,
+     * leave empty to get information from all nodes
+     *
+     * @var string
+     */
     private $nodeID;
 
-    /**
-     * @param $node_id
-     *
-     * @return $this
-     */
-    public function setNodeID($node_id)
+    public function setNodeID(?string $node_id): Stats
     {
         if (isset($node_id) !== true) {
             return $this;
@@ -34,36 +37,26 @@ class Stats extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $node_id = $this->nodeID;
-        $uri   = "/_cluster/stats";
+        $nodeId = $this->nodeID ?? null;
 
-        if (isset($node_id) === true) {
-            $uri = "/_cluster/stats/nodes/$node_id";
+        if (isset($nodeId)) {
+            return "/_cluster/stats/nodes/$nodeId";
         }
 
-        return $uri;
+        return "/_cluster/stats";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'flat_settings',
-            'human',
-        );
+            'timeout'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

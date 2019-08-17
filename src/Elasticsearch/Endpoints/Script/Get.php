@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints\Script;
 
 use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
@@ -16,63 +18,27 @@ use Vpg\Elasticsearch\Common\Exceptions;
  */
 class Get extends AbstractEndpoint
 {
-    /** @var  String */
-    private $lang;
-
-    /**
-     * @param $lang
-     *
-     * @return $this
-     */
-    public function setLang($lang)
-    {
-        if (isset($lang) !== true) {
-            return $this;
-        }
-
-        $this->lang = $lang;
-
-        return $this;
-    }
-
     /**
      * @throws \Vpg\Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
      */
-    public function getURI()
+    public function getURI(): string
     {
-        if (isset($this->lang) !== true) {
-            throw new Exceptions\RuntimeException(
-                'lang is required for Put'
-            );
-        }
         if (isset($this->id) !== true) {
             throw new Exceptions\RuntimeException(
-                'id is required for put'
+                'id is required for Get'
             );
         }
-        $id   = $this->id;
-        $lang = $this->lang;
-        $uri  = "/_scripts/$lang/$id";
-
-        return $uri;
+        return "/_scripts/{$this->id}";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
-            'version_type',
-            'version'
-        );
+        return [
+            'master_timeout'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

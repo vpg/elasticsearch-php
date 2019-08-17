@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints\Indices\Template;
 
 use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
@@ -16,16 +18,17 @@ use Vpg\Elasticsearch\Common\Exceptions;
  */
 class Put extends AbstractEndpoint
 {
-    // The name of the template
+    /**
+     * The name of the template
+     *
+     * @var string
+     */
     private $name;
 
     /**
-     * @param array $body
-     *
      * @throws \Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
      */
-    public function setBody($body)
+    public function setBody($body): Put
     {
         if (isset($body) !== true) {
             return $this;
@@ -36,12 +39,7 @@ class Put extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @param $name
-     *
-     * @return $this
-     */
-    public function setName($name)
+    public function setName(?string $name): Put
     {
         if (isset($name) !== true) {
             return $this;
@@ -54,41 +52,30 @@ class Put extends AbstractEndpoint
 
     /**
      * @throws \Vpg\Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
      */
-    public function getURI()
+    public function getURI(): string
     {
         if (isset($this->name) !== true) {
             throw new Exceptions\RuntimeException(
                 'name is required for Put'
             );
         }
-        $name = $this->name;
-        $uri   = "/_template/$name";
-
-        if (isset($name) === true) {
-            $uri = "/_template/$name";
-        }
-
-        return $uri;
+        return "/_template/{$this->name}";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
+            'include_type_name',
             'order',
+            'create',
             'timeout',
             'master_timeout',
-            'flat_settings',
-            'create'
-        );
+            'flat_settings'
+        ];
     }
 
     /**
-     * @return array
      * @throws \Vpg\Elasticsearch\Common\Exceptions\RuntimeException
      */
     public function getBody()
@@ -100,10 +87,7 @@ class Put extends AbstractEndpoint
         return $this->body;
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'PUT';
     }

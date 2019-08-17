@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints;
 
+use Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Vpg\Elasticsearch\Serializers\SerializerInterface;
-use Vpg\Elasticsearch\Transport;
+use Traversable;
 
 /**
  * Class Bulk
@@ -25,58 +28,59 @@ class Bulk extends AbstractEndpoint implements BulkEndpointInterface
     }
 
     /**
-     * @param string|array|\Traversable $body
-     *
-     * @return $this
+     * @param string|array|Traversable $body
      */
-    public function setBody($body)
+    public function setBody($body): BulkEndpointInterface
     {
         if (empty($body)) {
             return $this;
         }
 
-        if (is_array($body) === true || $body instanceof \Traversable) {
+        if (is_array($body) === true || $body instanceof Traversable) {
             foreach ($body as $item) {
                 $this->body .= $this->serializer->serialize($item) . "\n";
             }
-        } else {
+        } elseif (is_string($body)) {
             $this->body = $body;
+            if (substr($body, -1) != "\n") {
+                $this->body .= "\n";
+            }
+        } else {
+            throw new InvalidArgumentException("Bulk body must be an array, traversable object or string");
         }
 
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        return $this->getOptionalURI('_bulk');
+        $index = $this->index ?? null;
+        $type = $this->type ?? null;
+        if (isset($index) && isset($type)) {
+            return "/$index/$type/_bulk";
+        }
+        if (isset($index)) {
+            return "/$index/_bulk";
+        }
+        return "/_bulk";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
-            'consistency',
+        return [
+            'wait_for_active_shards',
             'refresh',
-            'replication',
+            'routing',
+            'timeout',
             'type',
-            'fields',
-            'pipeline',
             '_source',
-            '_source_include',
-            '_source_exclude',
+            '_source_includes',
+            '_source_excludes',
             'pipeline'
-        );
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'POST';
     }

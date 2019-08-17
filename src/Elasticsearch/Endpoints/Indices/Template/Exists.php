@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints\Indices\Template;
 
 use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
@@ -16,15 +18,14 @@ use Vpg\Elasticsearch\Common\Exceptions;
  */
 class Exists extends AbstractEndpoint
 {
-    // The name of the template
+    /**
+     * The name of the template
+     *
+     * @var string
+     */
     private $name;
 
-    /**
-     * @param $name
-     *
-     * @return $this
-     */
-    public function setName($name)
+    public function setName(?string $name): Exists
     {
         if (isset($name) !== true) {
             return $this;
@@ -37,40 +38,30 @@ class Exists extends AbstractEndpoint
 
     /**
      * @throws \Vpg\Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
      */
-    public function getURI()
+    public function getURI(): string
     {
         if (isset($this->name) !== true) {
             throw new Exceptions\RuntimeException(
                 'name is required for Exists'
             );
         }
-        $name = $this->name;
-        $uri   = "/_template/$name";
-
-        if (isset($name) === true) {
-            $uri = "/_template/$name";
-        }
-
-        return $uri;
+        return "/_template/{$this->name}";
     }
 
     /**
      * @return string[]
      */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
-            'local',
-            'master_timeout'
-        );
+        return [
+            'flat_settings',
+            'master_timeout',
+            'local'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'HEAD';
     }

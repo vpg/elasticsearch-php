@@ -1,12 +1,11 @@
 language: php
 
-jdk:
-  - oraclejdk8
+cache:
+  directories:
+    - $HOME/.composer/cache
 
-addons:
-  apt:
-    packages:
-      - oracle-java8-installer
+services:
+  - docker
 
 branches:
   except:
@@ -17,44 +16,49 @@ sudo: true
 matrix:
   fast_finish: true
   include:
-    - php: 7.0
-      env: ES_VERSION="6.0"
-    - php: 7.0
-      env: ES_VERSION="6.x"
-
     - php: 7.1
-      env: ES_VERSION="6.0"
-    - php: 7.1
-      env: ES_VERSION="6.x"
-
+      env: ES_VERSION="7.2.0"
     - php: 7.2
-      env: ES_VERSION="6.0"
-
+      env: ES_VERSION="7.2.0"
+    - php: 7.3
+      env: ES_VERSION="7.2.0"
+    - php: 7.1
+      env: ES_VERSION="7.2.1"
+    - php: 7.2
+      env: ES_VERSION="7.2.1"
+    - php: 7.3
+      env: ES_VERSION="7.2.1"
+    - php: 7.3
+      env: ES_VERSION="7.3.0"
   allow_failures:
-    - env: ES_VERSION="6.x"
+    - php: 7.3
+      env: ES_VERSION="7.3.0"
 
 env:
   global:
     - ES_TEST_HOST=http://localhost:9200
-    - JAVA_HOME="/usr/lib/jvm/java-8-oracle/jre"
 
 before_install:
-  - sudo update-java-alternatives -s java-8-oracle
-  - ./travis/download_and_run_es.sh
+  - ./travis/run_es_docker.sh
 
 install:
-  - composer install --prefer-source
+  - composer install --prefer-dist
 
 before_script:
-  - if [ $TRAVIS_PHP_VERSION = '7.0' ]; then PHPUNIT_FLAGS="--coverage-clover ./build/logs/clover.xml"; fi
+  - if [ $TRAVIS_PHP_VERSION = '7.3' ]; then PHPUNIT_FLAGS="--coverage-clover ./build/logs/clover.xml"; fi
   - php util/RestSpecRunner.php
   - php util/EnsureClusterAlive.php
 
 script:
-  - composer run-script phpcs
-  - composer run-script phpstan
+  - if [ $TRAVIS_PHP_VERSION != '7.3' ]; then composer run-script phpcs; fi
+  - if [ $TRAVIS_PHP_VERSION = '7.1' ]; then composer run-script phpstan7.1; fi
+  - if [ $TRAVIS_PHP_VERSION = '7.2' ]; then composer run-script phpstan7.1; fi
+  - if [ $TRAVIS_PHP_VERSION = '7.3' ]; then composer run-script phpstan; fi
   - vendor/bin/phpunit $PHPUNIT_FLAGS
   - vendor/bin/phpunit -c phpunit-integration.xml --group sync $PHPUNIT_FLAGS
 
 after_script:
-  - if [ $TRAVIS_PHP_VERSION = '7.0' ]; then php vendor/bin/coveralls; fi
+  - if [ $TRAVIS_PHP_VERSION = '7.3' ]; then php vendor/bin/coveralls; fi
+
+notifications:
+  email: true

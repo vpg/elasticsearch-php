@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Common\Exceptions\Curl;
 
 use Vpg\Elasticsearch\Common\Exceptions\ElasticsearchException;
@@ -13,7 +15,7 @@ use Vpg\Elasticsearch\Common\Exceptions\TransportException;
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
-  */
+ */
 class CouldNotResolveHostException extends TransportException implements ElasticsearchException
 {
 }

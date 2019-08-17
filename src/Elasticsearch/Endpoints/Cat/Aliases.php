@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints\Cat;
 
 use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
@@ -15,15 +17,14 @@ use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Aliases extends AbstractEndpoint
 {
-    // A comma-separated list of alias names to return
+    /**
+     * A comma-separated list of alias names to return
+     *
+     * @var string
+     */
     private $name;
 
-    /**
-     * @param $name
-     *
-     * @return $this
-     */
-    public function setName($name)
+    public function setName(?string $name): Aliases
     {
         if (isset($name) !== true) {
             return $this;
@@ -34,42 +35,29 @@ class Aliases extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $name = $this->name;
-        $uri   = "/_cat/aliases";
-
-        if (isset($name) === true) {
-            $uri = "/_cat/aliases/$name";
+        $name = $this->name ?? null;
+        if (isset($name)) {
+            return "/_cat/aliases/$name";
         }
-
-        return $uri;
+        return "/_cat/aliases";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
+            'format',
             'local',
             'master_timeout',
             'h',
             'help',
-            'v',
-            'format',
             's',
-            'format',
-        );
+            'v'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints\Indices;
 
 use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
@@ -9,7 +11,7 @@ use Vpg\Elasticsearch\Common\Exceptions;
  * Class ShardStores
  *
  * @category Elasticsearch
- * @package Elasticsearch\Endpoints\Indices
+ * @package  Vpg\Elasticsearch\Endpoints\Indices
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
@@ -17,42 +19,27 @@ use Vpg\Elasticsearch\Common\Exceptions;
 
 class ShardStores extends AbstractEndpoint
 {
-    /**
-     * @throws \Vpg\Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $index = $this->index;
-        $uri   = "/_shard_stores";
+        $index = $this->index ?? null;
 
-        if (isset($index) === true) {
-            $uri = "/$index/_shard_stores";
+        if (isset($index)) {
+            return "/$index/_shard_stores";
         }
-
-        return $uri;
+        return "/_shard_stores";
     }
 
-
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'status',
             'ignore_unavailable',
             'allow_no_indices',
-            'expand_wildcards',
-            'operation_threading'
-        );
+            'expand_wildcards'
+        ];
     }
 
-
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

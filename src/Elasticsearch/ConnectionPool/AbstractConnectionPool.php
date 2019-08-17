@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\ConnectionPool;
 
 use Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException;
 use Vpg\Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
-use Vpg\Elasticsearch\Connections\Connection;
 use Vpg\Elasticsearch\Connections\ConnectionFactoryInterface;
 use Vpg\Elasticsearch\Connections\ConnectionInterface;
 
@@ -40,21 +41,25 @@ abstract class AbstractConnectionPool implements ConnectionPoolInterface
      */
     protected $selector;
 
-    /** @var array */
+    /**
+     * @var array
+     */
     protected $connectionPoolParams;
 
-    /** @var \Vpg\Elasticsearch\Connections\ConnectionFactory  */
+    /**
+     * @var \Vpg\Elasticsearch\Connections\ConnectionFactory
+     */
     protected $connectionFactory;
 
     /**
      * Constructor
      *
-     * @param ConnectionInterface[]          $connections          The Connections to choose from
-     * @param SelectorInterface              $selector             A Selector instance to perform the selection logic for the available connections
-     * @param ConnectionFactoryInterface     $factory              ConnectionFactory instance
-     * @param array                          $connectionPoolParams
+     * @param ConnectionInterface[]      $connections          The Connections to choose from
+     * @param SelectorInterface          $selector             A Selector instance to perform the selection logic for the available connections
+     * @param ConnectionFactoryInterface $factory              ConnectionFactory instance
+     * @param array                      $connectionPoolParams
      */
-    public function __construct($connections, SelectorInterface $selector, ConnectionFactoryInterface $factory, $connectionPoolParams)
+    public function __construct(array $connections, SelectorInterface $selector, ConnectionFactoryInterface $factory, array $connectionPoolParams)
     {
         $paramList = array('connections', 'selector', 'connectionPoolParams');
         foreach ($paramList as $param) {
@@ -64,7 +69,8 @@ abstract class AbstractConnectionPool implements ConnectionPoolInterface
         }
 
         if (isset($connectionPoolParams['randomizeHosts']) === true
-            && $connectionPoolParams['randomizeHosts'] === true) {
+            && $connectionPoolParams['randomizeHosts'] === true
+        ) {
             shuffle($connections);
         }
 
@@ -75,12 +81,7 @@ abstract class AbstractConnectionPool implements ConnectionPoolInterface
         $this->connectionFactory    = $factory;
     }
 
-    /**
-     * @param bool $force
-     *
-     * @return Connection
-     */
-    abstract public function nextConnection($force = false);
+    abstract public function nextConnection(bool $force = false): ConnectionInterface;
 
-    abstract public function scheduleCheck();
+    abstract public function scheduleCheck(): void;
 }

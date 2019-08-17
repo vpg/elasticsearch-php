@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints\Indices\Validate;
 
 use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
@@ -17,12 +19,9 @@ use Vpg\Elasticsearch\Common\Exceptions;
 class Query extends AbstractEndpoint
 {
     /**
-     * @param array $body
-     *
      * @throws \Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
      */
-    public function setBody($body)
+    public function setBody($body): Query
     {
         if (isset($body) !== true) {
             return $this;
@@ -33,39 +32,40 @@ class Query extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        return $this->getOptionalURI('_validate/query');
+        $index = $this->index ?? null;
+        $type = $this->type ?? null;
+
+        if (isset($index) && isset($type)) {
+            return "/$index/$type/_validate/query";
+        }
+        if (isset($index)) {
+            return "/$index/_validate/query";
+        }
+        return "/_validate/query";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'explain',
-            'ignore_indices',
-            'operation_threading',
-            'source',
+            'ignore_unavailable',
+            'allow_no_indices',
+            'expand_wildcards',
             'q',
-            'df',
-            'default_operator',
             'analyzer',
             'analyze_wildcard',
+            'default_operator',
+            'df',
             'lenient',
-            'lowercase_expanded_terms'
-        );
+            'rewrite',
+            'all_shards'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
-        return 'GET';
+        return isset($this->body) ? 'POST' : 'GET';
     }
 }

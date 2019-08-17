@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints\Indices\Template;
 
 use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
@@ -16,15 +18,14 @@ use Vpg\Elasticsearch\Common\Exceptions;
  */
 class Get extends AbstractEndpoint
 {
-    // The name of the template
+    /**
+     * The name of the template
+     *
+     * @var string
+     */
     private $name;
 
-    /**
-     * @param $name
-     *
-     * @return $this
-     */
-    public function setName($name)
+    public function setName(?string $name): Get
     {
         if (isset($name) !== true) {
             return $this;
@@ -37,36 +38,31 @@ class Get extends AbstractEndpoint
 
     /**
      * @throws \Vpg\Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
      */
-    public function getURI()
+    public function getURI(): string
     {
-        $name = $this->name;
-        $uri   = "/_template";
+        $name = $this->name ?? null;
 
-        if (isset($name) === true) {
-            $uri = "/_template/$name";
+        if (isset($name)) {
+            return "/_template/$name";
         }
-
-        return $uri;
+        return "/_template";
     }
 
     /**
      * @return string[]
      */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
+            'include_type_name',
             'flat_settings',
-            'local',
-            'master_timeout'
-        );
+            'master_timeout',
+            'local'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

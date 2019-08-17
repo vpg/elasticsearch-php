@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints;
 
-use Vpg\Elasticsearch\Common\Exceptions;
+use Vpg\Elasticsearch\Common\Exceptions\RuntimeException;
 
 /**
  * Class Index
@@ -15,107 +17,65 @@ use Vpg\Elasticsearch\Common\Exceptions;
  */
 class Index extends AbstractEndpoint
 {
-    /** @var bool  */
-    private $createIfAbsent = false;
-
-    /**
-     * @param array $body
-     *
-     * @throws \Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
-     */
-    public function setBody($body)
+    public function setBody($body): Index
     {
         if (isset($body) !== true) {
             return $this;
         }
-
         $this->body = $body;
-
         return $this;
     }
 
     /**
-     * @return $this
+     * @throws RuntimeException
      */
-    public function createIfAbsent()
-    {
-        $this->createIfAbsent = true;
-
-        return $this;
-    }
-
-    /**
-     * @throws \Vpg\Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
         if (isset($this->index) !== true) {
-            throw new Exceptions\RuntimeException(
+            throw new RuntimeException(
                 'index is required for Index'
             );
         }
 
-        if (isset($this->type) !== true) {
-            throw new Exceptions\RuntimeException(
-                'type is required for Index'
-            );
-        }
-
-        $id    = $this->id;
+        $id    = $this->id ?? null;
         $index = $this->index;
-        $type  = $this->type;
-        $uri   = "/$index/$type";
+        $type  = $this->type ?? '_doc';
 
-        if (isset($id) === true) {
-            $uri = "/$index/$type/$id";
+        if (isset($id)) {
+            return "/$index/$type/$id";
         }
-        return $uri;
+        return "/$index/$type";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
-            'consistency',
+        return [
+            'wait_for_active_shards',
             'op_type',
             'parent',
-            'percolate',
             'refresh',
-            'replication',
             'routing',
             'timeout',
-            'timestamp',
-            'ttl',
             'version',
             'version_type',
+            'if_seq_no',
+            'if_primary_term',
             'pipeline'
-        );
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
-        if (isset($this->id) === true) {
-            return 'PUT';
-        } else {
-            return 'POST';
-        }
+        return 'POST';
     }
 
     /**
-     * @return array
-     * @throws \Vpg\Elasticsearch\Common\Exceptions\RuntimeException
+     * @throws RuntimeException
      */
     public function getBody()
     {
         if (isset($this->body) !== true) {
-            throw new Exceptions\RuntimeException('Document body must be set for index request');
+            throw new RuntimeException('Document body must be set for index request');
         } else {
             return $this->body;
         }

@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints;
 
-use Vpg\Elasticsearch\Common\Exceptions;
+use Vpg\Elasticsearch\Common\Exceptions\RuntimeException;
 
 /**
  * Class TermVectors
@@ -15,13 +17,7 @@ use Vpg\Elasticsearch\Common\Exceptions;
  */
 class TermVectors extends AbstractEndpoint
 {
-    /**
-     * @param array $body
-     *
-     * @throws \Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
-     */
-    public function setBody($body)
+    public function setBody($body): TermVectors
     {
         if (isset($body) !== true) {
             return $this;
@@ -33,45 +29,35 @@ class TermVectors extends AbstractEndpoint
     }
 
     /**
-     * @throws \Vpg\Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
+     * @throws RuntimeException
      */
-    public function getURI()
+    public function getURI(): string
     {
         if (isset($this->index) !== true) {
-            throw new Exceptions\RuntimeException(
+            throw new RuntimeException(
                 'index is required for TermVectors'
-            );
-        }
-        if (isset($this->type) !== true) {
-            throw new Exceptions\RuntimeException(
-                'type is required for TermVectors'
-            );
-        }
-        if (isset($this->id) !== true && isset($this->body['doc']) !== true) {
-            throw new Exceptions\RuntimeException(
-                'id or doc is required for TermVectors'
             );
         }
 
         $index = $this->index;
-        $type  = $this->type;
-        $id    = $this->id;
-        $uri   = "/$index/$type/_termvectors";
+        $type  = $this->type ?? null;
+        $id    = $this->id ?? null;
 
-        if ($id !== null) {
-            $uri = "/$index/$type/$id/_termvectors";
+        if (isset($type) && isset($id)) {
+            return "/$index/$type/$id/_termvectors";
         }
-
-        return $uri;
+        if (isset($type)) {
+            return "/$index/$type/_termvectors";
+        }
+        if (isset($id)) {
+            return "/$index/_termvectors/$id";
+        }
+        return "/$index/_termvectors";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'term_statistics',
             'field_statistics',
             'fields',
@@ -81,15 +67,14 @@ class TermVectors extends AbstractEndpoint
             'preference',
             'routing',
             'parent',
-            'realtime'
-        );
+            'realtime',
+            'version',
+            'version_type'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
-        return 'POST';
+        return isset($this->body) ? 'POST' : 'GET';
     }
 }

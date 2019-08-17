@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints\Cluster\Nodes;
 
 /**
@@ -13,18 +15,25 @@ namespace Vpg\Elasticsearch\Endpoints\Cluster\Nodes;
  */
 class Stats extends AbstractNodesEndpoint
 {
-    // Limit the information returned to the specified metrics
+    /**
+     * Limit the information returned to the specified metrics
+     *
+     * @var string
+     */
     private $metric;
 
-    // Limit the information returned for `indices` metric to the specific index metrics. Isn&#039;t used if `indices` (or `all`) metric isn&#039;t specified.
+    /**
+     * Limit the information returned for `indices` metric to the specific index metrics.
+     * Isn't used if `indices` (or `all`) metric isn't specified.
+     *
+     * @var string
+     */
     private $indexMetric;
 
     /**
-     * @param $metric
-     *
-     * @return $this
+     * @param string|string[] $metric
      */
-    public function setMetric($metric)
+    public function setMetric($metric): Stats
     {
         if (isset($metric) !== true) {
             return $this;
@@ -40,11 +49,9 @@ class Stats extends AbstractNodesEndpoint
     }
 
     /**
-     * @param $indexMetric
-     *
-     * @return $this
+     * @param string|string[] $indexMetric
      */
-    public function setIndexMetric($indexMetric)
+    public function setIndexMetric($indexMetric): Stats
     {
         if (isset($indexMetric) !== true) {
             return $this;
@@ -59,52 +66,45 @@ class Stats extends AbstractNodesEndpoint
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $metric = $this->metric;
-        $index_metric = $this->indexMetric;
-        $node_id = $this->nodeID;
-        $uri   = "/_nodes/stats";
+        $metric = $this->metric ?? null;
+        $indexMetric = $this->indexMetric ?? null;
+        $nodeId = $this->nodeID ?? null;
 
-        if (isset($node_id) === true && isset($metric) === true && isset($index_metric) === true) {
-            $uri = "/_nodes/$node_id/stats/$metric/$index_metric";
-        } elseif (isset($metric) === true && isset($index_metric) === true) {
-            $uri = "/_nodes/stats/$metric/$index_metric";
-        } elseif (isset($node_id) === true && isset($metric) === true) {
-            $uri = "/_nodes/$node_id/stats/$metric";
-        } elseif (isset($metric) === true) {
-            $uri = "/_nodes/stats/$metric";
-        } elseif (isset($node_id) === true) {
-            $uri = "/_nodes/$node_id/stats";
+        if (isset($nodeId) && isset($metric) && isset($indexMetric)) {
+            return "/_nodes/$nodeId/stats/$metric/$indexMetric";
         }
-
-        return $uri;
+        if (isset($metric) && isset($indexMetric)) {
+            return "/_nodes/stats/$metric/$indexMetric";
+        }
+        if (isset($nodeId) && isset($metric)) {
+            return "/_nodes/$nodeId/stats/$metric";
+        }
+        if (isset($metric)) {
+            return "/_nodes/stats/$metric";
+        }
+        if (isset($nodeId)) {
+            return "/_nodes/$nodeId/stats";
+        }
+        return "/_nodes/stats";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'completion_fields',
             'fielddata_fields',
             'fields',
             'groups',
-            'human',
             'level',
             'types',
-            'include_segment_file_sizes',
-        );
+            'timeout',
+            'include_segment_file_sizes'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\ConnectionPool;
 
 use Vpg\Elasticsearch\Common\Exceptions\NoNodesAvailableException;
 use Vpg\Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
 use Vpg\Elasticsearch\Connections\Connection;
+use Vpg\Elasticsearch\Connections\ConnectionInterface;
 use Vpg\Elasticsearch\Connections\ConnectionFactoryInterface;
 
 class StaticNoPingConnectionPool extends AbstractConnectionPool implements ConnectionPoolInterface
@@ -27,17 +30,13 @@ class StaticNoPingConnectionPool extends AbstractConnectionPool implements Conne
         parent::__construct($connections, $selector, $factory, $connectionPoolParams);
     }
 
-    /**
-     * @param bool $force
-     *
-     * @return Connection
-     * @throws \Vpg\Elasticsearch\Common\Exceptions\NoNodesAvailableException
-     */
-    public function nextConnection($force = false)
+    public function nextConnection(bool $force = false): ConnectionInterface
     {
         $total = count($this->connections);
         while ($total--) {
-            /** @var Connection $connection */
+            /**
+ * @var Connection $connection
+*/
             $connection = $this->selector->select($this->connections);
             if ($connection->isAlive() === true) {
                 return $connection;
@@ -51,16 +50,11 @@ class StaticNoPingConnectionPool extends AbstractConnectionPool implements Conne
         throw new NoNodesAvailableException("No alive nodes found in your cluster");
     }
 
-    public function scheduleCheck()
+    public function scheduleCheck(): void
     {
     }
 
-    /**
-     * @param \Vpg\Elasticsearch\Connections\Connection $connection
-     *
-     * @return bool
-     */
-    private function readyToRevive(Connection $connection)
+    private function readyToRevive(Connection $connection): bool
     {
         $timeout = min(
             $this->pingTimeout * pow(2, $connection->getPingFailures()),

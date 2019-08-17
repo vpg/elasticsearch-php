@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints;
 
 use Vpg\Elasticsearch\Serializers\SerializerInterface;
-use Vpg\Elasticsearch\Transport;
 
 /**
  * Interface BulkEndpointInterface

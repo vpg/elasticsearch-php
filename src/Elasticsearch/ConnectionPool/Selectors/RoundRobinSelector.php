@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\ConnectionPool\Selectors;
 
 use Vpg\Elasticsearch\Connections\ConnectionInterface;
@@ -23,11 +25,9 @@ class RoundRobinSelector implements SelectorInterface
     /**
      * Select the next connection in the sequence
      *
-     * @param  ConnectionInterface[] $connections an array of ConnectionInterface instances to choose from
-     *
-     * @return \Vpg\Elasticsearch\Connections\ConnectionInterface
+     * @param ConnectionInterface[] $connections an array of ConnectionInterface instances to choose from
      */
-    public function select($connections)
+    public function select(array $connections): ConnectionInterface
     {
         $returnConnection = $connections[$this->current % count($connections)];
 

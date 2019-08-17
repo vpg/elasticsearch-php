@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Connections;
 
 use Vpg\Elasticsearch\Serializers\SerializerInterface;
@@ -16,30 +18,31 @@ use Psr\Log\LoggerInterface;
  */
 class ConnectionFactory implements ConnectionFactoryInterface
 {
-    /** @var  array */
+    /**
+     * @var array
+     */
     private $connectionParams;
 
-    /** @var  SerializerInterface */
+    /**
+     * @var SerializerInterface
+     */
     private $serializer;
 
-    /** @var  LoggerInterface */
+    /**
+     * @var LoggerInterface
+     */
     private $logger;
 
-    /** @var  LoggerInterface */
+    /**
+     * @var LoggerInterface
+     */
     private $tracer;
 
-    /** @var callable */
+    /**
+     * @var callable
+     */
     private $handler;
 
-    /**
-     * Constructor
-     *
-     * @param callable            $handler
-     * @param array               $connectionParams
-     * @param SerializerInterface $serializer
-     * @param LoggerInterface     $logger
-     * @param LoggerInterface     $tracer
-     */
     public function __construct(callable $handler, array $connectionParams, SerializerInterface $serializer, LoggerInterface $logger, LoggerInterface $tracer)
     {
         $this->handler          = $handler;
@@ -48,12 +51,8 @@ class ConnectionFactory implements ConnectionFactoryInterface
         $this->tracer           = $tracer;
         $this->serializer       = $serializer;
     }
-    /**
-     * @param $hostDetails
-     *
-     * @return ConnectionInterface
-     */
-    public function create($hostDetails)
+
+    public function create(array $hostDetails): ConnectionInterface
     {
         return new Connection(
             $this->handler,

@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints;
 
-use Vpg\Elasticsearch\Common\Exceptions;
+use Vpg\Elasticsearch\Common\Exceptions\RuntimeException;
 
 /**
  * Class Get
@@ -15,99 +17,49 @@ use Vpg\Elasticsearch\Common\Exceptions;
  */
 class Get extends AbstractEndpoint
 {
-    /** @var bool  */
-    private $returnOnlySource = false;
-
-    /** @var bool  */
-    private $checkOnlyExistance = false;
-
     /**
-     * @return $this
+     * @throws RuntimeException
      */
-    public function returnOnlySource()
-    {
-        $this->returnOnlySource = true;
-
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    public function checkOnlyExistance()
-    {
-        $this->checkOnlyExistance = true;
-
-        return $this;
-    }
-
-    /**
-     * @throws \Vpg\Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
         if (isset($this->id) !== true) {
-            throw new Exceptions\RuntimeException(
+            throw new RuntimeException(
                 'id is required for Get'
             );
         }
         if (isset($this->index) !== true) {
-            throw new Exceptions\RuntimeException(
+            throw new RuntimeException(
                 'index is required for Get'
-            );
-        }
-        if (isset($this->type) !== true) {
-            throw new Exceptions\RuntimeException(
-                'type is required for Get'
             );
         }
         $id = $this->id;
         $index = $this->index;
-        $type = $this->type;
-        $uri   = "/$index/$type/$id";
+        $type = $this->type ?? '_doc';
 
-        if (isset($index) === true && isset($type) === true && isset($id) === true) {
-            $uri = "/$index/$type/$id";
-        }
-
-        if ($this->returnOnlySource === true) {
-            $uri .= '/_source';
-        }
-
-        return $uri;
+        return "/$index/$type/$id";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
-            'fields',
+        return [
+            'stored_fields',
             'parent',
             'preference',
             'realtime',
             'refresh',
             'routing',
             '_source',
+            '_source_excludes',
             '_source_exclude',
+            '_source_includes',
             '_source_include',
             'version',
-            'version_type',
-            'stored_fields'
-        );
+            'version_type'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
-        if ($this->checkOnlyExistance === true) {
-            return 'HEAD';
-        } else {
-            return 'GET';
-        }
+        return 'GET';
     }
 }

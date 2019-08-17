@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Common\Exceptions\Curl;
 
 use Vpg\Elasticsearch\Common\Exceptions\ElasticsearchException;

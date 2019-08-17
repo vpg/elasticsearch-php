@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints\Indices\Alias;
 
 use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
@@ -9,22 +11,21 @@ use Vpg\Elasticsearch\Common\Exceptions;
  * Class Delete
  *
  * @category Elasticsearch
- * @package Elasticsearch\Endpoints\Indices\Alias
+ * @package  Vpg\Elasticsearch\Endpoints\Indices\Alias
  * @author   Zachary Tong <zach@elastic.co>
  * @license  http://www.apache.org/licenses/LICENSE-2.0 Apache2
  * @link     http://elastic.co
  */
 class Delete extends AbstractEndpoint
 {
-    // A comma-separated list of aliases to delete (supports wildcards); use `_all` to delete all aliases for the specified indices.
+    /**
+     * A comma-separated list of aliases to delete (supports wildcards); use `_all` to delete all aliases for the specified indices.
+     *
+     * @var string
+     */
     private $name;
 
-    /**
-     * @param $name
-     *
-     * @return $this
-     */
-    public function setName($name)
+    public function setName(?string $name): Delete
     {
         if (isset($name) !== true) {
             return $this;
@@ -37,9 +38,8 @@ class Delete extends AbstractEndpoint
 
     /**
      * @throws \Vpg\Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
      */
-    public function getURI()
+    public function getURI(): string
     {
         if (isset($this->index) !== true) {
             throw new Exceptions\RuntimeException(
@@ -51,32 +51,18 @@ class Delete extends AbstractEndpoint
                 'name is required for Delete'
             );
         }
-        $index = $this->index;
-        $name = $this->name;
-        $uri   = "/$index/_alias/$name";
-
-        if (isset($index) === true && isset($name) === true) {
-            $uri = "/$index/_alias/$name";
-        }
-
-        return $uri;
+        return "/{$this->index}/_alias/{$this->name}";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'timeout',
-            'master_timeout',
-        );
+            'master_timeout'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'DELETE';
     }

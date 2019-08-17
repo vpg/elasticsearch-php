@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints\Indices\Settings;
 
 use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
@@ -15,15 +17,14 @@ use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Get extends AbstractEndpoint
 {
-    // The name of the settings that should be included
+    /**
+     * The name of the settings that should be included
+     *
+     * @var string
+     */
     private $name;
 
-    /**
-     * @param $name
-     *
-     * @return $this
-     */
-    public function setName($name)
+    public function setName(?string $name): Get
     {
         if (isset($name) !== true) {
             return $this;
@@ -34,45 +35,37 @@ class Get extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $index = $this->index;
-        $name = $this->name;
-        $uri   = "/_settings";
+        $index = $this->index ?? null;
+        $name = $this->name ?? null;
 
-        if (isset($index) === true && isset($name) === true) {
-            $uri = "/$index/_settings/$name";
-        } elseif (isset($name) === true) {
-            $uri = "/_settings/$name";
-        } elseif (isset($index) === true) {
-            $uri = "/$index/_settings";
+        if (isset($index) && isset($name)) {
+            return "/$index/_settings/$name";
         }
-
-        return $uri;
+        if (isset($index)) {
+            return "/$index/_settings";
+        }
+        if (isset($name)) {
+            return "/_settings/$name";
+        }
+        return "/_settings";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
+            'master_timeout',
             'ignore_unavailable',
             'allow_no_indices',
             'expand_wildcards',
             'flat_settings',
             'local',
             'include_defaults'
-        );
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

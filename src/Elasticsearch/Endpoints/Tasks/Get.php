@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints\Tasks;
 
 use Vpg\Elasticsearch\Common\Exceptions;
@@ -18,13 +20,7 @@ class Get extends AbstractEndpoint
 {
     private $taskId;
 
-    /**
-     * @param string $taskId
-     *
-     * @throws \Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
-     */
-    public function setTaskId($taskId)
+    public function setTaskId(?string $taskId): Get
     {
         if (isset($taskId) !== true) {
             return $this;
@@ -37,31 +33,27 @@ class Get extends AbstractEndpoint
 
     /**
      * @throws \Vpg\Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
      */
-    public function getURI()
+    public function getURI(): string
     {
-        if (isset($this->taskId) === true) {
-            return "/_tasks/{$this->taskId}";
+        if (isset($this->taskId) !== true) {
+            throw new Exceptions\RuntimeException(
+                'task_id is required for Get'
+            );
         }
 
-        return "/_tasks";
+        return "/_tasks/{$this->taskId}";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
-            'wait_for_completion'
-        );
+        return [
+            'wait_for_completion',
+            'timeout'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

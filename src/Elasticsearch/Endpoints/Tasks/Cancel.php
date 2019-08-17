@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints\Tasks;
 
 use Vpg\Elasticsearch\Common\Exceptions;
@@ -19,12 +21,9 @@ class Cancel extends AbstractEndpoint
     private $taskId;
 
     /**
-     * @param string $taskId
-     *
      * @throws \Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
      */
-    public function setTaskId($taskId)
+    public function setTaskId(?string $taskId): Cancel
     {
         if (isset($taskId) !== true) {
             return $this;
@@ -37,34 +36,27 @@ class Cancel extends AbstractEndpoint
 
     /**
      * @throws \Vpg\Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
      */
-    public function getURI()
+    public function getURI(): string
     {
-        if (isset($this->id) === true) {
-            return "/_tasks/{$this->taskId}/_cancel";
-        }
+        $taskId = $this->taskId ?? null;
 
+        if (isset($taskId)) {
+            return "/_tasks/$taskId/_cancel";
+        }
         return "/_tasks/_cancel";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
-            'node_id',
+        return [
+            'nodes',
             'actions',
-            'parent_node',
-            'parent_task',
-        );
+            'parent_task_id'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'POST';
     }

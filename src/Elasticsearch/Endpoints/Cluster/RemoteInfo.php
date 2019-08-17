@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints\Cluster;
 
 use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
@@ -15,26 +17,17 @@ use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class RemoteInfo extends AbstractEndpoint
 {
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
         return "/_remote/info";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
         return [];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

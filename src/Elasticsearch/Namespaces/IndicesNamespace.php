@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Namespaces;
 
 /**
@@ -14,23 +16,35 @@ namespace Vpg\Elasticsearch\Namespaces;
 class IndicesNamespace extends AbstractNamespace
 {
     /**
-     * $params['index'] = (list) A comma-separated list of indices to check (Required)
+     * Endpoint: indices.exists
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-exists.html
      *
-     * @return boolean
+     * $params[
+     *   'index'              => '(list) A comma-separated list of index names (Required)',
+     *   'local'              => '(boolean) Return local information, do not retrieve the state from master node (default: false)',
+     *   'ignore_unavailable' => '(boolean) Ignore unavailable indexes (default: false)',
+     *   'allow_no_indices'   => '(boolean) Ignore if a wildcard expression resolves to no concrete indices (default: false)',
+     *   'expand_wildcards'   => '(enum) Whether wildcard expressions should get expanded to open or closed indices (default: open) (Options = open,closed,none,all) (Default = open)',
+     *   'flat_settings'      => '(boolean) Return settings in flat format (default: false)',
+     *   'include_defaults'   => '(boolean) Whether to return all default setting for each of the indices. (Default = false)',
+     * ]
      */
-    public function exists($params)
+    public function exists(array $params): bool
     {
         $index = $this->extractArgument($params, 'index');
 
-        //manually make this verbose so we can check status code
+        // manually make this verbose so we can check status code
         $params['client']['verbose'] = true;
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Exists $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Exists $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\Exists');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
@@ -39,53 +53,68 @@ class IndicesNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['index'] = (list) A comma-separated list of indices to check (Required)
-     *        ['feature'] = (list) A comma-separated list of features to return
-     *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-     *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
-     *        ['local']   = (bool) Return local information, do not retrieve the state from master node (default: false)
+     * Endpoint: indices.get
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-index.html
      *
-     * @return bool
+     * $params[
+     *   'index'              => '(list) A comma-separated list of index names (Required)',
+     *   'include_type_name'  => '(boolean) Whether to add the type name to the response (default: false)',
+     *   'local'              => '(boolean) Return local information, do not retrieve the state from master node (default: false)',
+     *   'ignore_unavailable' => '(boolean) Ignore unavailable indexes (default: false)',
+     *   'allow_no_indices'   => '(boolean) Ignore if a wildcard expression resolves to no concrete indices (default: false)',
+     *   'expand_wildcards'   => '(enum) Whether wildcard expressions should get expanded to open or closed indices (default: open) (Options = open,closed,none,all) (Default = open)',
+     *   'flat_settings'      => '(boolean) Return settings in flat format (default: false)',
+     *   'include_defaults'   => '(boolean) Whether to return all default setting for each of the indices. (Default = false)',
+     *   'master_timeout'     => '(time) Specify timeout for connection to master',
+     * ]
+     * @return callable|array
      */
-    public function get($params)
+    public function get(array $params)
     {
         $index = $this->extractArgument($params, 'index');
-        $feature = $this->extractArgument($params, 'feature');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Get $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Get $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\Get');
         $endpoint->setIndex($index)
-                 ->setFeature($feature)
-                 ->setParams($params);
+            ->setParams($params);
 
         return $this->performRequest($endpoint);
     }
 
     /**
-     * $params['index']               = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-     *        ['operation_threading'] = () TODO: ?
-     *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-     *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
+     * Endpoint: indices.segments
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-segments.html
      *
-     * @return array
+     * $params[
+     *   'index'              => '(list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices',
+     *   'ignore_unavailable' => '(boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)',
+     *   'allow_no_indices'   => '(boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)',
+     *   'expand_wildcards'   => '(enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)',
+     *   'verbose'            => '(boolean) Includes detailed memory usage by Lucene. (Default = false)',
+     * ]
+     * @return callable|array
      */
-    public function segments($params = array())
+    public function segments(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Segments $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Segments $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\Segments');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
@@ -94,21 +123,29 @@ class IndicesNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['name']    = (string) The name of the template (Required)
-     *        ['timeout'] = (time) Explicit operation timeout
+     * Endpoint: indices.delete_template
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
      *
-     * @return array
+     * $params[
+     *   'name'           => '(string) The name of the template (Required)',
+     *   'timeout'        => '(time) Explicit operation timeout',
+     *   'master_timeout' => '(time) Specify timeout for connection to master',
+     * ]
+     * @return callable|array
      */
-    public function deleteTemplate($params)
+    public function deleteTemplate(array $params)
     {
         $name = $this->extractArgument($params, 'name');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Template\Delete $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Template\Delete $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\Template\Delete');
         $endpoint->setName($name);
         $endpoint->setParams($params);
@@ -117,21 +154,32 @@ class IndicesNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['index']   = (list) A comma-separated list of indices to delete; use `_all` or empty string to delete all indices
-     *        ['timeout'] = (time) Explicit operation timeout
+     * Endpoint: indices.delete
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-delete-index.html
      *
-     * @return array
+     * $params[
+     *   'index'              => '(list) A comma-separated list of indices to delete; use `_all` or `*` string to delete all indices (Required)',
+     *   'timeout'            => '(time) Explicit operation timeout',
+     *   'master_timeout'     => '(time) Specify timeout for connection to master',
+     *   'ignore_unavailable' => '(boolean) Ignore unavailable indexes (default: false)',
+     *   'allow_no_indices'   => '(boolean) Ignore if a wildcard expression resolves to no concrete indices (default: false)',
+     *   'expand_wildcards'   => '(enum) Whether wildcard expressions should get expanded to open or closed indices (default: open) (Options = open,closed,none,all) (Default = open)',
+     * ]
+     * @return callable|array
      */
-    public function delete($params = array())
+    public function delete(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Delete $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Delete $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\Delete');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
@@ -140,165 +188,184 @@ class IndicesNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['fields']         = (boolean) A comma-separated list of fields for `fielddata` metric (supports wildcards)
-     *        ['index']          = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-     *        ['indexing_types'] = (list) A comma-separated list of document types to include in the `indexing` statistics
-     *        ['metric_family']  = (enum) Limit the information returned to a specific metric
-     *        ['search_groups']  = (list) A comma-separated list of search groups to include in the `search` statistics
-     *        ['all']            = (boolean) Return all available information
-     *        ['clear']          = (boolean) Reset the default level of detail
-     *        ['docs']           = (boolean) Return information about indexed and deleted documents
-     *        ['fielddata']      = (boolean) Return information about field data
-     *        ['filter_cache']   = (boolean) Return information about filter cache
-     *        ['flush']          = (boolean) Return information about flush operations
-     *        ['get']            = (boolean) Return information about get operations
-     *        ['groups']         = (boolean) A comma-separated list of search groups for `search` statistics
-     *        ['id_cache']       = (boolean) Return information about ID cache
-     *        ['ignore_indices'] = (enum) When performed on multiple indices, allows to ignore `missing` ones
-     *        ['indexing']       = (boolean) Return information about indexing operations
-     *        ['merge']          = (boolean) Return information about merge operations
-     *        ['refresh']        = (boolean) Return information about refresh operations
-     *        ['search']         = (boolean) Return information about search operations; use the `groups` parameter to include information for specific search groups
-     *        ['store']          = (boolean) Return information about the size of the index
+     * Endpoint: indices.stats
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-stats.html
      *
-     * @return array
+     * $params[
+     *   'index'                      => '(list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices',
+     *   'metric'                     => '(list) Limit the information returned the specific metrics.',
+     *   'completion_fields'          => '(list) A comma-separated list of fields for `fielddata` and `suggest` index metric (supports wildcards)',
+     *   'fielddata_fields'           => '(list) A comma-separated list of fields for `fielddata` index metric (supports wildcards)',
+     *   'fields'                     => '(list) A comma-separated list of fields for `fielddata` and `completion` index metric (supports wildcards)',
+     *   'groups'                     => '(list) A comma-separated list of search groups for `search` index metric',
+     *   'level'                      => '(enum) Return stats aggregated at cluster, index or shard level (Options = cluster,indices,shards) (Default = indices)',
+     *   'types'                      => '(list) A comma-separated list of document types for the `indexing` index metric',
+     *   'include_segment_file_sizes' => '(boolean) Whether to report the aggregated disk usage of each one of the Lucene index files (only applies if segment stats are requested) (Default = false)',
+     *   'include_unloaded_segments'  => '(boolean) If set to true segment stats will include stats for segments that are not currently loaded into memory (Default = false)',
+     *   'expand_wildcards'           => '(enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)',
+     *   'forbid_closed_indices'      => '(boolean) If set to false stats will also collected from closed indices if explicitly specified or if expand_wildcards expands to closed indices (Default = true)',
+     * ]
+     * @return callable|array
      */
-    public function stats($params = array())
+    public function stats(array $params = [])
     {
         $metric = $this->extractArgument($params, 'metric');
 
         $index = $this->extractArgument($params, 'index');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Stats $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Stats $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\Stats');
         $endpoint->setIndex($index)
-                 ->setMetric($metric);
+            ->setMetric($metric);
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
     }
 
     /**
-     * $params['index'] = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-     *        ['body']  = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
+     * Endpoint: indices.put_settings
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-update-settings.html
      *
-     * @return array
+     * $params[
+     *   'body'               => '(string) The index settings to be updated (Required)',
+     *   'index'              => '(list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices',
+     *   'master_timeout'     => '(time) Specify timeout for connection to master',
+     *   'timeout'            => '(time) Explicit operation timeout',
+     *   'preserve_existing'  => '(boolean) Whether to update existing settings. If set to `true` existing settings on an index remain unchanged, the default is `false`',
+     *   'ignore_unavailable' => '(boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)',
+     *   'allow_no_indices'   => '(boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)',
+     *   'expand_wildcards'   => '(enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)',
+     *   'flat_settings'      => '(boolean) Return settings in flat format (default: false)',
+     * ]
+     * @return callable|array
      */
-    public function putSettings($params = array())
+    public function putSettings(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
 
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Settings\Put $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Settings\Put $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\Settings\Put');
         $endpoint->setIndex($index)
-                 ->setBody($body);
+            ->setBody($body);
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
     }
 
     /**
-     * $params['index']              = (list) A comma-separated list of index names; use `_all` or empty string for all indices
-     *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-     *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
+     * Endpoint: indices.shrink
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-shrink-index.html
      *
-     * @return array
+     * $params[
+     *   'body'                   => '(string) The configuration for the target index (`settings` and `aliases`)',
+     *   'index'                  => '(string) The name of the source index to shrink (Required)',
+     *   'target'                 => '(string) The name of the target index to shrink into (Required)',
+     *   'copy_settings'          => '(boolean) whether or not to copy settings from the source index (defaults to false)',
+     *   'timeout'                => '(time) Explicit operation timeout',
+     *   'master_timeout'         => '(time) Specify timeout for connection to master',
+     *   'wait_for_active_shards' => '(string) Set the number of active shards to wait for on the shrunken index before the operation returns.',
+     * ]
+     * @return callable|array
      */
-    public function snapshotIndex($params = array())
-    {
-        $index = $this->extractArgument($params, 'index');
-
-        /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->endpoints;
-
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Gateway\Snapshot $endpoint */
-        $endpoint = $endpointBuilder('Indices\Gateway\Snapshot');
-        $endpoint->setIndex($index);
-        $endpoint->setParams($params);
-
-        return $this->performRequest($endpoint);
-    }
-
-    /**
-     * $params['index']          = (string) The name of the source index to shrink
-     *        ['target']         = (string) The name of the target index to shrink into
-     *        ['timeout']        = (time) Explicit operation timeout
-     *        ['master_timeout'] = (time) Specify timeout for connection to master
-     *
-     * @param $params array Associative array of parameters
-     *
-     * @return array
-     */
-    public function shrink($params = array())
+    public function shrink(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
         $target = $this->extractArgument($params, 'target');
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Shrink $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Shrink $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\Shrink');
         $endpoint->setIndex($index)
-                 ->setTarget($target)
-                 ->setBody($body);
+            ->setTarget($target)
+            ->setBody($body);
 
         return $this->performRequest($endpoint);
     }
 
     /**
-     * $params['index'] = (list) A comma-separated list of index names; use `_all` or empty string for all indices
-     *        ['type']  = (list) A comma-separated list of document types
+     * Endpoint: indices.get_mapping
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-mapping.html
      *
-     * @return array
+     * $params[
+     *   'index'              => '(list) A comma-separated list of index names',
+     *   'type'               => '(list) A comma-separated list of document types',
+     *   'include_type_name'  => '(boolean) Whether to add the type name to the response (default: false)',
+     *   'ignore_unavailable' => '(boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)',
+     *   'allow_no_indices'   => '(boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)',
+     *   'expand_wildcards'   => '(enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)',
+     *   'master_timeout'     => '(time) Specify timeout for connection to master',
+     *   'local'              => '(boolean) Return local information, do not retrieve the state from master node (default: false)',
+     * ]
+     * @return callable|array
      */
-    public function getMapping($params = array())
+    public function getMapping(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
 
         $type = $this->extractArgument($params, 'type');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Mapping\Get $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Mapping\Get $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\Mapping\Get');
         $endpoint->setIndex($index)
-                 ->setType($type);
+            ->setType($type);
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
     }
 
     /**
-     * $params['index']            = (list) A comma-separated list of index names; use `_all` or empty string for all indices
-     *        ['type']             = (list) A comma-separated list of document types
-     *        ['field']            = (list) A comma-separated list of document fields
-     *        ['include_defaults'] = (bool) specifies default mapping values should be returned
+     * Endpoint: indices.get_field_mapping
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-field-mapping.html
      *
-     * @return array
+     * $params[
+     *   'index'              => '(list) A comma-separated list of index names',
+     *   'type'               => '(list) A comma-separated list of document types',
+     *   'fields'             => '(list) A comma-separated list of fields (Required)',
+     *   'include_type_name'  => '(boolean) Whether a type should be returned in the body of the mappings.',
+     *   'include_defaults'   => '(boolean) Whether the default mapping values should be returned as well',
+     *   'ignore_unavailable' => '(boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)',
+     *   'allow_no_indices'   => '(boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)',
+     *   'expand_wildcards'   => '(enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)',
+     *   'local'              => '(boolean) Return local information, do not retrieve the state from master node (default: false)',
+     * ]
+     * @return callable|array
      */
-    public function getFieldMapping($params = array())
+    public function getFieldMapping(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
         $type = $this->extractArgument($params, 'type');
@@ -309,14 +376,18 @@ class IndicesNamespace extends AbstractNamespace
         }
 
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Mapping\GetField $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Mapping\GetField $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\Mapping\GetField');
         $endpoint->setIndex($index)
-                 ->setType($type)
-                 ->setFields($fields);
+            ->setType($type)
+            ->setFields($fields);
 
         $endpoint->setParams($params);
 
@@ -324,26 +395,32 @@ class IndicesNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['index']              = (list) A comma-separated list of index names; use `_all` or empty string for all indices
-     *        ['force']              = (boolean) TODO: ?
-     *        ['full']               = (boolean) TODO: ?
-     *        ['refresh']            = (boolean) Refresh the index after performing the operation
-     *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-     *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
+     * Endpoint: indices.flush
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-flush.html
      *
-     * @return array
+     * $params[
+     *   'index'              => '(list) A comma-separated list of index names; use `_all` or empty string for all indices',
+     *   'force'              => '(boolean) Whether a flush should be forced even if it is not necessarily needed ie. if no changes will be committed to the index. This is useful if transaction log IDs should be incremented even if no uncommitted changes are present. (This setting can be considered as internal)',
+     *   'wait_if_ongoing'    => '(boolean) If set to true the flush operation will block until the flush can be executed if another flush operation is already executing. The default is true. If set to false the flush will be skipped iff if another flush operation is already running.',
+     *   'ignore_unavailable' => '(boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)',
+     *   'allow_no_indices'   => '(boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)',
+     *   'expand_wildcards'   => '(enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)',
+     * ]
+     * @return callable|array
      */
-    public function flush($params = array())
+    public function flush(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Flush $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Flush $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\Flush');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
@@ -352,54 +429,63 @@ class IndicesNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['index']              = (list) A comma-separated list of index names; use `_all` or empty string for all indices
-     *        ['force']              = (boolean) TODO: ?
-     *        ['full']               = (boolean) TODO: ?
-     *        ['refresh']            = (boolean) Refresh the index after performing the operation
-     *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-     *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
+     * Endpoint: indices.flush_synced
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-synced-flush.html
      *
-     * @return array
+     * $params[
+     *   'index'              => '(list) A comma-separated list of index names; use `_all` or empty string for all indices',
+     *   'ignore_unavailable' => '(boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)',
+     *   'allow_no_indices'   => '(boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)',
+     *   'expand_wildcards'   => '(enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)',
+     * ]
+     * @return callable|array
      */
-    public function flushSynced($params = array())
+    public function flushSynced(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Flush $endpoint */
-        $endpoint = $endpointBuilder('Indices\Flush');
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Flush $endpoint
+*/
+        $endpoint = $endpointBuilder('Indices\FlushSynced');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
-        $endpoint->setSynced(true);
 
         return $this->performRequest($endpoint);
     }
 
 
     /**
-     * $params['index']               = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-     *        ['operation_threading'] = () TODO: ?
-     *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-     *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
+     * Endpoint: indices.refresh
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-refresh.html
      *
-     * @return array
+     * $params[
+     *   'index'              => '(list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices',
+     *   'ignore_unavailable' => '(boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)',
+     *   'allow_no_indices'   => '(boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)',
+     *   'expand_wildcards'   => '(enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)',
+     * ]
+     * @return callable|array
      */
-    public function refresh($params = array())
+    public function refresh(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Refresh $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Refresh $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\Refresh');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
@@ -408,23 +494,29 @@ class IndicesNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['index']       = (list) A comma-separated list of index names; use `_all` or empty string for all indices
-     *        ['detailed']    = (bool) Whether to display detailed information about shard recovery
-     *        ['active_only'] = (bool) Display only those recoveries that are currently on-going
-     *        ['human']       = (bool) Whether to return time and byte values in human-readable format.
+     * Endpoint: indices.recovery
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-recovery.html
      *
-     * @return array
+     * $params[
+     *   'index'       => '(list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices',
+     *   'detailed'    => '(boolean) Whether to display detailed information about shard recovery (Default = false)',
+     *   'active_only' => '(boolean) Display only those recoveries that are currently on-going (Default = false)',
+     * ]
+     * @return callable|array
      */
-    public function recovery($params = array())
+    public function recovery(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Flush $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Flush $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\Recovery');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
@@ -433,232 +525,268 @@ class IndicesNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['index']              = (list) A comma-separated list of index names; use `_all` to check the types across all indices (Required)
-     *        ['type']               = (list) A comma-separated list of document types to check (Required)
-     *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-     *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
+     * Endpoint: indices.exists_type
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-types-exists.html
      *
-     * @return boolean
+     * $params[
+     *   'index'              => '(list) A comma-separated list of index names; use `_all` to check the types across all indices (Required)',
+     *   'type'               => '(list) A comma-separated list of document types to check (Required)',
+     *   'ignore_unavailable' => '(boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)',
+     *   'allow_no_indices'   => '(boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)',
+     *   'expand_wildcards'   => '(enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)',
+     *   'local'              => '(boolean) Return local information, do not retrieve the state from master node (default: false)',
+     * ]
      */
-    public function existsType($params)
+    public function existsType(array $params): bool
     {
         $index = $this->extractArgument($params, 'index');
-
         $type = $this->extractArgument($params, 'type');
 
-        //manually make this verbose so we can check status code
+        // manually make this verbose so we can check status code
         $params['client']['verbose'] = true;
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Type\Exists $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Type\Exists $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\Type\Exists');
         $endpoint->setIndex($index)
-                 ->setType($type);
+            ->setType($type);
         $endpoint->setParams($params);
 
         return BooleanRequestWrapper::performRequest($endpoint, $this->transport);
     }
 
     /**
-     * $params['index']   = (string) The name of the index with an alias
-     *        ['name']    = (string) The name of the alias to be created or updated
-     *        ['timeout'] = (time) Explicit timestamp for the document
-     *        ['body']    = (time) Explicit timestamp for the document
+     * Endpoint: indices.put_alias
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html
      *
-     * @return array
+     * $params[
+     *   'body'           => '(string) The settings for the alias, such as `routing` or `filter`',
+     *   'index'          => '(list) A comma-separated list of index names the alias should point to (supports wildcards); use `_all` to perform the operation on all indices. (Required)',
+     *   'name'           => '(string) The name of the alias to be created or updated (Required)',
+     *   'timeout'        => '(time) Explicit timestamp for the document',
+     *   'master_timeout' => '(time) Specify timeout for connection to master',
+     * ]
+     * @return callable|array
      */
-    public function putAlias($params = array())
+    public function putAlias(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
-
         $name = $this->extractArgument($params, 'name');
-
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Alias\Put $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Alias\Put $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\Alias\Put');
         $endpoint->setIndex($index)
-                 ->setName($name)
-                 ->setBody($body);
+            ->setName($name)
+            ->setBody($body);
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
     }
 
     /**
-     * $params['name']    = (string) The name of the template (Required)
-     *        ['order']   = (number) The order for this template when merging multiple matching ones (higher numbers are merged later, overriding the lower numbers)
-     *        ['timeout'] = (time) Explicit operation timeout
-     *        ['body']    = (time) Explicit operation timeout
-     *        ['create']  = (bool) Whether the index template should only be added if new or can also replace an existing one
+     * Endpoint: indices.put_template
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
      *
-     * @return array
+     * $params[
+     *   'body'              => '(string) The template definition (Required)',
+     *   'name'              => '(string) The name of the template (Required)',
+     *   'include_type_name' => '(boolean) Whether a type should be returned in the body of the mappings.',
+     *   'order'             => '(number) The order for this template when merging multiple matching ones (higher numbers are merged later, overriding the lower numbers)',
+     *   'create'            => '(boolean) Whether the index template should only be added if new or can also replace an existing one (Default = false)',
+     *   'timeout'           => '(time) Explicit operation timeout',
+     *   'master_timeout'    => '(time) Specify timeout for connection to master',
+     *   'flat_settings'     => '(boolean) Return settings in flat format (default: false)',
+     * ]
+     * @return callable|array
      */
-    public function putTemplate($params)
+    public function putTemplate(array $params)
     {
         $name = $this->extractArgument($params, 'name');
-
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Template\Put $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Template\Put $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\Template\Put');
         $endpoint->setName($name)
-                 ->setBody($body);
+            ->setBody($body);
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
     }
 
     /**
-     * $params['index']               = (list) A comma-separated list of index names to restrict the operation; use `_all` or empty string to perform the operation on all indices
-     *        ['type']                = (list) A comma-separated list of document types to restrict the operation; leave empty to perform the operation on all types
-     *        ['explain']             = (boolean) Return detailed information about the error
-     *        ['ignore_indices']      = (enum) When performed on multiple indices, allows to ignore `missing` ones
-     *        ['operation_threading'] = () TODO: ?
-     *        ['source']              = (string) The URL-encoded query definition (instead of using the request body)
-     *        ['body']                = (string) The URL-encoded query definition (instead of using the request body)
+     * Endpoint: indices.validate_query
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/search-validate.html
      *
-     * @return array
+     * $params[
+     *   'body'               => '(string) The query definition specified with the Query DSL',
+     *   'index'              => '(list) A comma-separated list of index names to restrict the operation; use `_all` or empty string to perform the operation on all indices',
+     *   'type'               => '(list) A comma-separated list of document types to restrict the operation; leave empty to perform the operation on all types',
+     *   'explain'            => '(boolean) Return detailed information about the error',
+     *   'ignore_unavailable' => '(boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)',
+     *   'allow_no_indices'   => '(boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)',
+     *   'expand_wildcards'   => '(enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)',
+     *   'q'                  => '(string) Query in the Lucene query string syntax',
+     *   'analyzer'           => '(string) The analyzer to use for the query string',
+     *   'analyze_wildcard'   => '(boolean) Specify whether wildcard and prefix queries should be analyzed (default: false)',
+     *   'default_operator'   => '(enum) The default operator for query string query (AND or OR) (Options = AND,OR) (Default = OR)',
+     *   'df'                 => '(string) The field to use as default where no field prefix is given in the query string',
+     *   'lenient'            => '(boolean) Specify whether format-based query failures (such as providing text to a numeric field) should be ignored',
+     *   'rewrite'            => '(boolean) Provide a more detailed explanation showing the actual Lucene query that will be executed.',
+     *   'all_shards'         => '(boolean) Execute validation on all shards instead of one random shard per index',
+     * ]
+     * @return callable|array
      */
-    public function validateQuery($params = array())
+    public function validateQuery(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
-
         $type = $this->extractArgument($params, 'type');
-
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Validate\Query $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Validate\Query $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\Validate\Query');
         $endpoint->setIndex($index)
-                 ->setType($type)
-                 ->setBody($body);
+            ->setType($type)
+            ->setBody($body);
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
     }
 
     /**
-     * $params['name']           = (list) A comma-separated list of alias names to return (Required)
-     *        ['index']          = (list) A comma-separated list of index names to filter aliases
-     *        ['ignore_indices'] = (enum) When performed on multiple indices, allows to ignore `missing` ones
-     *        ['name']           = (list) A comma-separated list of alias names to return
+     * Endpoint: indices.get_alias
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html
      *
-     * @return array
+     * $params[
+     *   'index'              => '(list) A comma-separated list of index names to filter aliases',
+     *   'name'               => '(list) A comma-separated list of alias names to return',
+     *   'ignore_unavailable' => '(boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)',
+     *   'allow_no_indices'   => '(boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)',
+     *   'expand_wildcards'   => '(enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = all)',
+     *   'local'              => '(boolean) Return local information, do not retrieve the state from master node (default: false)',
+     * ]
+     * @return callable|array
      */
-    public function getAlias($params)
+    public function getAlias(array $params)
     {
         $index = $this->extractArgument($params, 'index');
-
         $name = $this->extractArgument($params, 'name');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Alias\Get $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Alias\Get $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\Alias\Get');
         $endpoint->setIndex($index)
-                 ->setName($name);
+            ->setName($name);
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
     }
 
     /**
-     * $params['index']            = (list) A comma-separated list of index names; use `_all` to perform the operation on all indices (Required)
-     *        ['type']             = (string) The name of the document type
-     *        ['ignore_conflicts'] = (boolean) Specify whether to ignore conflicts while updating the mapping (default: false)
-     *        ['timeout']          = (time) Explicit operation timeout
-     *        ['body']             = (time) Explicit operation timeout
+     * Endpoint: indices.put_mapping
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-put-mapping.html
      *
-     * @return array
+     * $params[
+     *   'body'               => '(string) The mapping definition (Required)',
+     *   'index'              => '(list) A comma-separated list of index names the mapping should be added to (supports wildcards); use `_all` or omit to add the mapping on all indices.',
+     *   'type'               => '(string) The name of the document type',
+     *   'include_type_name'  => '(boolean) Whether a type should be expected in the body of the mappings.',
+     *   'timeout'            => '(time) Explicit operation timeout',
+     *   'master_timeout'     => '(time) Specify timeout for connection to master',
+     *   'ignore_unavailable' => '(boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)',
+     *   'allow_no_indices'   => '(boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)',
+     *   'expand_wildcards'   => '(enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)',
+     * ]
+     * @return callable|array
      */
-    public function putMapping($params)
+    public function putMapping(array $params)
     {
         $index = $this->extractArgument($params, 'index');
-
         $type = $this->extractArgument($params, 'type');
-
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Mapping\Put $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Mapping\Put $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\Mapping\Put');
         $endpoint->setIndex($index)
-                 ->setType($type)
-                 ->setBody($body);
+            ->setType($type)
+            ->setBody($body);
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
     }
 
     /**
-     * $params['index'] = (list) A comma-separated list of index names; use `_all` for all indices (Required)
-     *        ['type']  = (string) The name of the document type to delete (Required)
+     * Endpoint: indices.get_template
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
      *
-     * @return array
+     * $params[
+     *   'name'              => '(list) The comma separated names of the index templates',
+     *   'include_type_name' => '(boolean) Whether a type should be returned in the body of the mappings.',
+     *   'flat_settings'     => '(boolean) Return settings in flat format (default: false)',
+     *   'master_timeout'    => '(time) Explicit operation timeout for connection to master node',
+     *   'local'             => '(boolean) Return local information, do not retrieve the state from master node (default: false)',
+     * ]
+     * @return callable|array
      */
-    public function deleteMapping($params)
-    {
-        $index = $this->extractArgument($params, 'index');
-
-        $type = $this->extractArgument($params, 'type');
-
-        /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->endpoints;
-
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Mapping\Delete $endpoint */
-        $endpoint = $endpointBuilder('Indices\Mapping\Delete');
-        $endpoint->setIndex($index)
-                 ->setType($type);
-        $endpoint->setParams($params);
-
-        return $this->performRequest($endpoint);
-    }
-
-    /**
-     * $params['name'] = (string) The name of the template (Required)
-     *
-     * @param $params array Associative array of parameters
-     *
-     * @return array
-     */
-    public function getTemplate($params)
+    public function getTemplate(array $params)
     {
         $name = $this->extractArgument($params, 'name');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Template\Get $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Template\Get $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\Template\Get');
         $endpoint->setName($name);
         $endpoint->setParams($params);
@@ -667,23 +795,32 @@ class IndicesNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['name'] = (string) The name of the template (Required)
+     * Endpoint: indices.exists_template
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-templates.html
      *
-     * @return boolean
+     * $params[
+     *   'name'           => '(list) The comma separated names of the index templates (Required)',
+     *   'flat_settings'  => '(boolean) Return settings in flat format (default: false)',
+     *   'master_timeout' => '(time) Explicit operation timeout for connection to master node',
+     *   'local'          => '(boolean) Return local information, do not retrieve the state from master node (default: false)',
+     * ]
      */
-    public function existsTemplate($params)
+    public function existsTemplate(array $params): bool
     {
         $name = $this->extractArgument($params, 'name');
 
-        //manually make this verbose so we can check status code
+        // manually make this verbose so we can check status code
         $params['client']['verbose'] = true;
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Template\Exists $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Template\Exists $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\Template\Exists');
         $endpoint->setName($name);
         $endpoint->setParams($params);
@@ -692,56 +829,69 @@ class IndicesNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['index']   = (string) The name of the index (Required)
-     *        ['timeout'] = (time) Explicit operation timeout
-     *        ['body']    = (time) Explicit operation timeout
+     * Endpoint: indices.create
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-create-index.html
      *
-     * @return array
+     * $params[
+     *   'body'                   => '(string) The configuration for the index (`settings` and `mappings`)',
+     *   'index'                  => '(string) The name of the index (Required)',
+     *   'include_type_name'      => '(boolean) Whether a type should be expected in the body of the mappings.',
+     *   'wait_for_active_shards' => '(string) Set the number of active shards to wait for before the operation returns.',
+     *   'timeout'                => '(time) Explicit operation timeout',
+     *   'master_timeout'         => '(time) Specify timeout for connection to master',
+     * ]
+     * @return callable|array
      */
-    public function create($params)
+    public function create(array $params)
     {
         $index = $this->extractArgument($params, 'index');
-
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Create $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Create $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\Create');
         $endpoint->setIndex($index)
-                 ->setBody($body);
+            ->setBody($body);
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
     }
 
     /**
-     * $params['index']                = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-     *        ['flush']                = (boolean) Specify whether the index should be flushed after performing the operation (default: true)
-     *        ['max_num_segments']     = (number) The number of segments the index should be merged into (default: dynamic)
-     *        ['only_expunge_deletes'] = (boolean) Specify whether the operation should only expunge deleted documents
-     *        ['operation_threading']  = () TODO: ?
-     *        ['refresh']              = (boolean) Specify whether the index should be refreshed after performing the operation (default: true)
-     *        ['wait_for_merge']       = (boolean) Specify whether the request should block until the merge process is finished (default: true)
-     *        ['ignore_unavailable']   = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-     *        ['allow_no_indices']     = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     *        ['expand_wildcards']     = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
+     * Endpoint: indices.forcemerge
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-forcemerge.html
      *
-     * @return array
+     * $params[
+     *   'index'                => '(list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices',
+     *   'flush'                => '(boolean) Specify whether the index should be flushed after performing the operation (default: true)',
+     *   'ignore_unavailable'   => '(boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)',
+     *   'allow_no_indices'     => '(boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)',
+     *   'expand_wildcards'     => '(enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)',
+     *   'max_num_segments'     => '(number) The number of segments the index should be merged into (default: dynamic)',
+     *   'only_expunge_deletes' => '(boolean) Specify whether the operation should only expunge deleted documents',
+     * ]
+     * @return callable|array
      */
-    public function forceMerge($params = array())
+    public function forceMerge(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\ForceMerge $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\ForceMerge $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\ForceMerge');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
@@ -750,48 +900,67 @@ class IndicesNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['index']   = (string) The name of the index with an alias (Required)
-     *        ['name']    = (string) The name of the alias to be deleted (Required)
-     *        ['timeout'] = (time) Explicit timestamp for the document
+     * Endpoint: indices.delete_alias
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html
      *
-     * @return array
+     * $params[
+     *   'index'          => '(list) A comma-separated list of index names (supports wildcards); use `_all` for all indices (Required)',
+     *   'name'           => '(list) A comma-separated list of aliases to delete (supports wildcards); use `_all` to delete all aliases for the specified indices. (Required)',
+     *   'timeout'        => '(time) Explicit timestamp for the document',
+     *   'master_timeout' => '(time) Specify timeout for connection to master',
+     * ]
+     * @return callable|array
      */
-    public function deleteAlias($params)
+    public function deleteAlias(array $params)
     {
         $index = $this->extractArgument($params, 'index');
-
         $name = $this->extractArgument($params, 'name');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Alias\Delete $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Alias\Delete $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\Alias\Delete');
         $endpoint->setIndex($index)
-                 ->setName($name);
+            ->setName($name);
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
     }
 
     /**
-     * $params['index']   = (string) The name of the index (Required)
-     *        ['timeout'] = (time) Explicit operation timeout
+     * Endpoint: indices.open
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-open-close.html
      *
-     * @return array
+     * $params[
+     *   'index'                  => '(list) A comma separated list of indices to open (Required)',
+     *   'timeout'                => '(time) Explicit operation timeout',
+     *   'master_timeout'         => '(time) Specify timeout for connection to master',
+     *   'ignore_unavailable'     => '(boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)',
+     *   'allow_no_indices'       => '(boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)',
+     *   'expand_wildcards'       => '(enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = closed)',
+     *   'wait_for_active_shards' => '(string) Sets the number of active shards to wait for before the operation returns.',
+     * ]
+     * @return callable|array
      */
-    public function open($params)
+    public function open(array $params)
     {
         $index = $this->extractArgument($params, 'index');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Open $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Open $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\Open');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
@@ -800,69 +969,69 @@ class IndicesNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['index']        = (string) The name of the index to scope the operation
-     *        ['analyzer']     = (string) The name of the analyzer to use
-     *        ['field']        = (string) Use the analyzer configured for this field (instead of passing the analyzer name)
-     *        ['filter']       = (list) A comma-separated list of filters to use for the analysis
-     *        ['prefer_local'] = (boolean) With `true`, specify that a local shard should be used if available, with `false`, use a random shard (default: true)
-     *        ['text']         = (string) The text on which the analysis should be performed (when request body is not used)
-     *        ['tokenizer']    = (string) The name of the tokenizer to use for the analysis
-     *        ['format']       = (enum) Format of the output
-     *        ['body']         = (enum) Format of the output
-     *        ['char_filter']  = (list) A comma-separated list of character filters to use for the analysis
-     *        ['explain']      = (bool) With `true`, outputs more advanced details. (default: false)
-     *        ['attributes']   = (list) A comma-separated list of token attributes to output, this parameter works only with `explain=true`
-     *        ['format']       = (enum) Format of the output (["detailed", "text"])
+     * Endpoint: indices.analyze
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-analyze.html
      *
-     * @return array
+     * $params[
+     *   'body'  => '(string) Define analyzer/tokenizer parameters and the text on which the analysis should be performed',
+     *   'index' => '(string) The name of the index to scope the operation',
+     *   'index' => '(string) The name of the index to scope the operation',
+     * ]
+     * @return callable|array
      */
-    public function analyze($params = array())
+    public function analyze(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
 
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Analyze $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Analyze $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\Analyze');
         $endpoint->setIndex($index)
-                 ->setBody($body);
+            ->setBody($body);
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
     }
 
     /**
-     * $params['index']              = (list) A comma-separated list of index name to limit the operation
-     *        ['field_data']         = (boolean) Clear field data
-     *        ['fielddata']          = (boolean) Clear field data
-     *        ['fields']             = (list) A comma-separated list of fields to clear when using the `field_data` parameter (default: all)
-     *        ['filter']             = (boolean) Clear filter caches
-     *        ['filter_cache']       = (boolean) Clear filter caches
-     *        ['filter_keys']        = (boolean) A comma-separated list of keys to clear when using the `filter_cache` parameter (default: all)
-     *        ['id']                 = (boolean) Clear ID caches for parent/child
-     *        ['id_cache']           = (boolean) Clear ID caches for parent/child
-     *        ['recycler']           = (boolean) Clear the recycler cache
-     *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-     *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
+     * Endpoint: indices.clear_cache
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-clearcache.html
      *
-     * @return array
+     * $params[
+     *   'index'              => '(list) A comma-separated list of index name to limit the operation',
+     *   'fielddata'          => '(boolean) Clear field data',
+     *   'fields'             => '(list) A comma-separated list of fields to clear when using the `fielddata` parameter (default: all)',
+     *   'query'              => '(boolean) Clear query caches',
+     *   'ignore_unavailable' => '(boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)',
+     *   'allow_no_indices'   => '(boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)',
+     *   'expand_wildcards'   => '(enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)',
+     *   'index'              => '(list) A comma-separated list of index name to limit the operation',
+     *   'request'            => '(boolean) Clear request cache',
+     * ]
+     * @return callable|array
      */
-    public function clearCache($params = array())
+    public function clearCache(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Cache\Clear $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Cache\Clear $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\Cache\Clear');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
@@ -871,157 +1040,144 @@ class IndicesNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['index']   = (list) A comma-separated list of index names to filter aliases
-     *        ['timeout'] = (time) Explicit timestamp for the document
-     *        ['body']    = (time) Explicit timestamp for the document
+     * Endpoint: indices.update_aliases
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html
      *
-     * @return array
+     * $params[
+     *   'body'           => '(string) The definition of `actions` to perform (Required)',
+     *   'timeout'        => '(time) Request timeout',
+     *   'master_timeout' => '(time) Specify timeout for connection to master',
+     * ]
+     * @return callable|array
      */
-    public function updateAliases($params = array())
+    public function updateAliases(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
-
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Aliases\Update $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Aliases\Update $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\Aliases\Update');
         $endpoint->setIndex($index)
-                 ->setBody($body);
+            ->setBody($body);
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
     }
 
     /**
-     * $params['local']   = (bool) Return local information, do not retrieve the state from master node (default: false)
-     *        ['timeout'] = (time) Explicit timestamp for the document
+     * Endpoint: indices.exists_alias
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-aliases.html
      *
-     * @return array
+     * $params[
+     *   'index'              => '(list) A comma-separated list of index names to filter aliases',
+     *   'name'               => '(list) A comma-separated list of alias names to return (Required)',
+     *   'ignore_unavailable' => '(boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)',
+     *   'allow_no_indices'   => '(boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)',
+     *   'expand_wildcards'   => '(enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = all)',
+     *   'local'              => '(boolean) Return local information, do not retrieve the state from master node (default: false)',
+     * ]
      */
-    public function getAliases($params = array())
+    public function existsAlias(array $params): bool
     {
         $index = $this->extractArgument($params, 'index');
-
         $name = $this->extractArgument($params, 'name');
 
-        /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->endpoints;
-
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Alias\Get $endpoint */
-        $endpoint = $endpointBuilder('Indices\Alias\Get');
-        $endpoint->setIndex($index)
-                 ->setName($name);
-        $endpoint->setParams($params);
-
-        return $this->performRequest($endpoint);
-    }
-
-    /**
-     * $params['name']               = (list) A comma-separated list of alias names to return (Required)
-     *        ['index']              = (list) A comma-separated list of index names to filter aliases
-     *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-     *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
-     *
-     * @param $params array Associative array of parameters
-     *
-     * @return boolean
-     */
-    public function existsAlias($params)
-    {
-        $index = $this->extractArgument($params, 'index');
-
-        $name = $this->extractArgument($params, 'name');
-
-        //manually make this verbose so we can check status code
+        // manually make this verbose so we can check status code
         $params['client']['verbose'] = true;
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Alias\Exists $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Alias\Exists $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\Alias\Exists');
         $endpoint->setIndex($index)
-                 ->setName($name);
+            ->setName($name);
         $endpoint->setParams($params);
 
         return BooleanRequestWrapper::performRequest($endpoint, $this->transport);
     }
 
     /**
-     * $params['index']               = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-     *        ['ignore_indices']      = (enum) When performed on multiple indices, allows to ignore `missing` ones
-     *        ['operation_threading'] = () TODO: ?
-     *        ['recovery']            = (boolean) Return information about shard recovery
-     *        ['snapshot']            = (boolean) TODO: ?
+     * Endpoint: indices.get_settings
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-get-settings.html
      *
-     * @return array
+     * $params[
+     *   'index'              => '(list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices',
+     *   'name'               => '(list) The name of the settings that should be included',
+     *   'master_timeout'     => '(time) Specify timeout for connection to master',
+     *   'ignore_unavailable' => '(boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)',
+     *   'allow_no_indices'   => '(boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)',
+     *   'expand_wildcards'   => '(enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = Array)',
+     *   'flat_settings'      => '(boolean) Return settings in flat format (default: false)',
+     *   'local'              => '(boolean) Return local information, do not retrieve the state from master node (default: false)',
+     *   'include_defaults'   => '(boolean) Whether to return all default setting for each of the indices. (Default = false)',
+     * ]
+     * @return callable|array
      */
-    public function status($params = array())
-    {
-        $index = $this->extractArgument($params, 'index');
-
-        /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->endpoints;
-
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Status $endpoint */
-        $endpoint = $endpointBuilder('Indices\Status');
-        $endpoint->setIndex($index);
-        $endpoint->setParams($params);
-
-        return $this->performRequest($endpoint);
-    }
-
-    /**
-     * $params['index'] = (list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-     *
-     * @param $params array Associative array of parameters
-     *
-     * @return array
-     */
-    public function getSettings($params = array())
+    public function getSettings(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
 
         $name = $this->extractArgument($params, 'name');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Settings\Get $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Settings\Get $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\Settings\Get');
         $endpoint->setIndex($index)
-                 ->setName($name);
+            ->setName($name);
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
     }
 
     /**
-     * $params['index']   = (string) The name of the index (Required)
-     *        ['timeout'] = (time) Explicit operation timeout
+     * Endpoint: indices.close
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-open-close.html
      *
-     * @return array
+     * $params[
+     *   'index'                  => '(list) A comma separated list of indices to close (Required)',
+     *   'timeout'                => '(time) Explicit operation timeout',
+     *   'master_timeout'         => '(time) Specify timeout for connection to master',
+     *   'ignore_unavailable'     => '(boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)',
+     *   'allow_no_indices'       => '(boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)',
+     *   'expand_wildcards'       => '(enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)',
+     *   'wait_for_active_shards' => '(string) Sets the number of active shards to wait for before the operation returns.',
+     * ]
+     * @return callable|array
      */
-    public function close($params)
+    public function close(array $params)
     {
         $index = $this->extractArgument($params, 'index');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Close $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Close $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\Close');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
@@ -1030,48 +1186,32 @@ class IndicesNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['index']   = (string) The name of the index
+     * Endpoint: indices.upgrade
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-upgrade.html
      *
-     * @return array
+     * $params[
+     *   'index'                 => '(list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices',
+     *   'allow_no_indices'      => '(boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)',
+     *   'expand_wildcards'      => '(enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)',
+     *   'ignore_unavailable'    => '(boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)',
+     *   'wait_for_completion'   => '(boolean) Specify whether the request should block until the all segments are upgraded (default: false)',
+     *   'only_ancient_segments' => '(boolean) If true, only ancient (an older Lucene major release) segments will be upgraded',
+     * ]
+     * @return callable|array
      */
-    public function seal($params)
+    public function upgrade(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Seal $endpoint */
-        $endpoint = $endpointBuilder('Indices\Seal');
-        $endpoint->setIndex($index);
-        $endpoint->setParams($params);
-
-        return $this->performRequest($endpoint);
-    }
-
-    /**
-     * $params['index']              = (list) A comma-separated list of index names; use `_all` or empty string for all indices
-     *        ['wait_for_completion']= (boolean) Specify whether the request should block until the all segments are upgraded (default: false)
-     *        ['only_ancient_segments'] = (boolean) If true, only ancient (an older Lucene major release) segments will be upgraded
-     *        ['refresh']            = (boolean) Refresh the index after performing the operation
-     *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-     *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
-     *
-     * @param $params array Associative array of parameters
-     *
-     * @return array
-     */
-    public function upgrade($params = array())
-    {
-        $index = $this->extractArgument($params, 'index');
-
-        /** @var callback $endpointBuilder */
-        $endpointBuilder = $this->endpoints;
-
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Upgrade\Post $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Upgrade\Post $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\Upgrade\Post');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
@@ -1080,26 +1220,30 @@ class IndicesNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['index']              = (list) A comma-separated list of index names; use `_all` or empty string for all indices
-     *        ['wait_for_completion']= (boolean) Specify whether the request should block until the all segments are upgraded (default: false)
-     *        ['only_ancient_segments'] = (boolean) If true, only ancient (an older Lucene major release) segments will be upgraded
-     *        ['refresh']            = (boolean) Refresh the index after performing the operation
-     *        ['ignore_unavailable'] = (bool) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-     *        ['allow_no_indices']   = (bool) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     *        ['expand_wildcards']   = (enum) Whether to expand wildcard expression to concrete indices that are open, closed or both.
+     * Endpoint: indices.get_upgrade
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-upgrade.html
      *
-     * @return array
+     * $params[
+     *   'index'              => '(list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices',
+     *   'ignore_unavailable' => '(boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)',
+     *   'allow_no_indices'   => '(boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)',
+     *   'expand_wildcards'   => '(enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)',
+     * ]
+     * @return callable|array
      */
-    public function getUpgrade($params = array())
+    public function getUpgrade(array $params = [])
     {
         $index = $this->extractArgument($params, 'index');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Upgrade\Get $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Upgrade\Get $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\Upgrade\Get');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
@@ -1108,25 +1252,31 @@ class IndicesNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['index']   = (string) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices
-     *        ['status']   = (list) A comma-separated list of statuses used to filter on shards to get store information for
-     *        ['ignore_unavailable'] = (boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)
-     *        ['allow_no_indices'] = (boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)
-     *        ['expand_wildcards'] = (boolean) Whether to expand wildcard expression to concrete indices that are open, closed or both.
-     *        ['operation_threading']
+     * Endpoint: indices.shard_stores
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-shards-stores.html
      *
-     * @return array
+     * $params[
+     *   'index'              => '(list) A comma-separated list of index names; use `_all` or empty string to perform the operation on all indices',
+     *   'status'             => '(list) A comma-separated list of statuses used to filter on shards to get store information for (Options = green,yellow,red,all)',
+     *   'ignore_unavailable' => '(boolean) Whether specified concrete indices should be ignored when unavailable (missing or closed)',
+     *   'allow_no_indices'   => '(boolean) Whether to ignore if a wildcard indices expression resolves into no concrete indices. (This includes `_all` string or when no indices have been specified)',
+     *   'expand_wildcards'   => '(enum) Whether to expand wildcard expression to concrete indices that are open, closed or both. (Options = open,closed,none,all) (Default = open)',
+     * ]
+     * @return callable|array
      */
-    public function shardStores($params)
+    public function shardStores(array $params)
     {
         $index = $this->extractArgument($params, 'index');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\ShardStores $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\ShardStores $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\ShardStores');
         $endpoint->setIndex($index);
         $endpoint->setParams($params);
@@ -1135,30 +1285,80 @@ class IndicesNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['newIndex']       = (string) The name of the rollover index
-     *        ['alias']          = (string) The name of the alias to rollover
-     *        ['timeout']        = (time) Explicit operation timeout
-     *        ['master_timeout'] = (time) Specify timeout for connection to master
+     * Endpoint: indices.rollover
      *
-     * @param $params array Associative array of parameters
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-rollover-index.html
      *
-     * @return array
+     * $params[
+     *   'body'                   => '(string) The conditions that needs to be met for executing rollover',
+     *   'alias'                  => '(string) The name of the alias to rollover (Required)',
+     *   'new_index'              => '(string) The name of the rollover index',
+     *   'include_type_name'      => '(boolean) Whether a type should be included in the body of the mappings.',
+     *   'timeout'                => '(time) Explicit operation timeout',
+     *   'dry_run'                => '(boolean) If set to true the rollover action will only be validated but not actually performed even if a condition matches. The default is false',
+     *   'master_timeout'         => '(time) Specify timeout for connection to master',
+     *   'wait_for_active_shards' => '(string) Set the number of active shards to wait for on the newly created rollover index before the operation returns.',
+     * ]
+     * @return callable|array
      */
-    public function rollover($params)
+    public function rollover(array $params)
     {
         $newIndex = $this->extractArgument($params, 'newIndex');
         $alias = $this->extractArgument($params, 'alias');
         $body = $this->extractArgument($params, 'body');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var \Vpg\Elasticsearch\Endpoints\Indices\Rollover $endpoint */
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Rollover $endpoint
+*/
         $endpoint = $endpointBuilder('Indices\Rollover');
         $endpoint->setNewIndex($newIndex)
             ->setAlias($alias)
             ->setParams($params)
             ->setBody($body);
+
+        return $this->performRequest($endpoint);
+    }
+
+    /**
+     * Endpoint: indices.split
+     *
+     * @see http://www.elastic.co/guide/en/elasticsearch/reference/master/indices-split-index.html
+     *
+     * $params[
+     *   'body'                   => '(string) The configuration for the target index (`settings` and `aliases`)',
+     *   'index'                  => '(string) The name of the source index to split (Required)',
+     *   'target'                 => '(string) The name of the target index to split into (Required)',
+     *   'copy_settings'          => '(boolean) whether or not to copy settings from the source index (defaults to false)',
+     *   'timeout'                => '(time) Explicit operation timeout',
+     *   'master_timeout'         => '(time) Specify timeout for connection to master',
+     *   'wait_for_active_shards' => '(string) Set the number of active shards to wait for on the shrunken index before the operation returns.',
+     * ]
+     * @return callable|array
+     */
+    public function split(array $params = [])
+    {
+        $index = $this->extractArgument($params, 'index');
+        $body = $this->extractArgument($params, 'body');
+        $target = $this->extractArgument($params, 'target');
+
+        /**
+ * @var callable $endpointBuilder
+*/
+        $endpointBuilder = $this->endpoints;
+
+        /**
+ * @var \Vpg\Elasticsearch\Endpoints\Indices\Split $endpoint
+*/
+        $endpoint = $endpointBuilder('Indices\Split');
+        $endpoint->setIndex($index)
+            ->setBody($body)
+            ->setTarget($target);
+        $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
     }

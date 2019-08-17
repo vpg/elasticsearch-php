@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints\Cat;
 
 use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
@@ -15,15 +17,14 @@ use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Allocation extends AbstractEndpoint
 {
-    // A comma-separated list of node IDs or names to limit the returned information
+    /**
+     * A comma-separated list of node IDs or names to limit the returned information
+     *
+     * @var string
+     */
     private $node_id;
 
-    /**
-     * @param $node_id
-     *
-     * @return $this
-     */
-    public function setNodeId($node_id)
+    public function setNodeId(?string $node_id): Allocation
     {
         if (isset($node_id) !== true) {
             return $this;
@@ -34,42 +35,32 @@ class Allocation extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $node_id = $this->node_id;
-        $uri   = "/_cat/allocation";
+        $node_id = $this->node_id ?? null;
 
-        if (isset($node_id) === true) {
-            $uri = "/_cat/allocation/$node_id";
+        if (isset($node_id)) {
+            return "/_cat/allocation/$node_id";
         }
 
-        return $uri;
+        return "/_cat/allocation";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
+            'format',
             'bytes',
             'local',
             'master_timeout',
             'h',
             'help',
-            'v',
             's',
-            'format',
-        );
+            'v'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

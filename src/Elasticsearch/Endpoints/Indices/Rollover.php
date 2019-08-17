@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints\Indices;
 
 use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
@@ -19,12 +21,7 @@ class Rollover extends AbstractEndpoint
     private $alias;
     private $newIndex;
 
-    /**
-     * @param string $alias
-     *
-     * @return $this
-     */
-    public function setAlias($alias)
+    public function setAlias(?string $alias): Rollover
     {
         if ($alias === null) {
             return $this;
@@ -34,12 +31,7 @@ class Rollover extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @param string $newIndex
-     *
-     * @return $this
-     */
-    public function setNewIndex($newIndex)
+    public function setNewIndex(?string $newIndex): Rollover
     {
         if ($newIndex === null) {
             return $this;
@@ -49,13 +41,7 @@ class Rollover extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @param array $body
-     *
-     * @throws \Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
-     */
-    public function setBody($body)
+    public function setBody($body): Rollover
     {
         if (isset($body) !== true) {
             return $this;
@@ -66,43 +52,33 @@ class Rollover extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @throws \Vpg\Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
         if (isset($this->alias) !== true) {
             throw new Exceptions\RuntimeException(
                 'alias name is required for Rollover'
             );
         }
-
-        $uri = "/{$this->alias}/_rollover";
-
-        if (isset($this->newIndex) === true) {
-            $uri .= "/{$this->newIndex}";
+        $alias = $this->alias;
+        $newIndex = $this->newIndex ?? null;
+        if (isset($newIndex)) {
+            return "/$alias/_rollover/$newIndex";
         }
-
-        return $uri;
+        return "/$alias/_rollover";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
+            'include_type_name',
             'timeout',
+            'dry_run',
             'master_timeout',
-            'wait_for_active_shards',
-        );
+            'wait_for_active_shards'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'POST';
     }

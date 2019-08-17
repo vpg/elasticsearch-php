@@ -28,7 +28,7 @@ class RoundRobinSelectorTest extends \PHPUnit\Framework\TestCase
      */
     public function testTenConnections()
     {
-        $roundRobin = new Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector();
+        $roundRobin = new Vpg\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector();
 
         $mockConnections = [];
         foreach (range(0, 9) as $index) {
@@ -67,7 +67,7 @@ class RoundRobinSelectorTest extends \PHPUnit\Framework\TestCase
      */
     public function testAddTenConnectionsTestFiveRemoveThreeTestTen()
     {
-        $roundRobin = new Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector();
+        $roundRobin = new Vpg\Elasticsearch\ConnectionPool\Selectors\RoundRobinSelector();
 
         $mockConnections = [];
         foreach (range(0, 9) as $index) {

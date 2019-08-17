@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Namespaces;
 
 use Vpg\Elasticsearch\Endpoints\Ingest\Pipeline\Delete;
@@ -20,21 +22,29 @@ use Vpg\Elasticsearch\Endpoints\Ingest\Simulate;
 class IngestNamespace extends AbstractNamespace
 {
     /**
-     * $params['master_timeout']             = (time) Explicit operation timeout for connection to master node
-     *        ['timeout']                    = (time) Explicit operation timeout
+     * Endpoint: ingest.delete_pipeline
      *
-     * @param $params array Associative array of parameters
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/delete-pipeline-api.html
      *
-     * @return array
+     * $params[
+     *   'id'             => '(string) Pipeline ID (Required)',
+     *   'master_timeout' => '(time) Explicit operation timeout for connection to master node',
+     *   'timeout'        => '(time) Explicit operation timeout',
+     * ]
+     * @return callable|array
      */
-    public function deletePipeline($params = array())
+    public function deletePipeline(array $params = [])
     {
         $id = $this->extractArgument($params, 'id');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var Delete $endpoint */
+        /**
+ * @var Delete $endpoint
+*/
         $endpoint = $endpointBuilder('Ingest\Pipeline\Delete');
         $endpoint->setID($id);
         $endpoint->setParams($params);
@@ -43,20 +53,28 @@ class IngestNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['master_timeout']             = (time) Explicit operation timeout for connection to master node
+     * Endpoint: ingest.get_pipeline
      *
-     * @param $params array Associative array of parameters
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/get-pipeline-api.html
      *
-     * @return array
+     * $params[
+     *   'id'             => '(string) Comma separated list of pipeline ids. Wildcards supported',
+     *   'master_timeout' => '(time) Explicit operation timeout for connection to master node',
+     * ]
+     * @return callable|array
      */
-    public function getPipeline($params = array())
+    public function getPipeline(array $params = [])
     {
         $id = $this->extractArgument($params, 'id');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var Get $endpoint */
+        /**
+ * @var Get $endpoint
+*/
         $endpoint = $endpointBuilder('Ingest\Pipeline\Get');
         $endpoint->setID($id);
         $endpoint->setParams($params);
@@ -65,22 +83,31 @@ class IngestNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['master_timeout']             = (time) Explicit operation timeout for connection to master node
-     *        ['timeout']                    = (time) Explicit operation timeout
+     * Endpoint: ingest.put_pipeline
      *
-     * @param $params array Associative array of parameters
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/put-pipeline-api.html
      *
-     * @return array
+     * $params[
+     *   'body'           => '(string) The ingest definition (Required)',
+     *   'id'             => '(string) Pipeline ID (Required)',
+     *   'master_timeout' => '(time) Explicit operation timeout for connection to master node',
+     *   'timeout'        => '(time) Explicit operation timeout',
+     * ]
+     * @return callable|array
      */
-    public function putPipeline($params = array())
+    public function putPipeline(array $params = [])
     {
         $body = $this->extractArgument($params, 'body');
         $id = $this->extractArgument($params, 'id');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var Put $endpoint */
+        /**
+ * @var Put $endpoint
+*/
         $endpoint = $endpointBuilder('Ingest\Pipeline\Put');
         $endpoint->setID($id)
             ->setBody($body)
@@ -90,21 +117,30 @@ class IngestNamespace extends AbstractNamespace
     }
 
     /**
-     * $params['verbose'] = (bool) Verbose mode. Display data output for each processor in executed pipeline
+     * Endpoint: ingest.simulate
      *
-     * @param $params array Associative array of parameters
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/simulate-pipeline-api.html
      *
-     * @return array
+     * $params[
+     *   'body'    => '(string) The simulate definition (Required)',
+     *   'id'      => '(string) Pipeline ID',
+     *   'verbose' => '(boolean) Verbose mode. Display data output for each processor in executed pipeline (Default = false)',
+     * ]
+     * @return callable|array
      */
-    public function simulate($params = array())
+    public function simulate(array $params = [])
     {
         $body = $this->extractArgument($params, 'body');
         $id = $this->extractArgument($params, 'id');
 
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var Simulate $endpoint */
+        /**
+ * @var Simulate $endpoint
+*/
         $endpoint = $endpointBuilder('Ingest\Simulate');
         $endpoint->setID($id)
             ->setBody($body)
@@ -114,18 +150,22 @@ class IngestNamespace extends AbstractNamespace
     }
 
     /**
-     * $params[]
+     * Endpoint: ingest.processor_grok
      *
-     * @param $params array Associative array of parameters
+     * @see https://www.elastic.co/guide/en/elasticsearch/reference/master/grok-processor.html#grok-processor-rest-get
      *
-     * @return array
+     * @return callable|array
      */
-    public function processorGrok($params = [])
+    public function processorGrok(array $params = [])
     {
-        /** @var callback $endpointBuilder */
+        /**
+ * @var callable $endpointBuilder
+*/
         $endpointBuilder = $this->endpoints;
 
-        /** @var ProcessorGrok $endpoint */
+        /**
+ * @var ProcessorGrok $endpoint
+*/
         $endpoint = $endpointBuilder('Ingest\ProcessorGrok');
 
         return $this->performRequest($endpoint);

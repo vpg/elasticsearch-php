@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace Vpg\Elasticsearch\Tests\ConnectionPool;
 
+use Vpg\Elasticsearch;
+
 /**
  * Class StaticConnectionPoolIntegrationTest
  *
@@ -16,12 +18,21 @@ namespace Vpg\Elasticsearch\Tests\ConnectionPool;
  */
 class StaticConnectionPoolIntegrationTest extends \PHPUnit\Framework\TestCase
 {
+    public function setUp()
+    {
+        if (empty(getenv('ES_TEST_HOST'))) {
+            $this->markTestSkipped(
+                'Elasticsearch is not configured. Check the ES_TEST_HOST env in your phpunit.xml file.'
+            );
+        }
+    }
+
     // Issue #636
     public function test404Liveness()
     {
         $client = \Vpg\Elasticsearch\ClientBuilder::create()
-            ->setHosts([$_SERVER['ES_TEST_HOST']])
-            ->setConnectionPool(\Elasticsearch\ConnectionPool\StaticConnectionPool::class)
+            ->setHosts([getenv('ES_TEST_HOST')])
+            ->setConnectionPool(\Vpg\Elasticsearch\ConnectionPool\StaticConnectionPool::class)
             ->build();
 
         $connection = $client->transport->getConnection();

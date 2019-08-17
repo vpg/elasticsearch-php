@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints\Snapshot;
 
 use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
@@ -16,18 +18,21 @@ use Vpg\Elasticsearch\Common\Exceptions;
  */
 class Status extends AbstractEndpoint
 {
-    // A comma-separated list of repository names
+    /**
+     * A comma-separated list of repository names
+     *
+     * @var string
+     */
     private $repository;
 
-    // A comma-separated list of snapshot names
+    /**
+     * A comma-separated list of snapshot names
+     *
+     * @var string
+     */
     private $snapshot;
 
-    /**
-     * @param $repository
-     *
-     * @return $this
-     */
-    public function setRepository($repository)
+    public function setRepository(?string $repository): Status
     {
         if (isset($repository) !== true) {
             return $this;
@@ -38,12 +43,7 @@ class Status extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @param $snapshot
-     *
-     * @return $this
-     */
-    public function setSnapshot($snapshot)
+    public function setSnapshot(?string $snapshot): Status
     {
         if (isset($snapshot) !== true) {
             return $this;
@@ -56,44 +56,30 @@ class Status extends AbstractEndpoint
 
     /**
      * @throws \Vpg\Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
      */
-    public function getURI()
+    public function getURI(): string
     {
-        if (isset($this->snapshot) === true && isset($this->repository) !== true) {
-            throw new Exceptions\RuntimeException(
-                'Repository param must be provided if snapshot param is set'
-            );
+        $repository = $this->repository ?? null;
+        $snapshot   = $this->snapshot ?? null;
+
+        if (isset($snapshot) && isset($repository)) {
+            return "/_snapshot/$repository/$snapshot/_status";
         }
-
-        $repository = $this->repository;
-        $snapshot   = $this->snapshot;
-        $uri        = "/_snapshot/_status";
-
-        if (isset($repository) === true && isset($snapshot) === true) {
-            $uri = "/_snapshot/$repository/$snapshot/_status";
-        } elseif (isset($repository) === true) {
-            $uri = "/_snapshot/$repository/_status";
+        if (isset($repository)) {
+            return "/_snapshot/$repository/_status";
         }
-
-        return $uri;
+        return "/_snapshot/_status";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'master_timeout',
             'ignore_unavailable'
-        );
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

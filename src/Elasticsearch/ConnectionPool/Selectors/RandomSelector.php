@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\ConnectionPool\Selectors;
 
 use Vpg\Elasticsearch\Connections\ConnectionInterface;
@@ -18,11 +20,9 @@ class RandomSelector implements SelectorInterface
     /**
      * Select a random connection from the provided array
      *
-     * @param  ConnectionInterface[] $connections an array of ConnectionInterface instances to choose from
-     *
-     * @return \Vpg\Elasticsearch\Connections\ConnectionInterface
+     * @param ConnectionInterface[] $connections an array of ConnectionInterface instances to choose from
      */
-    public function select($connections)
+    public function select(array $connections): ConnectionInterface
     {
         return $connections[array_rand($connections)];
     }

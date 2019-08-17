@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints\Cat;
 
 use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
@@ -15,37 +17,27 @@ use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class Tasks extends AbstractEndpoint
 {
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
         return "/_cat/tasks";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'format',
             'node_id',
             'actions',
             'detailed',
-            'parent_node',
             'parent_task',
             'h',
             'help',
-            'v',
-            's'
-        );
+            's',
+            'v'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

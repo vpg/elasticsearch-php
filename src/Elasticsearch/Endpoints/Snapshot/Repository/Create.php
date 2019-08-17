@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints\Snapshot\Repository;
 
 use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
@@ -16,16 +18,14 @@ use Vpg\Elasticsearch\Common\Exceptions;
  */
 class Create extends AbstractEndpoint
 {
-    // A repository name
+    /**
+     * A repository name
+     *
+     * @var string
+     */
     private $repository;
 
-    /**
-     * @param array $body
-     *
-     * @throws \Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
-     */
-    public function setBody($body)
+    public function setBody($body): Create
     {
         if (isset($body) !== true) {
             return $this;
@@ -36,12 +36,7 @@ class Create extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @param $repository
-     *
-     * @return $this
-     */
-    public function setRepository($repository)
+    public function setRepository(?string $repository): Create
     {
         if (isset($repository) !== true) {
             return $this;
@@ -54,39 +49,27 @@ class Create extends AbstractEndpoint
 
     /**
      * @throws \Vpg\Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
      */
-    public function getURI()
+    public function getURI(): string
     {
         if (isset($this->repository) !== true) {
             throw new Exceptions\RuntimeException(
                 'repository is required for Create'
             );
         }
-        $repository = $this->repository;
-        $uri   = "/_snapshot/$repository";
-
-        if (isset($repository) === true) {
-            $uri = "/_snapshot/$repository";
-        }
-
-        return $uri;
+        return "/_snapshot/{$this->repository}";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'master_timeout',
             'timeout',
             'verify'
-        );
+        ];
     }
 
     /**
-     * @return array
      * @throws \Vpg\Elasticsearch\Common\Exceptions\RuntimeException
      */
     public function getBody()
@@ -98,10 +81,7 @@ class Create extends AbstractEndpoint
         return $this->body;
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'PUT';
     }

@@ -1,8 +1,8 @@
 <?php
 
-namespace Vpg\Elasticsearch\Endpoints;
+declare(strict_types = 1);
 
-use Vpg\Elasticsearch\Common\Exceptions;
+namespace Vpg\Elasticsearch\Endpoints;
 
 /**
  * Class MTermVectors
@@ -15,13 +15,7 @@ use Vpg\Elasticsearch\Common\Exceptions;
  */
 class MTermVectors extends AbstractEndpoint
 {
-    /**
-     * @param array $body
-     *
-     * @throws \Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
-     */
-    public function setBody($body)
+    public function setBody($body): MTermVectors
     {
         if (isset($body) !== true) {
             return $this;
@@ -32,20 +26,23 @@ class MTermVectors extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        return $this->getOptionalURI('_mtermvectors');
+        $type = $this->type ?? null;
+        $index = $this->index ?? null;
+
+        if (isset($type) && isset($index)) {
+            return "/$index/$type/_mtermvectors";
+        }
+        if (isset($index)) {
+            return "/$index/_mtermvectors";
+        }
+        return "/_mtermvectors";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'ids',
             'term_statistics',
             'field_statistics',
@@ -56,14 +53,13 @@ class MTermVectors extends AbstractEndpoint
             'preference',
             'routing',
             'parent',
-            'realtime'
-        );
+            'realtime',
+            'version',
+            'version_type'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'POST';
     }

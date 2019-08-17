@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints\Snapshot\Repository;
 
 use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
@@ -16,15 +18,14 @@ use Vpg\Elasticsearch\Common\Exceptions;
  */
 class Delete extends AbstractEndpoint
 {
-    // A comma-separated list of repository names
+    /**
+     * A comma-separated list of repository names
+     *
+     * @var string
+     */
     private $repository;
 
-    /**
-     * @param $repository
-     *
-     * @return $this
-     */
-    public function setRepository($repository)
+    public function setRepository(?string $repository): Delete
     {
         if (isset($repository) !== true) {
             return $this;
@@ -37,40 +38,26 @@ class Delete extends AbstractEndpoint
 
     /**
      * @throws \Vpg\Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
      */
-    public function getURI()
+    public function getURI(): string
     {
         if (isset($this->repository) !== true) {
             throw new Exceptions\RuntimeException(
                 'repository is required for Delete'
             );
         }
-        $repository = $this->repository;
-        $uri   = "/_snapshot/$repository";
-
-        if (isset($repository) === true) {
-            $uri = "/_snapshot/$repository";
-        }
-
-        return $uri;
+        return "/_snapshot/{$this->repository}";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'master_timeout',
-            'timeout',
-        );
+            'timeout'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'DELETE';
     }

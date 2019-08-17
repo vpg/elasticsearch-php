@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints;
 
-use Vpg\Elasticsearch\Common\Exceptions;
+use Vpg\Elasticsearch\Common\Exceptions\RuntimeException;
 
 /**
  * Class Explain
@@ -15,13 +17,7 @@ use Vpg\Elasticsearch\Common\Exceptions;
  */
 class Explain extends AbstractEndpoint
 {
-    /**
-     * @param array $body
-     *
-     * @throws \Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
-     */
-    public function setBody($body)
+    public function setBody($body): Explain
     {
         if (isset($body) !== true) {
             return $this;
@@ -33,68 +29,52 @@ class Explain extends AbstractEndpoint
     }
 
     /**
-     * @throws \Vpg\Elasticsearch\Common\Exceptions\RuntimeException
-     * @return string
+     * @throws RuntimeException
      */
-    public function getURI()
+    public function getURI(): string
     {
         if (isset($this->id) !== true) {
-            throw new Exceptions\RuntimeException(
+            throw new RuntimeException(
                 'id is required for Explain'
             );
         }
         if (isset($this->index) !== true) {
-            throw new Exceptions\RuntimeException(
+            throw new RuntimeException(
                 'index is required for Explain'
-            );
-        }
-        if (isset($this->type) !== true) {
-            throw new Exceptions\RuntimeException(
-                'type is required for Explain'
             );
         }
         $id = $this->id;
         $index = $this->index;
-        $type = $this->type;
-        $uri   = "/$index/$type/$id/_explain";
+        $type = $this->type ?? null;
 
-        if (isset($index) === true && isset($type) === true && isset($id) === true) {
-            $uri = "/$index/$type/$id/_explain";
-        }
+        $uri = isset($type)
+            ? "/$index/$type/$id/_explain"
+            : "/$index/_explain/$id";
 
         return $uri;
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'analyze_wildcard',
             'analyzer',
             'default_operator',
             'df',
-            'fields',
+            'stored_fields',
             'lenient',
-            'lowercase_expanded_terms',
             'parent',
             'preference',
             'q',
             'routing',
-            'source',
             '_source',
-            '_source_exclude',
-            '_source_include',
-            'stored_fields'
-        );
+            '_source_excludes',
+            '_source_includes'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
-        return 'GET';
+        return isset($this->body) ? 'POST' : 'GET';
     }
 }

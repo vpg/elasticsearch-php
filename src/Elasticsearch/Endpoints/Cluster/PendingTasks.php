@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints\Cluster;
 
 use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
@@ -15,31 +17,20 @@ use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
  */
 class PendingTasks extends AbstractEndpoint
 {
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $uri   = "/_cluster/pending_tasks";
-
-        return $uri;
+        return "/_cluster/pending_tasks";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'local',
-            'master_timeout',
-        );
+            'master_timeout'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

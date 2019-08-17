@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Helper\Iterators;
 
 use Iterator;
@@ -40,7 +42,7 @@ class SearchHitIterator implements Iterator, \Countable
     /**
      * @var int
      */
-    protected $count;
+    protected $count = 0;
 
     /**
      * Constructor
@@ -58,7 +60,7 @@ class SearchHitIterator implements Iterator, \Countable
      * @return void
      * @see    Iterator::rewind()
      */
-    public function rewind()
+    public function rewind(): void
     {
         $this->current_key = 0;
         $this->search_responses->rewind();
@@ -85,7 +87,7 @@ class SearchHitIterator implements Iterator, \Countable
      * @return void
      * @see    Iterator::next()
      */
-    public function next()
+    public function next(): void
     {
         $this->current_key++;
         $this->current_hit_index++;
@@ -104,7 +106,7 @@ class SearchHitIterator implements Iterator, \Countable
      * @return bool
      * @see    Iterator::valid()
      */
-    public function valid()
+    public function valid(): bool
     {
         return is_array($this->current_hit_data);
     }
@@ -115,7 +117,7 @@ class SearchHitIterator implements Iterator, \Countable
      * @return array
      * @see    Iterator::current()
      */
-    public function current()
+    public function current(): array
     {
         return $this->current_hit_data;
     }
@@ -126,9 +128,9 @@ class SearchHitIterator implements Iterator, \Countable
      * @return int
      * @see    Iterator::key()
      */
-    public function key()
+    public function key(): int
     {
-        return $this->current_hit_index;
+        return $this->current_key;
     }
 
     /**
@@ -136,7 +138,7 @@ class SearchHitIterator implements Iterator, \Countable
      *
      * @internal
      */
-    private function readPageData()
+    private function readPageData(): void
     {
         if ($this->search_responses->valid()) {
             $current_page = $this->search_responses->current();
@@ -150,12 +152,8 @@ class SearchHitIterator implements Iterator, \Countable
     /**
      * {@inheritDoc}
      */
-    public function count()
+    public function count(): int
     {
-        if ($this->count === null) {
-            $this->rewind();
-        }
-
         return $this->count;
     }
 }

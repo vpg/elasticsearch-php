@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\ConnectionPool;
 
 use Vpg\Elasticsearch\ConnectionPool\Selectors\SelectorInterface;
 use Vpg\Elasticsearch\Connections\Connection;
 use Vpg\Elasticsearch\Connections\ConnectionFactoryInterface;
+use Vpg\Elasticsearch\Connections\ConnectionInterface;
 
 class SimpleConnectionPool extends AbstractConnectionPool implements ConnectionPoolInterface
 {
@@ -17,18 +20,12 @@ class SimpleConnectionPool extends AbstractConnectionPool implements ConnectionP
         parent::__construct($connections, $selector, $factory, $connectionPoolParams);
     }
 
-    /**
-     * @param bool $force
-     *
-     * @return Connection
-     * @throws \Vpg\Elasticsearch\Common\Exceptions\NoNodesAvailableException
-     */
-    public function nextConnection($force = false)
+    public function nextConnection(bool $force = false): ConnectionInterface
     {
         return $this->selector->select($this->connections);
     }
 
-    public function scheduleCheck()
+    public function scheduleCheck(): void
     {
     }
 }

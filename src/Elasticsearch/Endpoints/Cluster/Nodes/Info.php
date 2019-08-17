@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints\Cluster\Nodes;
 
 /**
@@ -13,15 +15,17 @@ namespace Vpg\Elasticsearch\Endpoints\Cluster\Nodes;
  */
 class Info extends AbstractNodesEndpoint
 {
-    // A comma-separated list of metrics you wish returned. Leave empty to return all.
+    /**
+     * A comma-separated list of metrics you wish returned. Leave empty to return all.
+     *
+     * @var string
+     */
     private $metric;
 
     /**
-     * @param $metric
-     *
-     * @return $this
+     * @param string|string[] $metric
      */
-    public function setMetric($metric)
+    public function setMetric($metric): Info
     {
         if (isset($metric) !== true) {
             return $this;
@@ -36,41 +40,32 @@ class Info extends AbstractNodesEndpoint
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $node_id = $this->nodeID;
-        $metric = $this->metric;
-        $uri   = "/_nodes";
+        $nodeId = $this->nodeID ?? null;
+        $metric = $this->metric ?? null;
 
-        if (isset($node_id) === true && isset($metric) === true) {
-            $uri = "/_nodes/$node_id/$metric";
-        } elseif (isset($metric) === true) {
-            $uri = "/_nodes/$metric";
-        } elseif (isset($node_id) === true) {
-            $uri = "/_nodes/$node_id";
+        if (isset($nodeId) && isset($metric)) {
+            return "/_nodes/$nodeId/$metric";
         }
-
-        return $uri;
+        if (isset($metric)) {
+            return "/_nodes/$metric";
+        }
+        if (isset($nodeId)) {
+            return "/_nodes/$nodeId";
+        }
+        return "/_nodes";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'flat_settings',
-            'human',
-        );
+            'timeout',
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'GET';
     }

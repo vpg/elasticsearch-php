@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace Vpg\Elasticsearch\Endpoints\Cluster\Settings;
 
 use Vpg\Elasticsearch\Endpoints\AbstractEndpoint;
@@ -16,13 +18,7 @@ use Vpg\Elasticsearch\Common\Exceptions;
  */
 class Put extends AbstractEndpoint
 {
-    /**
-     * @param array $body
-     *
-     * @throws \Vpg\Elasticsearch\Common\Exceptions\InvalidArgumentException
-     * @return $this
-     */
-    public function setBody($body)
+    public function setBody($body): Put
     {
         if (isset($body) !== true) {
             return $this;
@@ -33,30 +29,21 @@ class Put extends AbstractEndpoint
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getURI()
+    public function getURI(): string
     {
-        $uri   = "/_cluster/settings";
-
-        return $uri;
+        return "/_cluster/settings";
     }
 
-    /**
-     * @return string[]
-     */
-    public function getParamWhitelist()
+    public function getParamWhitelist(): array
     {
-        return array(
+        return [
             'flat_settings',
-        );
+            'master_timeout',
+            'timeout'
+        ];
     }
 
-    /**
-     * @return string
-     */
-    public function getMethod()
+    public function getMethod(): string
     {
         return 'PUT';
     }

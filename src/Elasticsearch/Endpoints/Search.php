@@ -104,6 +104,6 @@ class Search extends AbstractEndpoint
      */
     protected function getMethod()
     {
-        return 'POST';
+        return !isset($this->body) ? 'GET' : 'POST';
     }
 }

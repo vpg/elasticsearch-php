@@ -43,9 +43,9 @@ class Count extends AbstractEndpoint
         $type = $this->type;
         $uri   = "/_count";
 
-        if (isset($index) === true && isset($type) === true) {
+        if (isset($index) === true && !empty($type)) {
             $uri = "/$index/$type/_count";
-        } elseif (isset($type) === true) {
+        } elseif (!empty($type)) {
             $uri = "/_all/$type/_count";
         } elseif (isset($index) === true) {
             $uri = "/$index/_count";

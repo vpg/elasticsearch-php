@@ -41,13 +41,8 @@ class Delete extends AbstractEndpoint
         $id = $this->id;
         $index = $this->index;
         $type = $this->type;
-        $uri   = "/$index/$type/$id";
 
-        if (isset($index) === true && isset($type) === true && isset($id) === true) {
-            $uri = "/$index/$type/$id";
-        }
-
-        return $uri;
+        return  !empty($type) ? "/$index/$type/$id" : "/$index/$id";
     }
 
     /**

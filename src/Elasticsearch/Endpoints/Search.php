@@ -44,7 +44,7 @@ class Search extends AbstractEndpoint
         $type = $this->type;
         $uri   = "/_search";
 
-        if (isset($index) === true && isset($type) === true) {
+        if (isset($index) === true && !empty($type)) {
             $uri = "/$index/$type/_search";
         } elseif (isset($index) === true) {
             $uri = "/$index/_search";

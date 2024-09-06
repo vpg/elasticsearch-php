@@ -67,11 +67,7 @@ class Get extends AbstractEndpoint
         $id = $this->id;
         $index = $this->index;
         $type = $this->type;
-        $uri   = "/$index/$type/$id";
-
-        if (isset($index) === true && isset($type) === true && isset($id) === true) {
-            $uri = "/$index/$type/$id";
-        }
+        $uri = !empty($type) ? "/$index/$type/$id" : "/$index/$id";
 
         if ($this->returnOnlySource === true) {
             $uri .= '/_source';

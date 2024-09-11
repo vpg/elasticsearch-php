@@ -62,7 +62,7 @@ class Create extends AbstractEndpoint
         $index = $this->index;
         $type  = $this->type;
     
-        return !empty($type) ? "/$index/$type/$id/_create" :  "/$index/$id/_create";
+        return !empty($type) ? "/$index/$type/$id/_create" :  "/$index/$id";
     }
 
     /**
@@ -92,7 +92,7 @@ class Create extends AbstractEndpoint
      */
     public function getMethod()
     {
-        return 'PUT';
+        return !empty($type) ? 'PUT' :  'POST';
     }
 
     /**

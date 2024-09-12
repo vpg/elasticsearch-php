@@ -59,7 +59,7 @@ class Update extends AbstractEndpoint
         $index = $this->index;
         $type = $this->type;
 
-        return !empty($type) ? "/$index/$type/$id" :  "/$index/_update/$id";
+        return !empty($type) ? "/$index/$type/$id/_update" :  "/$index/_update/$id";
     }
 
     /**

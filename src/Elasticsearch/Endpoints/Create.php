@@ -62,7 +62,7 @@ class Create extends AbstractEndpoint
         $index = $this->index;
         $type  = $this->type;
     
-        return !empty($type) ? "/$index/$type/$id/_create" :  "/$index/$id";
+        return !empty($type) ? "/$index/$type/$id/_create" :  "/$index/_doc/$id";
     }
 
     /**

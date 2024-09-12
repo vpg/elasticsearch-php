@@ -136,7 +136,7 @@ class Connection implements ConnectionInterface
             phpversion()
         )];
 
-        if (strpos($hostDetails['scheme'], 'https') >= 0) {
+        if (strpos($hostDetails['scheme'], 'https') !== false) {
             $host = $hostDetails['host'];
         } else {
             $host = $hostDetails['host'].':'.$hostDetails['port'];

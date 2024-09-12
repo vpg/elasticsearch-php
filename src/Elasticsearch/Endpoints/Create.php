@@ -92,7 +92,7 @@ class Create extends AbstractEndpoint
      */
     public function getMethod()
     {
-        return !empty($type) ? 'PUT' :  'POST';
+        return !empty($this->type) ? 'PUT' :  'POST';
     }
 
     /**

@@ -92,6 +92,8 @@ class Client
     /** @var  NamespaceBuilderInterface[] */
     protected $registeredNamespaces = [];
 
+    private $isNewBulk = false;
+
     /**
      * Client constructor
      *
@@ -785,11 +787,22 @@ class Client
         /** @var \Elasticsearch\Endpoints\Bulk $endpoint */
         $endpoint = $endpointBuilder('Bulk');
         $endpoint->setIndex($index)
-                 ->setType($type)
-                 ->setBody($body);
+                ->setBody($body);
+
+        if (defined('API_ELASTICSEARCH_VERSION') && $this->getDI()->get('config')->elsCatalog['version'] >= 8) {
+            $endpoint->setCustomBulkUrl();
+        } else {
+            $endpoint->setType($type);
+        }
+
         $endpoint->setParams($params);
 
         return $this->performRequest($endpoint);
+    }
+
+    public function setIsNewBulk(bool $value)
+    {
+        $this->isNewBulk = $value;
     }
 
     /**

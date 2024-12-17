@@ -19,6 +19,11 @@ use Elasticsearch\Serializers\SerializerInterface;
 class Bulk extends AbstractEndpoint implements BulkEndpointInterface
 {
     /**
+     * @var string|null
+     */
+    private $customURI = null;
+
+    /**
      * @param SerializerInterface $serializer
      */
     public function __construct(SerializerInterface $serializer)
@@ -58,7 +63,22 @@ class Bulk extends AbstractEndpoint implements BulkEndpointInterface
      */
     public function getURI()
     {
+        if (isset($this->index) !== true) {
+            throw new InvalidArgumentException(
+                'index is required for Bulk'
+            );
+        }
+
+        if (!empty($this->customURI)) {
+            return $this->customURI;
+        }
+
         return $this->getOptionalURI('_bulk');
+    }
+
+    public function setCustomBulkUrl()
+    {
+        $this->customURI = "/{$this->index}/_bulk";
     }
 
     /**

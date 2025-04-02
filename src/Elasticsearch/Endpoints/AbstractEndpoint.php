@@ -216,7 +216,7 @@ abstract class AbstractEndpoint
      */
     private function getOptionalType()
     {
-        if (isset($this->type) === true) {
+        if (!empty($this->type)) {
             return $this->type;
         } else {
             return '';

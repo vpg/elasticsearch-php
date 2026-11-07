@@ -663,8 +663,23 @@ class Connection implements ConnectionInterface
      */
     private function process5xxError($request, $response, $ignore)
     {
-        $statusCode = $response['status'];
+        $originalStatusCode = $response['status'];
+        $statusCode = filter_var($originalStatusCode, FILTER_VALIDATE_INT);
+        if ($statusCode === false || $statusCode < 500) {
+            $statusCode = 500;
+        }
+        $response['status'] = $statusCode;
+
+        $originalResponseBody = $response['body'];
         $responseBody = $response['body'];
+        if (!is_string($responseBody)) {
+            $responseBody = json_encode($responseBody);
+            if ($responseBody === false) {
+                $responseBody = '';
+            }
+        }
+        $response['body'] = $responseBody;
+        $requiresNormalization = $originalStatusCode !== $statusCode || !is_string($originalResponseBody);
 
         /** @var \Exception $exception */
         $exception = $this->tryDeserialize500Error($response);
@@ -685,6 +700,10 @@ class Connection implements ConnectionInterface
             $exception = new NoShardAvailableException($exception->getMessage(), $statusCode, $exception);
         } else {
             $exception = new ServerErrorResponseException($responseBody, $statusCode);
+        }
+
+        if ($requiresNormalization) {
+            throw $exception;
         }
 
         $this->logRequestFail(

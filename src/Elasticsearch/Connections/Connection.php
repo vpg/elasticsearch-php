@@ -610,8 +610,7 @@ class Connection implements ConnectionInterface
      */
     private function process4xxError($request, $response, $ignore)
     {
-        $statusCode = $response['status'];
-        $responseBody = $response['body'];
+        $statusCode = (int) $response['status'];
 
         /** @var \Exception $exception */
         $exception = $this->tryDeserialize400Error($response);
@@ -620,10 +619,7 @@ class Connection implements ConnectionInterface
             return;
         }
 
-        // if responseBody is not string, we convert it so it can be used as Exception message
-        if (!is_string($responseBody)) {
-            $responseBody = json_encode($responseBody);
-        }
+        $responseBody = $this->convertBodyToString(isset($response['body']) ? $response['body'] : null, $statusCode);
 
         if ($statusCode === 400 && strpos($responseBody, "AlreadyExpiredException") !== false) {
             $exception = new AlreadyExpiredException($responseBody, $statusCode);
@@ -663,8 +659,11 @@ class Connection implements ConnectionInterface
      */
     private function process5xxError($request, $response, $ignore)
     {
-        $statusCode = $response['status'];
-        $responseBody = $response['body'];
+        $statusCode = (int) $response['status'];
+        // The body can arrive empty or already decoded (array), e.g. a Varnish 503 in front of the cluster.
+        // Exception constructors reject anything but a string under strict_types, which used to raise
+        // a PHP Error ("Wrong parameters for ServerErrorResponseException") instead of this exception.
+        $responseBody = $this->convertBodyToString(isset($response['body']) ? $response['body'] : null, $statusCode);
 
         /** @var \Exception $exception */
         $exception = $this->tryDeserialize500Error($response);
@@ -713,7 +712,10 @@ class Connection implements ConnectionInterface
 
     private function tryDeserializeError($response, $errorClass)
     {
-        $error = $this->serializer->deserialize($response['body'], $response['transfer_stats']);
+        $statusCode = (int) $response['status'];
+        $responseBody = $this->convertBodyToString(isset($response['body']) ? $response['body'] : null, $statusCode);
+        $body = isset($response['body']) ? $response['body'] : null;
+        $error = is_string($body) ? $this->serializer->deserialize($body, $response['transfer_stats']) : $body;
         if (is_array($error) === true) {
             // 2.0 structured exceptions
             if (isset($error['error']['reason']) === true) {
@@ -727,28 +729,46 @@ class Connection implements ConnectionInterface
                     $type = $error['error']['type'];
                 }
 
-                $original = new $errorClass($response['body'], $response['status']);
+                $original = new $errorClass($responseBody, $statusCode);
 
-                return new $errorClass("$type: $cause", $response['status'], $original);
+                return new $errorClass("$type: $cause", $statusCode, $original);
             } elseif (isset($error['error']) === true) {
                 // <2.0 semi-structured exceptions
-                $original = new $errorClass($response['body'], $response['status']);
+                $original = new $errorClass($responseBody, $statusCode);
 
-                return new $errorClass($error['error'], $response['status'], $original);
+                return new $errorClass(is_string($error['error']) ? $error['error'] : $responseBody, $statusCode, $original);
             }
 
             // <2.0 "i just blew up" nonstructured exception
             // $error is an array but we don't know the format, reuse the response body instead
-            return new $errorClass($response['body'], $response['status']);
-        }
-
-        // if responseBody is not string, we convert it so it can be used as Exception message
-        $responseBody = $response['body'];
-        if (!is_string($responseBody)) {
-            $responseBody = json_encode($responseBody);
+            return new $errorClass($responseBody, $statusCode);
         }
 
         // <2.0 "i just blew up" nonstructured exception
-        return new $errorClass($responseBody);
+        return new $errorClass($responseBody, $statusCode);
+    }
+
+    /**
+     * Exception constructors only accept a string message under strict_types: an empty, null or already
+     * decoded (array) body must be turned into a string first.
+     *
+     * @param mixed $body
+     * @param int   $statusCode
+     *
+     * @return string
+     */
+    private function convertBodyToString($body, $statusCode)
+    {
+        if (is_string($body) && $body !== '') {
+            return $body;
+        }
+        if (is_array($body) && !empty($body)) {
+            $encoded = json_encode($body);
+            if (is_string($encoded)) {
+                return $encoded;
+            }
+        }
+
+        return sprintf('Unknown %d error from Elasticsearch', $statusCode);
     }
 }

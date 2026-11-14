@@ -1,44 +1,14 @@
-# This fork does not include vpg-common/pipelines/php-services: its semantic-release job would publish tags
-# on main, and the releases of this fork (6.7.x) are tagged by hand.
-stages:
-  - test
-  - review
+# Fork in 6.7.x whose releases are tagged by hand: semantic-release stays off.
+variables:
+  PHP_SERVICES_RELEASE_ENABLED: "false"
+  PHPUNIT_CONFIG: "phpunit.xml.dist"
 
 include:
-  - template: Security/SAST.gitlab-ci.yml
-  - component: "$CI_SERVER_FQDN/tech/gitlab-components/ai-assisted-review/ai-assisted-review@1"
-    inputs:
-      stage: review
+  - project: 'vpg-common/pipelines/php-services'
+    file: '/pipeline.gitlab-ci.yml'
+    ref: main
 
-variables:
-  COMPOSER_HOME: "${CI_PROJECT_DIR}/.cache/composer"
-
-.php70:
-  image:
-    name: docker-registry.vpg.tech/vp-php7.0:jessie-calc
-    entrypoint: [""]
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-
-# Production runs this client on PHP 7.0.16.
-php-lint:
-  extends: .php70
-  stage: test
-  script:
-    - find src tests -name '*.php' -print0 | xargs -0 -n1 php -l
-
+# Five tests have failed since 6.7.1 (ClientTest host strings, ConnectionTest hosts without scheme): they do not
+# follow the host parsing of this fork. Make the job blocking once they are fixed.
 unit-tests:
-  extends: .php70
-  stage: test
-  # Five tests have failed since 6.7.1 (ClientTest host strings, ConnectionTest hosts without scheme): they do not
-  # follow the host parsing of this fork. Make the job blocking once they are fixed.
   allow_failure: true
-  cache:
-    - key: "${CI_PROJECT_ID}-composer"
-      paths:
-        - ${COMPOSER_HOME}
-      policy: pull-push
-  script:
-    - composer install --no-scripts --prefer-dist --no-interaction
-    - ./vendor/bin/phpunit -c phpunit.xml.dist

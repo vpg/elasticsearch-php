@@ -6,7 +6,7 @@ variables:
 include:
   - project: 'vpg-common/pipelines/php-services'
     file: '/pipeline.gitlab-ci.yml'
-    ref: main
+    ref: feat/SHOP-2144-phpstan-dev-stubs
 
 # Five tests have failed since 6.7.1 (ClientTest host strings, ConnectionTest hosts without scheme): they do not
 # follow the host parsing of this fork. Make the job blocking once they are fixed.

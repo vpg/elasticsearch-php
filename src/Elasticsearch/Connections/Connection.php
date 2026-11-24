@@ -659,11 +659,25 @@ class Connection implements ConnectionInterface
      */
     private function process5xxError($request, $response, $ignore)
     {
-        $statusCode = (int) $response['status'];
-        // The body can arrive empty or already decoded (array), e.g. a Varnish 503 in front of the cluster.
-        // Exception constructors reject anything but a string under strict_types, which used to raise
-        // a PHP Error ("Wrong parameters for ServerErrorResponseException") instead of this exception.
-        $responseBody = $this->convertBodyToString(isset($response['body']) ? $response['body'] : null, $statusCode);
+        $originalStatusCode = $response['status'];
+        $statusCode = filter_var($originalStatusCode, FILTER_VALIDATE_INT);
+        if ($statusCode === false || $statusCode < 500) {
+            $statusCode = 500;
+        }
+        $response['status'] = $statusCode;
+
+        $originalResponseBody = $response['body'];
+        $responseBody = $response['body'];
+        if (!is_string($responseBody)) {
+            $responseBody = json_encode($responseBody);
+            if ($responseBody === false) {
+                $responseBody = '';
+            }
+        }
+        $response['body'] = $responseBody;
+        $requiresNormalization = $originalStatusCode !== $statusCode || !is_string($originalResponseBody);
+        // Empty or already decoded bodies must still produce a useful string exception message.
+        $responseBody = $this->convertBodyToString($responseBody, $statusCode);
 
         /** @var \Exception $exception */
         $exception = $this->tryDeserialize500Error($response);
@@ -684,6 +698,10 @@ class Connection implements ConnectionInterface
             $exception = new NoShardAvailableException($exception->getMessage(), $statusCode, $exception);
         } else {
             $exception = new ServerErrorResponseException($responseBody, $statusCode);
+        }
+
+        if ($requiresNormalization) {
+            throw $exception;
         }
 
         $this->logRequestFail(
